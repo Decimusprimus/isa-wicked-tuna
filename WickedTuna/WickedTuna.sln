@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WickedTunaCore", "WickedTunaCore\WickedTunaCore.csproj", "{367AD70D-709B-44AD-A83D-D4BB4774F651}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WickedTunaAPI", "WickedTunaAPI\WickedTunaAPI.csproj", "{3C33A0BC-A525-404E-84C8-74B98ABA322C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WickedTunaInfrastructure", "WickedTunaInfrastructure\WickedTunaInfrastructure.csproj", "{9B12C4B7-E1EE-4A2F-AD82-652FCF3CD495}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{367AD70D-709B-44AD-A83D-D4BB4774F651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{367AD70D-709B-44AD-A83D-D4BB4774F651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{367AD70D-709B-44AD-A83D-D4BB4774F651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C33A0BC-A525-404E-84C8-74B98ABA322C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C33A0BC-A525-404E-84C8-74B98ABA322C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C33A0BC-A525-404E-84C8-74B98ABA322C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C33A0BC-A525-404E-84C8-74B98ABA322C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B12C4B7-E1EE-4A2F-AD82-652FCF3CD495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B12C4B7-E1EE-4A2F-AD82-652FCF3CD495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B12C4B7-E1EE-4A2F-AD82-652FCF3CD495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B12C4B7-E1EE-4A2F-AD82-652FCF3CD495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
