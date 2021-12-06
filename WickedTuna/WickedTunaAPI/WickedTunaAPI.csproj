@@ -16,4 +16,9 @@
     <ProjectReference Include="..\WickedTunaInfrastructure\WickedTunaInfrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Auth\Repository\" />
+    <Folder Include="Auth\Service\" />
+  </ItemGroup>
+
 </Project>
