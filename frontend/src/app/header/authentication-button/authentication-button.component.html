@@ -1,0 +1,4 @@
+<app-login-button *ngIf="!authService.getJwtToken()">
+</app-login-button>
+
+<app-logout-button *ngIf="authService.getJwtToken()"> </app-logout-button>

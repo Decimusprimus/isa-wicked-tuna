@@ -71,8 +71,19 @@ namespace WickedTunaAPI.Auth.Controller
                 return new BadRequestObjectResult(new { Message = "Login failed" });
             }
 
-            var token = GenerateTokens(identityUser);
-            return Ok(new { Token = token, Message = "Success" });
+            UserCredentials userCredentials = GetUserCredentials(identityUser);
+            //var token = GenerateTokens(identityUser);
+            //return Ok(new { Token = token, Message = "Success" });
+            return Ok(userCredentials);
+        }
+
+        private UserCredentials GetUserCredentials(ApplicationUser identityUser)
+        {
+            UserCredentials userCredentials = new UserCredentials();
+            userCredentials.Id = identityUser.Id;
+            userCredentials.FirstName = identityUser.UserName;
+            userCredentials.JwtToken = GenerateTokens(identityUser);
+            return userCredentials;
         }
 
         [AllowAnonymous]

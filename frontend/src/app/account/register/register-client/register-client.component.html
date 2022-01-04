@@ -1,0 +1,32 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >First Name</mat-label>
+            <input type="text" matInput formControlName="firstName">
+            <mat-error *ngIf="firstName.hasError('required')">First name is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName">
+            <mat-error *ngIf="lastName.hasError('required')">Last name is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >Email</mat-label>
+            <input type="email" matInput formControlName="email">
+            <mat-error *ngIf="email.hasError('required') || email.hasError('email')">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >Password</mat-label>
+            <input type="password" matInput formControlName="password">
+            <mat-error *ngIf="password.hasError('required')">Password name is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >Repeated password</mat-label>
+            <input type="password" matInput formControlName="repeatedPassword">
+            <mat-error *ngIf="repeatedPassword.hasError('required')">Repeated password name is required!</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="button">Register</button>
+        
+    </form>
+</div>

@@ -1,0 +1,16 @@
+.container{
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+}
+
+.form-field{
+    padding-top: 10px;
+    width: 100%;
+}
+
+.button{
+    margin-top: 25px;
+    width: 100%;
+}
