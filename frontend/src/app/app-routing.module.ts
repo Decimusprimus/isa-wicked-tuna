@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EmailConfirmComponent } from './account/email-confirm/email-confirm.component';
 import { LoginComponent } from './account/login/login.component';
 import { EmailSentComponent } from './account/register/email-sent/email-sent.component';
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'register/client', component: RegisterClientComponent },
   { path: 'register/email', component: EmailSentComponent },
+  { path: 'email/confirm', component: EmailConfirmComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

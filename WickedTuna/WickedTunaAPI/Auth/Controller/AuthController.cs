@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using WickedTunaAPI.Configuration;
 using WickedTunaAPI.DTOs;
 using WickedTunaAPI.Email;
@@ -79,8 +80,9 @@ namespace WickedTunaAPI.Auth.Controller
                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
             }
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(indetityUser);
+            var link = "http://localhost:4200/email/confirm?token=" + HttpUtility.UrlEncode(token) + "&email=" + indetityUser.Email;
             var confirmationLink = Url.ActionLink("ConfirmEmail", "Email", new { token, email = indetityUser.Email }, null);
-            await _emailService.SendEmailAsync(indetityUser.Email, "Confirm Email", confirmationLink);
+            await _emailService.SendEmailAsync(indetityUser.Email, "Confirm Email", link);
             return Ok(new { Message = "User Reigstration Successful" });
         }
 

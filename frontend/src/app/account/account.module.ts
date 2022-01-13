@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { EmailSentComponent } from './register/email-sent/email-sent.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RegisterComponent,
     RegisterClientComponent,
     EmailSentComponent,
+    EmailConfirmComponent,
   ],
   exports: [
     LoginComponent,

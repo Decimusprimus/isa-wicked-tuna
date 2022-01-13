@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_core';
 
 @Component({
@@ -23,7 +24,8 @@ export class RegisterClientComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
   ) { 
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
@@ -45,5 +47,12 @@ export class RegisterClientComponent implements OnInit {
     }
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
+
+  register() {
+    this.authService.registerClient(this.email.value, this.password.value, this.repeatedPassword.value, this.firstName.value, this.lastName.value).subscribe(res => {
+      this.router.navigate(['register/email'])
+    })
+  }
+
 
 }

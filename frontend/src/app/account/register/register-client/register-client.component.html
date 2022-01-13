@@ -26,7 +26,7 @@
             <mat-error *ngIf="repeatedPassword.hasError('required')">Repeated password name is required!</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="button">Register</button>
+        <button mat-raised-button color="primary" class="button" (click)="register()">Register</button>
         
     </form>
 </div>

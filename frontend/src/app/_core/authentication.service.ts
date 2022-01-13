@@ -64,6 +64,17 @@ export class AuthenticationService {
       }));
   }
 
+
+  registerClient(email: string, password: string, passwordRepeated: string, name: string, surname: string) {
+    return this.http.post<any>(`${environment.apiUrl}/auth/register/client`,{
+      email,
+      password, 
+      passwordRepeated,
+      name,
+      surname
+    });
+  }
+
   // logout() {
   //     this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
   //     this.stopRefreshTokenTimer();
