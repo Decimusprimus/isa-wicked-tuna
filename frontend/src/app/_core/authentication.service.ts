@@ -106,8 +106,8 @@ export class AuthenticationService {
 
   private doLogoutUser() {
     this.loggedUser = null;
-    this.userSubject.next(null);
     this.removeTokens();
+    this.userSubject.next(null);
   }
 
   private storeTokens(jwtToken: string, refreshToken: string) {

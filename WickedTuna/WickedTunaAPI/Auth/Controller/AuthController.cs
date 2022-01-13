@@ -29,15 +29,17 @@ namespace WickedTunaAPI.Auth.Controller
     {
         private readonly JwtBearerTokenSettings _jwtBearerTokenSettings;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly WickedTunaDbContext _dbContext;
         private readonly IEmailService _emailService;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService, RoleManager<IdentityRole> roleManager)
         {
             _jwtBearerTokenSettings = jwtTokenOptions.Value;
             _userManager = userManager;
             _dbContext = dbContext;
             _emailService = emailService;
+            _roleManager = roleManager;
         }
 
         [HttpPost("register")]
@@ -68,9 +70,32 @@ namespace WickedTunaAPI.Auth.Controller
             {
                 return BadRequest();
             }
+            else if( !registrationForm.Password.Equals(registrationForm.PasswordRepeated))
+            {
+                return BadRequest();
+            }
             var indetityUser = new ApplicationUser() { UserName = registrationForm.Email, Email = registrationForm.Email };
             var result = await _userManager.CreateAsync(indetityUser, registrationForm.Password);
-            if (!result.Succeeded)
+            if(result.Succeeded)
+            {
+                if(!_roleManager.RoleExistsAsync("Client").Result)
+                {
+                    IdentityRole role = new IdentityRole();
+                    role.Name = "Client";
+                    IdentityResult roleRsult = _roleManager.CreateAsync(role).Result;
+                    if (!roleRsult.Succeeded)
+                    {
+                        return BadRequest();
+                    }
+                }
+                _userManager.AddToRoleAsync(indetityUser, "Client").Wait();
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(indetityUser);
+                var link = "http://localhost:4200/email/confirm?token=" + HttpUtility.UrlEncode(token) + "&email=" + indetityUser.Email;
+                //var confirmationLink = Url.ActionLink("ConfirmEmail", "Email", new { token, email = indetityUser.Email }, null);
+                await _emailService.SendEmailAsync(indetityUser.Email, "Confirm Email", link);
+                return Ok(new { Message = "User Reigstration Successful" });
+            }
+            /*if (!result.Succeeded)
             {
                 var dictionary = new ModelStateDictionary();
                 foreach (IdentityError error in result.Errors)
@@ -81,9 +106,10 @@ namespace WickedTunaAPI.Auth.Controller
             }
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(indetityUser);
             var link = "http://localhost:4200/email/confirm?token=" + HttpUtility.UrlEncode(token) + "&email=" + indetityUser.Email;
-            var confirmationLink = Url.ActionLink("ConfirmEmail", "Email", new { token, email = indetityUser.Email }, null);
+            //var confirmationLink = Url.ActionLink("ConfirmEmail", "Email", new { token, email = indetityUser.Email }, null);
             await _emailService.SendEmailAsync(indetityUser.Email, "Confirm Email", link);
-            return Ok(new { Message = "User Reigstration Successful" });
+            return Ok(new { Message = "User Reigstration Successful" });*/
+            return BadRequest();
         }
 
 
@@ -99,6 +125,10 @@ namespace WickedTunaAPI.Auth.Controller
             {
                 return new BadRequestObjectResult(new { Message = "Login failed" });
             }
+            if (!_userManager.IsEmailConfirmedAsync(identityUser).Result)
+            {
+                return BadRequest("Email not comfired!");
+            }
 
             UserCredentials userCredentials = GetUserCredentials(identityUser);
             //var token = GenerateTokens(identityUser);
@@ -111,7 +141,8 @@ namespace WickedTunaAPI.Auth.Controller
             UserCredentials userCredentials = new UserCredentials();
             userCredentials.Id = identityUser.Id;
             userCredentials.FirstName = identityUser.UserName;
-            userCredentials.JwtToken = GenerateTokens(identityUser);
+            userCredentials.JwtToken = GenerateAccessToken(identityUser);
+            userCredentials.RefreshToken = GenerateNewRefreshToken(identityUser);
             return userCredentials;
         }
 
@@ -141,7 +172,7 @@ namespace WickedTunaAPI.Auth.Controller
 
 
         [HttpPost("revoke-token")]
-        public IActionResult RevokeToken(string token)
+        public IActionResult RevokeToken([FromBody] string token)
         {
             if(RevokeRefreshToken(token))
             {
@@ -228,6 +259,7 @@ namespace WickedTunaAPI.Auth.Controller
 
         private string GenerateAccessToken(ApplicationUser identityUser)
         {
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtBearerTokenSettings.SecretKey);
 
@@ -263,6 +295,41 @@ namespace WickedTunaAPI.Auth.Controller
                     CreatedByIp = ipAddress,
                     UserId = userId
                 };
+            }
+        }
+
+        private string GenerateNewRefreshToken(ApplicationUser identityUser)
+        {
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            {
+                var randomBytes = new byte[64];
+                rngCryptoServiceProvider.GetBytes(randomBytes);
+                var refreshToken = new RefreshToken
+                {
+                    Token = Convert.ToBase64String(randomBytes),
+                    ExpiryOn = DateTime.UtcNow.AddDays(_jwtBearerTokenSettings.RefreshTokenExpiryInDays),
+                    CreatedOn = DateTime.UtcNow,
+                    CreatedByIp = ipAddress,
+                    UserId = identityUser.Id,
+                };
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.UtcNow.AddDays(7)
+                };
+                HttpContext.Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+
+                // Save refresh token to database
+                if (identityUser.RefreshTokens == null)
+                {
+                    identityUser.RefreshTokens = new List<RefreshToken>();
+                }
+
+                identityUser.RefreshTokens.Add(refreshToken);
+                _dbContext.Update(identityUser);
+                _dbContext.SaveChanges();
+                return refreshToken.Token;
             }
         }
 

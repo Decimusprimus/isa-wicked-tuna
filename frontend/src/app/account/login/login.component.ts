@@ -71,4 +71,14 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['register']);
   }
 
+  login(): void {
+    this.authenticationService.login(this.email.value, this.password.value).subscribe(res => {
+      this.router.navigate(['']);
+    },
+    error => {
+      this.loading = false;
+    })
+  }
+
+
 }
