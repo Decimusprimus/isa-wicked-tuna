@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WickedTunaAPI.Configuration;
 using WickedTunaAPI.DTOs;
+using WickedTunaAPI.Email;
 using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
 
@@ -28,12 +29,14 @@ namespace WickedTunaAPI.Auth.Controller
         private readonly JwtBearerTokenSettings _jwtBearerTokenSettings;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WickedTunaDbContext _dbContext;
+        private readonly IEmailService _emailService;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService)
         {
             _jwtBearerTokenSettings = jwtTokenOptions.Value;
             _userManager = userManager;
             _dbContext = dbContext;
+            _emailService = emailService;
         }
 
         [HttpPost("register")]
@@ -54,6 +57,30 @@ namespace WickedTunaAPI.Auth.Controller
                 }
                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
             }
+            return Ok(new { Message = "User Reigstration Successful" });
+        }
+
+        [HttpPost("register/client")]
+        public async Task<IActionResult> RegisterClient([FromBody] ClientRegistrationForm registrationForm)
+        {
+            if (!ModelState.IsValid || registrationForm == null)
+            {
+                return BadRequest();
+            }
+            var indetityUser = new ApplicationUser() { UserName = registrationForm.Email, Email = registrationForm.Email };
+            var result = await _userManager.CreateAsync(indetityUser, registrationForm.Password);
+            if (!result.Succeeded)
+            {
+                var dictionary = new ModelStateDictionary();
+                foreach (IdentityError error in result.Errors)
+                {
+                    dictionary.AddModelError(error.Code, error.Description);
+                }
+                return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
+            }
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(indetityUser);
+            var confirmationLink = Url.ActionLink("ConfirmEmail", "Email", new { token, email = indetityUser.Email }, null);
+            await _emailService.SendEmailAsync(indetityUser.Email, "Confirm Email", confirmationLink);
             return Ok(new { Message = "User Reigstration Successful" });
         }
 

@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WickedTunaAPI.Configuration;
+using WickedTunaAPI.Email;
 using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
 
@@ -41,11 +42,17 @@ namespace WickedTunaAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WickedTunaAPI", Version = "v1" });
             });
 
-            services.AddDbContext<WickedTunaDbContext>(options => 
+            services.AddDbContext<WickedTunaDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WickedTunaDbContext>();
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedAccount = true;
+                    options.SignIn.RequireConfirmedEmail = true;
+                }
+                ).AddEntityFrameworkStores<WickedTunaDbContext>()
+                .AddDefaultTokenProviders();
 
             var jwtSection = Configuration.GetSection("JwtBearerTokenSettings");
             services.Configure<JwtBearerTokenSettings>(jwtSection);
@@ -73,6 +80,8 @@ namespace WickedTunaAPI
                     ClockSkew = TimeSpan.Zero // To immediately reject the access token
                 };
             });
+
+            services.AddTransient<IEmailService, EmailService>();
 
         }
 

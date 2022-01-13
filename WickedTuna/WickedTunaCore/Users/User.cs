@@ -11,7 +11,10 @@ namespace WickedTunaCore.Users
         public Role Role { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        //public Address Address { get; set; }
+        public string County { get; set; }
+        public string City { get; set; }
+        public string StreetName { get; set; }
+        public string StreetNubmer { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsActive { get; set; }
     }

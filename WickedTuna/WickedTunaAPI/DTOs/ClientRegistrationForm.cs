@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WickedTunaAPI.DTOs
 {
-    public class RegistrationForm
+    public class ClientRegistrationForm
     {
         [Required]
         [EmailAddress]
@@ -19,14 +19,8 @@ namespace WickedTunaAPI.DTOs
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
+        [Phone]
         public string PhoneNumber { get; set; }
-        [Required]
-        public string County { get; set; }
-        [Required]
-        public string City { get; set; }
-        [Required]
-        public string StreetName { get; set; }
-        [Required]
-        public string StreetNubmer { get; set; }
+
     }
 }
