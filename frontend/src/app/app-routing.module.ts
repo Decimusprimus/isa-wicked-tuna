@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './account/login/login.component';
+import { EmailSentComponent } from './account/register/email-sent/email-sent.component';
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
 import { RegisterComponent } from './account/register/register.component';
 import { HomeComponent } from './home/home.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register/client', component: RegisterClientComponent },
+  { path: 'register/email', component: EmailSentComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

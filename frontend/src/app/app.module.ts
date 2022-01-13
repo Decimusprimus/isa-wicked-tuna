@@ -16,6 +16,7 @@ import { LogoutButtonComponent } from './header/authentication-button/logout-but
 import { AuthenticationButtonComponent } from './header/authentication-button/authentication-button.component';
 import { MaterialModule } from './material.module';
 import { AccountModule } from './account/account.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AccountModule } from './account/account.module';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AccountModule
+    AccountModule,
+    FontAwesomeModule
   ],
   providers: [
     //{ provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService] },
