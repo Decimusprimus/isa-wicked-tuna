@@ -1,7 +1,7 @@
 ﻿
 namespace WickedTunaCore.Users
 {
-    public class BoatOwner : User 
+    public class BoatOwner : TUser 
     {
     }
 }

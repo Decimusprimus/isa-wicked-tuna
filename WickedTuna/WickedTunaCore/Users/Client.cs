@@ -1,7 +1,7 @@
 ﻿
 namespace WickedTunaCore.Users
 {
-    public class Client : User
+    public class Client : TUser
     {
     }
 }

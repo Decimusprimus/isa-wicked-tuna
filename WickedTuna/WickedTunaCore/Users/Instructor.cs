@@ -1,7 +1,7 @@
 ﻿
 namespace WickedTunaCore.Users
 {
-    public class Instructor : User 
+    public class Instructor : TUser 
     {
         public string ShortBiography { get; set; }
     }
