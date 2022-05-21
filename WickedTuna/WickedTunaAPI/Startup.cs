@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WickedTunaAPI.Auth.Service;
 using WickedTunaAPI.Configuration;
 using WickedTunaAPI.Email;
 using WickedTunaCore.Auth;
@@ -82,6 +83,8 @@ namespace WickedTunaAPI
             });
 
             services.AddTransient<IEmailService, EmailService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITokenService, TokenService>();
 
         }
 

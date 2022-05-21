@@ -17,9 +17,12 @@ using System.Threading.Tasks;
 using System.Web;
 using WickedTunaAPI.Configuration;
 using WickedTunaAPI.DTOs;
+using WickedTunaAPI.Auth.DTOs;
 using WickedTunaAPI.Email;
 using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
+using WickedTunaAPI.Auth.Service;
+using WickedTunaAPI.Auth.Exceptions;
 
 namespace WickedTunaAPI.Auth.Controller
 {
@@ -32,14 +35,18 @@ namespace WickedTunaAPI.Auth.Controller
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly WickedTunaDbContext _dbContext;
         private readonly IEmailService _emailService;
+        private readonly IAuthService _authService;
+        private readonly ITokenService _tokenService;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService, RoleManager<IdentityRole> roleManager)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService, RoleManager<IdentityRole> roleManager, IAuthService authService, ITokenService tokenService)
         {
             _jwtBearerTokenSettings = jwtTokenOptions.Value;
             _userManager = userManager;
             _dbContext = dbContext;
             _emailService = emailService;
             _roleManager = roleManager;
+            _authService = authService;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -117,6 +124,36 @@ namespace WickedTunaAPI.Auth.Controller
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginCredentials credentials)
         {
+            credentials.IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            try
+            {
+                UserCredentials userCredentials = await _authService.LoginUser(credentials);
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.UtcNow.AddDays(7)
+                };
+                HttpContext.Response.Cookies.Append("refreshToken", userCredentials.RefreshToken, cookieOptions);
+                return Ok(userCredentials);
+            }
+            catch(UserNotFoundException)
+            {
+                return NotFound("User not found!");
+            }
+            catch(EmailNotConfirmedException)
+            {
+                return Unauthorized("Email not confirm!");
+            }
+            catch(PasswordIncorrectException)
+            {
+                return BadRequest("Password Incorrect!");
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
+             
+            /*
             ApplicationUser identityUser;
 
             if (!ModelState.IsValid
@@ -133,10 +170,12 @@ namespace WickedTunaAPI.Auth.Controller
             UserCredentials userCredentials = GetUserCredentials(identityUser);
             //var token = GenerateTokens(identityUser);
             //return Ok(new { Token = token, Message = "Success" });
-            return Ok(userCredentials);
+            return Ok(userCredentials);*/
+
+
         }
 
-        private UserCredentials GetUserCredentials(ApplicationUser identityUser)
+       /* private UserCredentials GetUserCredentials(ApplicationUser identityUser)
         {
             UserCredentials userCredentials = new UserCredentials();
             userCredentials.Id = identityUser.Id;
@@ -144,7 +183,7 @@ namespace WickedTunaAPI.Auth.Controller
             userCredentials.JwtToken = GenerateAccessToken(identityUser);
             userCredentials.RefreshToken = GenerateNewRefreshToken(identityUser);
             return userCredentials;
-        }
+        }*/
 
         [AllowAnonymous]
         [HttpPost]
@@ -152,6 +191,24 @@ namespace WickedTunaAPI.Auth.Controller
         public IActionResult RefreshToken()
         {
             var token = HttpContext.Request.Cookies["refreshToken"];
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            try
+            {
+                var userCredentials = _authService.RefreshToken(token, ipAddress);
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.UtcNow.AddDays(7)
+                };
+                HttpContext.Response.Cookies.Append("refreshToken", userCredentials.RefreshToken, cookieOptions);
+                return Ok(userCredentials);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+
+            /*
             var identityUser = _dbContext.Users.Include(x => x.RefreshTokens)
                 .FirstOrDefault(x => x.RefreshTokens.Any(y => y.Token == token && y.UserId == x.Id));
 
@@ -168,6 +225,7 @@ namespace WickedTunaAPI.Auth.Controller
             // Generate new tokens
             var newToken = GenerateTokens(identityUser);
             return Ok(new { Token = newToken, Message = "Success" });
+            */
         }
 
 
@@ -183,7 +241,7 @@ namespace WickedTunaAPI.Auth.Controller
         }
 
 
-
+            
         private RefreshToken GetValidRefreshToken(string token, ApplicationUser identityUser)
         {
             if (identityUser == null)

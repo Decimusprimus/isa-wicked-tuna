@@ -15,10 +15,6 @@ namespace WickedTunaInfrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            /*modelBuilder.Entity<Client>().ToTable("Clients");
-            modelBuilder.Entity<SystemAdmin>().ToTable("SystemAdmins");
-            modelBuilder.Entity<BoatOwner>().ToTable("BoatOwners");*/
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         }
@@ -26,6 +22,6 @@ namespace WickedTunaInfrastructure
         public DbSet<Client> Clients { get; set; }
         public DbSet<SystemAdmin> SystemAdmins { get; set; }
         public DbSet<BoatOwner> BoatOwners { get; set; }
-        //public DbSet<User> AppUsers { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

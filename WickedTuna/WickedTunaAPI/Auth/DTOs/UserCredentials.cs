@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WickedTunaAPI.DTOs
+namespace WickedTunaAPI.Auth.DTOs
 {
     public class UserCredentials
     {
@@ -15,5 +15,5 @@ namespace WickedTunaAPI.DTOs
         public string JwtToken { get; set; }
         public string RefreshToken { get; set; }
 
-}
+    }
 }
