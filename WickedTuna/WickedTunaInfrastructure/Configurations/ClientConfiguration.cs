@@ -16,9 +16,6 @@ namespace WickedTunaInfrastructure.Configurations
         {
             builder.ToTable("Clients");
             builder.HasKey(u => u.UserId);
-          //  builder.HasOne<ApplicationUser>(au => au.ApplicationUser)
-               // .WithOne(a => a.Client)
-             //   .HasForeignKey<ApplicationUser>(au => au.Id);
         }
     }
 }

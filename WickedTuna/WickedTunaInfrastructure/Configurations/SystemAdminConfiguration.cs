@@ -16,9 +16,6 @@ namespace WickedTunaInfrastructure.Configurations
         {
             builder.ToTable("SystemAdmins");
             builder.HasKey(u => u.UserId);
-           // builder.HasOne<ApplicationUser>(au => au.ApplicationUser)
-           //     .WithOne(a => a.SystemAdmin)
-            //    .HasForeignKey<ApplicationUser>(au => au.Id);
         }
     }
 }

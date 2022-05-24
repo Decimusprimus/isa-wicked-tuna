@@ -15,13 +15,13 @@ namespace WickedTunaInfrastructure.Configurations
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder.HasOne(u => u.Client)
-                .WithOne()
+                .WithOne(c => c.ApplicationUser)
                 .HasForeignKey<Client>(u => u.UserId);
             builder.HasOne(u => u.SystemAdmin)
-                .WithOne()
+                .WithOne(c => c.ApplicationUser)
                 .HasForeignKey<SystemAdmin>(u => u.UserId);
             builder.HasOne(u => u.BoatOwner)
-                .WithOne()
+                .WithOne(c => c.ApplicationUser)
                 .HasForeignKey<BoatOwner>(u => u.UserId);
 
         }
