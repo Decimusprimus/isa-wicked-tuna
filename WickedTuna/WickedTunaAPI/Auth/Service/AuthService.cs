@@ -90,6 +90,16 @@ namespace WickedTunaAPI.Auth.Service
             };
         }
 
-        
+        public void RevokeToken(string token, string ipAddress)
+        {
+            var existingToken = _tokenService.GetValidRefreshToken(token);
+
+            if (existingToken == null)
+            {
+                throw new InvalidTokenException();
+            }
+            _tokenService.RevokeRefreshToken(existingToken, ipAddress);
+
+        }
     }
 }

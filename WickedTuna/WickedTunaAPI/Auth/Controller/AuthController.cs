@@ -232,12 +232,24 @@ namespace WickedTunaAPI.Auth.Controller
         [HttpPost("revoke-token")]
         public IActionResult RevokeToken([FromBody] string token)
         {
-            if(RevokeRefreshToken(token))
+            token = HttpContext.Request.Cookies["refreshToken"];
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            try
+            {
+                _authService.RevokeToken(token, ipAddress);
+                return Ok();
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+            /*if(RevokeRefreshToken(token))
             {
                 return Ok(new { Message = "Success" });
             }
 
             return new BadRequestObjectResult(new { Message = "Failed" });
+            */
         }
 
 

@@ -11,5 +11,6 @@ namespace WickedTunaAPI.Auth.Service
         Task<UserCredentials> LoginUser(LoginCredentials loginCredentials);
 
         UserCredentials RefreshToken(string token, string ipAddress);
+        void RevokeToken(string token, string ipAddress);
     }
 }
