@@ -230,13 +230,14 @@ namespace WickedTunaAPI.Auth.Controller
 
 
         [HttpPost("revoke-token")]
-        public IActionResult RevokeToken([FromBody] string token)
+        public IActionResult RevokeToken([FromBody] StringToken token)
         {
-            token = HttpContext.Request.Cookies["refreshToken"];
+            string refreshToken = token.Token ?? HttpContext.Request.Cookies["refreshToken"];
+            //token = HttpContext.Request.Cookies["refreshToken"];
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             try
             {
-                _authService.RevokeToken(token, ipAddress);
+                _authService.RevokeToken(refreshToken, ipAddress);
                 return Ok();
             }
             catch(Exception)
