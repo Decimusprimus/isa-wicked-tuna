@@ -23,6 +23,7 @@ using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
 using WickedTunaAPI.Auth.Service;
 using WickedTunaAPI.Auth.Exceptions;
+using WickedTunaAPI.Clients.Service;
 
 namespace WickedTunaAPI.Auth.Controller
 {
@@ -37,8 +38,8 @@ namespace WickedTunaAPI.Auth.Controller
         private readonly IEmailService _emailService;
         private readonly IAuthService _authService;
         private readonly ITokenService _tokenService;
-
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService, RoleManager<IdentityRole> roleManager, IAuthService authService, ITokenService tokenService)
+        private readonly IClientService _clientService;
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<ApplicationUser> userManager, WickedTunaDbContext dbContext, IEmailService emailService, RoleManager<IdentityRole> roleManager, IAuthService authService, ITokenService tokenService, IClientService clientService)
         {
             _jwtBearerTokenSettings = jwtTokenOptions.Value;
             _userManager = userManager;
@@ -47,6 +48,7 @@ namespace WickedTunaAPI.Auth.Controller
             _roleManager = roleManager;
             _authService = authService;
             _tokenService = tokenService;
+            _clientService = clientService;
         }
 
         [HttpPost("register")]
@@ -96,6 +98,7 @@ namespace WickedTunaAPI.Auth.Controller
                     }
                 }
                 _userManager.AddToRoleAsync(indetityUser, "Client").Wait();
+                _clientService.CreateNewUserAsClient(registrationForm, indetityUser.Id);
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(indetityUser);
                 var link = "http://localhost:4200/email/confirm?token=" + HttpUtility.UrlEncode(token) + "&email=" + indetityUser.Email;
                 //var confirmationLink = Url.ActionLink("ConfirmEmail", "Email", new { token, email = indetityUser.Email }, null);

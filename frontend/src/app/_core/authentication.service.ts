@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, mapTo, tap } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
+import { RegistrationForm } from '../_models/registrationForm';
 
 
 @Injectable({
@@ -65,14 +66,9 @@ export class AuthenticationService {
   }
 
 
-  registerClient(email: string, password: string, passwordRepeated: string, name: string, surname: string) {
-    return this.http.post<any>(`${environment.apiUrl}/auth/register/client`,{
-      email,
-      password, 
-      passwordRepeated,
-      name,
-      surname
-    });
+  //registerClient(email: string, password: string, passwordRepeated: string, name: string, surname: string) {
+  registerClient(registrationFrom: RegistrationForm) {
+    return this.http.post<any>(`${environment.apiUrl}/auth/register/client`, registrationFrom);
   }
 
   // logout() {

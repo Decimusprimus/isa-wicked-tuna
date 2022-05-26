@@ -35,13 +35,6 @@ namespace WickedTunaAPI.Auth.Service
 
         public UserCredentials RefreshToken(string token, string ipAddress)
         {
-            /* var applicationUser = _dbContext.Users
-                 .Include(u => u.RefreshTokens)
-                 .FirstOrDefault(u => u.RefreshTokens
-                     .Any(r => r.Token == token && r.UserId == u.Id));*/
-
-            // var existingToken = _tokenService.GetValidRefreshToken(token, applicationUser);
-
             var existingToken = _tokenService.GetValidRefreshToken(token);
             
             if(existingToken == null)

@@ -18,15 +18,35 @@
         <mat-form-field class="form-field" appearance="fill">
             <mat-label >Password</mat-label>
             <input type="password" matInput formControlName="password">
-            <mat-error *ngIf="password.hasError('required')">Password name is required!</mat-error>
+            <mat-error *ngIf="password.hasError('required') || password.hasError('pattern') || password.hasError('minLength')">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field class="form-field" appearance="fill">
             <mat-label >Repeated password</mat-label>
             <input type="password" matInput formControlName="repeatedPassword">
-            <mat-error *ngIf="repeatedPassword.hasError('required')">Repeated password name is required!</mat-error>
+            <mat-error *ngIf="repeatedPassword.hasError('required') || repeatedPassword.hasError('mustMatch')">Passwords don't match!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Phone number</mat-label>
+            <input type="text" matInput formControlName="phoneNumber">
+            <mat-error *ngIf="phoneNumber.hasError('pattern') || phoneNumber.hasError('required')">Phone number is not valid!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >Country</mat-label>
+            <input type="text" matInput formControlName="country">
+            <mat-error *ngIf="country.hasError('required')">Country name is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >City</mat-label>
+            <input type="text" matInput formControlName="city">
+            <mat-error *ngIf="city.hasError('required')">City name is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label >Street</mat-label>
+            <input type="text" matInput formControlName="street">
+            <mat-error *ngIf="street.hasError('required')">Street name is required!</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="button" (click)="register()">Register</button>
+        <button mat-raised-button color="primary" class="button">Register</button>
         
     </form>
 </div>

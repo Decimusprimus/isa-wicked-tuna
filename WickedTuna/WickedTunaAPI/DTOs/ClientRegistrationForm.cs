@@ -19,8 +19,14 @@ namespace WickedTunaAPI.DTOs
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
-        [Phone]
+        [Required]
         public string PhoneNumber { get; set; }
+        [Required]
+        public string Country { get; set; } 
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string StreetName { get; set; }
 
     }
 }
