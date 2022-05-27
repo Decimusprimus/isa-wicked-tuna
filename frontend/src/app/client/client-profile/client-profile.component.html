@@ -1,0 +1,46 @@
+<div class="profile-container">
+    <div class="pr-info">
+        <div>
+            <h2>Personal information</h2>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label >Email</mat-label>
+                    <input type="email" matInput formControlName="email">
+                    <mat-error *ngIf="email.hasError('required') || email.hasError('email')">{{getEmailErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label >First Name</mat-label>
+                    <input type="text" matInput formControlName="firstName">
+                    <mat-error *ngIf="firstName.hasError('required')">First name is required!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label >Last Name</mat-label>
+                    <input type="text" matInput formControlName="lastName">
+                    <mat-error *ngIf="lastName.hasError('required')">Last name is required!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Phone number</mat-label>
+                    <input type="text" matInput formControlName="phoneNumber">
+                    <mat-error *ngIf="phoneNumber.hasError('pattern') || phoneNumber.hasError('required')">Phone number is not valid!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label >Country</mat-label>
+                    <input type="text" matInput formControlName="country">
+                    <mat-error *ngIf="country.hasError('required')">Country name is required!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label >City</mat-label>
+                    <input type="text" matInput formControlName="city">
+                    <mat-error *ngIf="city.hasError('required')">City name is required!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label >Street</mat-label>
+                    <input type="text" matInput formControlName="street">
+                    <mat-error *ngIf="street.hasError('required')">Street name is required!</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="button">Save changes</button>
+            </form>
+        </div>
+        
+    </div>
+</div>

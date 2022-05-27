@@ -1,4 +1,12 @@
-<app-login-button *ngIf="!authService.getJwtToken()">
-</app-login-button>
+<div>
+    <button mat-icon-button [matMenuTriggerFor]="account_menu" >
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #account_menu="matMenu">
+        <button mat-menu-item *ngIf="!authService.getJwtToken()" (click)="login()">Log in</button>
+        <button mat-menu-item *ngIf="authService.getJwtToken()" (click)="goToProfile()">Profile</button>
+        <button mat-menu-item *ngIf="authService.getJwtToken()">Change password</button>
+        <button mat-menu-item *ngIf="authService.getJwtToken()" (click)="logout()">Log out</button>
+    </mat-menu>
+</div>
 
-<app-logout-button *ngIf="authService.getJwtToken()"> </app-logout-button>

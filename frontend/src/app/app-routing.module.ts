@@ -5,6 +5,7 @@ import { LoginComponent } from './account/login/login.component';
 import { EmailSentComponent } from './account/register/email-sent/email-sent.component';
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
 import { RegisterComponent } from './account/register/register.component';
+import { ClientProfileComponent } from './client/client-profile/client-profile.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'register/client', component: RegisterClientComponent },
   { path: 'register/email', component: EmailSentComponent },
   { path: 'email/confirm', component: EmailConfirmComponent },
+  { path: 'client/profile', component: ClientProfileComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

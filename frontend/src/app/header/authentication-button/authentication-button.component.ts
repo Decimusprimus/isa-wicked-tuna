@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_core';
 
 @Component({
@@ -8,9 +9,26 @@ import { AuthenticationService } from 'src/app/_core';
 })
 export class AuthenticationButtonComponent implements OnInit {
 
-  constructor(public authService: AuthenticationService) { }
+  constructor(
+    public authService: AuthenticationService,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe(res => {
+      this.router.navigate(['/']);
+    });
+  }
+
+  login(): void {
+    this.router.navigate(['login']);
+  }
+
+  goToProfile(): void {
+    this.router.navigate(['client/profile']);
   }
 
 }

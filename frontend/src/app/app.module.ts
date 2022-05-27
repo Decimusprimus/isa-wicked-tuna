@@ -17,6 +17,7 @@ import { AuthenticationButtonComponent } from './header/authentication-button/au
 import { MaterialModule } from './material.module';
 import { AccountModule } from './account/account.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClientModule } from './client/client.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     MaterialModule,
     AccountModule,
+    ClientModule,
     FontAwesomeModule
   ],
   providers: [
