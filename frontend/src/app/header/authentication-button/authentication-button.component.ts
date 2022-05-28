@@ -31,4 +31,8 @@ export class AuthenticationButtonComponent implements OnInit {
     this.router.navigate(['client/profile']);
   }
 
+  goToChangePassword(): void {
+    this.router.navigate(['password']);
+  }
+
 }

@@ -9,6 +9,7 @@ import { MaterialModule } from '../material.module';
 import { EmailSentComponent } from './register/email-sent/email-sent.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -24,11 +25,13 @@ import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
     RegisterClientComponent,
     EmailSentComponent,
     EmailConfirmComponent,
+    ChangePasswordComponent,
   ],
   exports: [
     LoginComponent,
     RegisterComponent,
     RegisterClientComponent,
+    ChangePasswordComponent,
   ]
 })
 export class AccountModule { }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChangePasswordComponent } from './account/change-password/change-password.component';
 import { EmailConfirmComponent } from './account/email-confirm/email-confirm.component';
 import { LoginComponent } from './account/login/login.component';
 import { EmailSentComponent } from './account/register/email-sent/email-sent.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'register/email', component: EmailSentComponent },
   { path: 'email/confirm', component: EmailConfirmComponent },
   { path: 'client/profile', component: ClientProfileComponent, canActivate: [AuthGuard]},
+  { path: 'password', component: ChangePasswordComponent, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

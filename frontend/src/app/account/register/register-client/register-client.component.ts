@@ -14,7 +14,7 @@ export class RegisterClientComponent implements OnInit {
   submitted = false;
   form = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$")]],
     repeatedPassword: ['', Validators.required],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],

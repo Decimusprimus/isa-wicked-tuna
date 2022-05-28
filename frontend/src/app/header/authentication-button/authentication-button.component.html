@@ -5,7 +5,7 @@
     <mat-menu #account_menu="matMenu">
         <button mat-menu-item *ngIf="!authService.getJwtToken()" (click)="login()">Log in</button>
         <button mat-menu-item *ngIf="authService.getJwtToken()" (click)="goToProfile()">Profile</button>
-        <button mat-menu-item *ngIf="authService.getJwtToken()">Change password</button>
+        <button mat-menu-item *ngIf="authService.getJwtToken()" (click)="goToChangePassword()">Change password</button>
         <button mat-menu-item *ngIf="authService.getJwtToken()" (click)="logout()">Log out</button>
     </mat-menu>
 </div>
