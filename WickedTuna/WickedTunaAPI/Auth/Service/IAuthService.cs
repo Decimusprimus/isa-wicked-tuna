@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WickedTunaAPI.Auth.DTOs;
+using WickedTunaCore.Users;
 
 namespace WickedTunaAPI.Auth.Service
 {
@@ -12,5 +13,8 @@ namespace WickedTunaAPI.Auth.Service
 
         UserCredentials RefreshToken(string token, string ipAddress);
         void RevokeToken(string token, string ipAddress);
+        Task<UserInfoDTO> GetUserInfomation(string email);
+        Task<UserInfoDTO> UpdateUserInfo(UserInfoDTO userInf);
+
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WickedTunaAPI.Auth.DTOs;
 using WickedTunaAPI.Auth.Exceptions;
 using WickedTunaCore.Auth;
+using WickedTunaCore.Users;
 using WickedTunaInfrastructure;
 
 namespace WickedTunaAPI.Auth.Service
@@ -92,6 +93,64 @@ namespace WickedTunaAPI.Auth.Service
                 throw new InvalidTokenException();
             }
             _tokenService.RevokeRefreshToken(existingToken, ipAddress);
+
+        }
+
+        public async Task<UserInfoDTO> GetUserInfomation(string email)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(email);
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            var role = roles.FirstOrDefault();
+            if(String.IsNullOrEmpty(role))
+            {
+                throw new Exception();
+            }
+
+            if(role.Equals("Client"))
+            {
+                var client = _dbContext.Clients.FirstOrDefault(c => c.UserId == applicationUser.Id);
+                var user = new UserInfoDTO()
+                {
+                    Id = client.UserId,
+                    Email = client.Email,
+                    Name = client.Name,
+                    Surname = client.Surname,
+                    County = client.County,
+                    City = client.City,
+                    StreetName = client.StreetName,
+                    PhoneNumber = client.PhoneNumber,
+                };
+
+                return user;
+            }
+            return null;
+
+        }
+
+        public async Task<UserInfoDTO> UpdateUserInfo(UserInfoDTO userInf)
+        {
+            var applicationUser = await _userManager.FindByIdAsync(userInf.Id);
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            var role = roles.FirstOrDefault();
+            if (String.IsNullOrEmpty(role))
+            {
+                throw new Exception();
+            }
+
+            if (role.Equals("Client"))
+            {
+                var client = _dbContext.Clients.FirstOrDefault(c => c.UserId == applicationUser.Id);
+                client.Name = userInf.Name;
+                client.Surname = userInf.Surname;
+                client.County = userInf.County;
+                client.City = userInf.City;
+                client.StreetName = userInf.StreetName;
+                client.PhoneNumber = userInf.PhoneNumber;
+                _dbContext.Clients.Update(client);
+                _dbContext.SaveChanges();
+                return userInf;
+            }
+            return null;
 
         }
     }

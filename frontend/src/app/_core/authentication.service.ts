@@ -6,6 +6,7 @@ import { catchError, map, mapTo, tap } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
 import { RegistrationForm } from '../_models/registrationForm';
+import { UserInformation } from '../_models/userInformation';
 
 
 @Injectable({
@@ -93,7 +94,16 @@ export class AuthenticationService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  private doLoginUser(user: User) {
+  getUserInfo() {
+    return this.http.get<UserInformation>(`${environment.apiUrl}/auth/user-profile`);
+  }
+
+  updateUserInformation(userInformation: UserInformation) : Observable<UserInformation>{
+    return this.http.put<UserInformation>(`${environment.apiUrl}/auth/user-profile/${userInformation.id}`,userInformation);
+
+  }
+
+  doLoginUser(user: User) {
     console.log(user);
       this.loggedUser = user;
       this.storeTokens(user.jwtToken, user.refreshToken);
@@ -121,7 +131,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.REFRESH_TOKEN);
   }
 
-  private getRefreshToken() {
+  getRefreshToken() {
     return localStorage.getItem(this.REFRESH_TOKEN);
   }
 

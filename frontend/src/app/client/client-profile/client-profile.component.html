@@ -5,7 +5,7 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <mat-form-field class="form-field" appearance="fill">
                     <mat-label >Email</mat-label>
-                    <input type="email" matInput formControlName="email">
+                    <input type="email" matInput formControlName="email" >
                     <mat-error *ngIf="email.hasError('required') || email.hasError('email')">{{getEmailErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field class="form-field" appearance="fill">

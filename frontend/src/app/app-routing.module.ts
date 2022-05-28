@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'register/client', component: RegisterClientComponent },
   { path: 'register/email', component: EmailSentComponent },
   { path: 'email/confirm', component: EmailConfirmComponent },
-  { path: 'client/profile', component: ClientProfileComponent },
+  { path: 'client/profile', component: ClientProfileComponent, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

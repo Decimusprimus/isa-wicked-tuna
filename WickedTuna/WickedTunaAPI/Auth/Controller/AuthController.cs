@@ -231,7 +231,6 @@ namespace WickedTunaAPI.Auth.Controller
             */
         }
 
-
         [HttpPost("revoke-token")]
         public IActionResult RevokeToken([FromBody] StringToken token)
         {
@@ -254,6 +253,53 @@ namespace WickedTunaAPI.Auth.Controller
 
             return new BadRequestObjectResult(new { Message = "Failed" });
             */
+        }
+
+        [Authorize]
+        [HttpGet("user-profile")]
+        public async Task<IActionResult> GetUserProfileInformation()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            if (String.IsNullOrEmpty(email))
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var user = await _authService.GetUserInfomation(email);
+                if(user != null)
+                {
+                    return Ok(user);
+                }
+                return BadRequest();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+    
+        }
+
+        [Authorize]
+        [HttpPut("user-profile/{id}")]
+        public async Task<IActionResult> UpdateUserInformation([FromBody] UserInfoDTO userInfo)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            if(!email.Equals(userInfo.Email))
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var user = await _authService.UpdateUserInfo(userInfo);
+                return Ok(user);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
 
