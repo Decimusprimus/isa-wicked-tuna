@@ -7,6 +7,7 @@ import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
 import { RegistrationForm } from '../_models/registrationForm';
 import { UserInformation } from '../_models/userInformation';
+import { ChangePassword } from '../_models/changePassword';
 
 
 @Injectable({
@@ -84,7 +85,9 @@ export class AuthenticationService {
   }
 
   refreshToken() {
-      return this.http.post<any>(`${environment.apiUrl}/auth/refresh-token`, {}, { withCredentials: true })
+      return this.http.post<any>(`${environment.apiUrl}/auth/refresh-token`, {
+        'token': this.getRefreshToken()
+      }, { withCredentials: true })
           .pipe(tap(user => {
             this.storeJwtToken(user);
           }));
@@ -101,6 +104,10 @@ export class AuthenticationService {
   updateUserInformation(userInformation: UserInformation) : Observable<UserInformation>{
     return this.http.put<UserInformation>(`${environment.apiUrl}/auth/user-profile/${userInformation.id}`,userInformation);
 
+  }
+
+  updateUserPassword(changePassword: ChangePassword) {
+    return this.http.post(`${environment.apiUrl}/auth/password`,changePassword);
   }
 
   doLoginUser(user: User) {

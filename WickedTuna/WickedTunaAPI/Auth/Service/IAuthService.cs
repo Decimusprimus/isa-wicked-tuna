@@ -15,6 +15,6 @@ namespace WickedTunaAPI.Auth.Service
         void RevokeToken(string token, string ipAddress);
         Task<UserInfoDTO> GetUserInfomation(string email);
         Task<UserInfoDTO> UpdateUserInfo(UserInfoDTO userInf);
-
+        Task<bool> UpdateUserPassword(UpdatePasswordDTO updatePassword, string email);
     }
 }

@@ -50,9 +50,30 @@ export class JwtInterceptor implements HttpInterceptor {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
+      const token = this.authenticationService.getRefreshToken();
+      if(token) {
+        return this.authenticationService.refreshToken().pipe(
+          switchMap((token: any) => {
+            this.isRefreshing = false;
+            this.refreshTokenSubject.next(token.jwtToken);
 
+            return next.handle(this.addToken(request, token.jwtToken));
+          }),
+          catchError((err) => {
+            this.isRefreshing = false;
+            this.authenticationService.logout();
+            return throwError(err);
+          })
+        )
+      } 
+    }
+    return this.refreshTokenSubject.pipe(
+      filter(token => token !== null),
+      take(1),
+      switchMap((token) => next.handle(this.addToken(request, token)))
+    )
 
-      return this.authenticationService.refreshToken().pipe(
+      /*return this.authenticationService.refreshToken().pipe(
         switchMap((token: any) => {
           this.isRefreshing = false;
           this.authenticationService.doLoginUser(token);
@@ -66,8 +87,8 @@ export class JwtInterceptor implements HttpInterceptor {
         take(1),
         switchMap(jwt => {
           return next.handle(this.addToken(request, jwt));
-        }));
-    }
+        }));*/
+    
   }
 
 

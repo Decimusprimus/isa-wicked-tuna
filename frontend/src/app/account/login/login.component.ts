@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   ) {
       this.email = this.loginForm.controls['email'];
       this.password = this.loginForm.controls['password'];
-      console.log(this.authenticationService.userValue);
       if (this.authenticationService.userValue) {
         this.router.navigate(['/']);
       }
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     this.loading = true;
-        this.authenticationService.login( this.f['username'].value, this.f['password'].value)
+        this.authenticationService.login(this.email.value, this.password.value)
             .pipe(first())
             .subscribe(
                 data => {

@@ -191,13 +191,13 @@ namespace WickedTunaAPI.Auth.Controller
         [AllowAnonymous]
         [HttpPost]
         [Route("refresh-token")]
-        public IActionResult RefreshToken()
+        public IActionResult RefreshToken([FromBody] StringToken token)
         {
-            var token = HttpContext.Request.Cookies["refreshToken"];
+            string refreshToken = token.Token ?? HttpContext.Request.Cookies["refreshToken"];
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             try
             {
-                var userCredentials = _authService.RefreshToken(token, ipAddress);
+                var userCredentials = _authService.RefreshToken(refreshToken, ipAddress);
                 var cookieOptions = new CookieOptions
                 {
                     HttpOnly = true,
@@ -241,6 +241,10 @@ namespace WickedTunaAPI.Auth.Controller
             {
                 _authService.RevokeToken(refreshToken, ipAddress);
                 return Ok();
+            }
+            catch(SecurityTokenExpiredException)
+            {
+                return Unauthorized();
             }
             catch(Exception)
             {
@@ -300,6 +304,26 @@ namespace WickedTunaAPI.Auth.Controller
                 return BadRequest();
             }
 
+        }
+
+        [Authorize]
+        [HttpPost("password")]
+        public async Task<IActionResult> UpdateUserPassword([FromBody] UpdatePasswordDTO updatePassword)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            try
+            {
+                 var succes = await _authService.UpdateUserPassword(updatePassword, email);
+                return Ok("Password changed!");
+            }
+            catch(PasswordIncorrectException)
+            {
+                return BadRequest("Password is incorrect!");
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
 
 

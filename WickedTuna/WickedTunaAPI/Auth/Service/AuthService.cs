@@ -153,5 +153,17 @@ namespace WickedTunaAPI.Auth.Service
             return null;
 
         }
+
+        public async Task<bool> UpdateUserPassword(UpdatePasswordDTO updatePassword, string email)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(email);
+            var isPassowrdChanged = await _userManager.ChangePasswordAsync(applicationUser, updatePassword.oldPassword, updatePassword.newPassword);
+            if (!isPassowrdChanged.Succeeded)
+            {
+                throw new PasswordIncorrectException();
+            }
+            return true;
+            
+        }
     }
 }

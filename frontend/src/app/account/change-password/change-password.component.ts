@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/_core';
+import { ChangePassword } from 'src/app/_models/changePassword';
 import PasswordValidator from 'src/app/_validators/password-validator';
 
 @Component({
@@ -35,7 +36,35 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if(this.form.invalid){
+      return
+    }
+    let changePassword = new ChangePassword();
+    changePassword.oldPassword = this.oldPassword.value;
+    changePassword.newPassword = this.newPassword.value;
+    changePassword.confirmNewPassword = this.confirmNewPassword.value;
+    this.authService.updateUserPassword(changePassword).subscribe({
+      next: res => {
+        window.alert("Password successfully changed!")
+      },
+      error: err => {
+        if(err.error === 'Password is incorrect!'){
+          this.oldPassword.setErrors({incorrect: true})
+        } else {
+          this.oldPassword.setErrors(null);
+        }
+      }
+    })
 
+  }
+
+  getOldPasswordErrorMessage() {
+    if(this.oldPassword.hasError('required')) {
+      return 'Password is required!'
+    } else if (this.oldPassword.hasError('incorrect')) {
+      return 'Password is incorrect!'
+    }
+    return '';
   }
 
   getPasswordErrorMessage() {

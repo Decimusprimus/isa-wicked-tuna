@@ -137,7 +137,7 @@ namespace WickedTunaAPI.Auth.Service
 
             if (existingToken.ExpiryOn <= DateTime.UtcNow)
             {
-                return null;
+                throw new SecurityTokenExpiredException();
             }
 
             return existingToken;
