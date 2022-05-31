@@ -18,6 +18,9 @@ import { MaterialModule } from './material.module';
 import { AccountModule } from './account/account.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientModule } from './client/client.module';
+import { ClientHomeComponent } from './home/client-home/client-home.component';
+import { HomeModule } from './home/home.module';
+import { CottagesModule } from './cottages/cottages.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,7 @@ import { ClientModule } from './client/client.module';
     HeaderComponent,
     LoginButtonComponent,
     LogoutButtonComponent,
-    AuthenticationButtonComponent
+    AuthenticationButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,8 @@ import { ClientModule } from './client/client.module';
     MaterialModule,
     AccountModule,
     ClientModule,
+    HomeModule,
+    CottagesModule,
     FontAwesomeModule
   ],
   providers: [

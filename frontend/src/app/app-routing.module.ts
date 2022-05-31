@@ -7,6 +7,7 @@ import { EmailSentComponent } from './account/register/email-sent/email-sent.com
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
 import { RegisterComponent } from './account/register/register.component';
 import { ClientProfileComponent } from './client/client-profile/client-profile.component';
+import { CottagesComponent } from './cottages/cottages.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'email/confirm', component: EmailConfirmComponent },
   { path: 'client/profile', component: ClientProfileComponent, canActivate: [AuthGuard]},
   { path: 'password', component: ChangePasswordComponent, canActivate: [AuthGuard]},
+  { path: 'cottages', component: CottagesComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

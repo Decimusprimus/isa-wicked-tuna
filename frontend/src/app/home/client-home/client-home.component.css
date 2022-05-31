@@ -1,0 +1,21 @@
+.home-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.card{
+    margin: auto;
+    margin-top: 50px;
+    width: 50%;
+    cursor: pointer;
+}
+
+.card-content{
+    display: flex;
+}
+
+.image{
+    margin-inline-start: auto;
+    width: 30%;
+    height: 130px;
+}

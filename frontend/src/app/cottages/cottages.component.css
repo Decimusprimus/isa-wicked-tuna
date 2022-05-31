@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-card{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 50px;
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+.cottage-items{
+    width: 50%;
+    margin: auto;
+    margin-top: 10px;
+}
