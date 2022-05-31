@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using WickedTunaCore.AdventuresLessons;
 using WickedTunaCore.Auth;
+using WickedTunaCore.Boats;
+using WickedTunaCore.Cottages;
 using WickedTunaCore.Users;
 
 namespace WickedTunaInfrastructure
@@ -22,6 +25,11 @@ namespace WickedTunaInfrastructure
         public DbSet<Client> Clients { get; set; }
         public DbSet<SystemAdmin> SystemAdmins { get; set; }
         public DbSet<BoatOwner> BoatOwners { get; set; }
+        public DbSet<CottageOwner> CottageOwners{ get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Cottage> Cottages { get; set; }
+        public DbSet<Boat> Boats { get; set; }
+        public DbSet<AdventureLesson> AdventrueLessons { get; set; }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using WickedTunaCore.Common;
+using WickedTunaCore.Users;
 
-namespace WickedTunaCore.Cottage
+namespace WickedTunaCore.Cottages
 {
     public class Cottage
     {
@@ -9,8 +10,9 @@ namespace WickedTunaCore.Cottage
         public string Name { get; set; }
         public Address Address { get; set; }
         public string Description { get; set; }
-        public string ImageFile { get; set; }
-        public CancellationFee CancellationFee { get; set; }
+        public string AdditionalServices { get; set; }
 
+        public string CottageOwnerId { get; set; }
+        public CottageOwner CottageOwner { get; set; }
     }
 }

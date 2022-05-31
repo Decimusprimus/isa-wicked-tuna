@@ -5,7 +5,6 @@ namespace WickedTunaCore.Common
     {
         public string County { get; set; }
         public string City { get; set; }
-        public string StreetName { get; set; }
-        public string StreetNubmer { get; set; }
+        public string Street { get; set; }
     }
 }

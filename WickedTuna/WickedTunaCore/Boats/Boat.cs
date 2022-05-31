@@ -1,7 +1,8 @@
 ﻿using System;
 using WickedTunaCore.Common;
+using WickedTunaCore.Users;
 
-namespace WickedTunaCore.Boat
+namespace WickedTunaCore.Boats
 {
     public class Boat
     {
@@ -11,10 +12,12 @@ namespace WickedTunaCore.Boat
         public float EnginePower { get; set; }
         public float MaximumSpeed { get; set; }
         public Address Address { get; set; }
-        public string ImagesFile { get; set; }
         public string Description { get; set; }
         public int Capacity { get; set; }
         public CancellationFee CancellationFee { get; set; }
+
+        public BoatOwner BoatOwner { get; set; }
+        public string BoatOwnerId { get; set; }
 
     }
 }

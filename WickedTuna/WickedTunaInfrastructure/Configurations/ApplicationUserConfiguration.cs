@@ -23,6 +23,12 @@ namespace WickedTunaInfrastructure.Configurations
             builder.HasOne(u => u.BoatOwner)
                 .WithOne(c => c.ApplicationUser)
                 .HasForeignKey<BoatOwner>(u => u.UserId);
+            builder.HasOne(u => u.CottageOwner)
+                .WithOne(c => c.ApplicationUser)
+                .HasForeignKey<CottageOwner>(u => u.UserId);
+            builder.HasOne(u => u.Instructor)
+                .WithOne(c => c.ApplicationUser)
+                .HasForeignKey<Instructor>(u => u.UserId);
 
         }
     }
