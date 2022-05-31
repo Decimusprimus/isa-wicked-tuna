@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
 
 namespace WickedTunaAPI
@@ -24,8 +26,9 @@ namespace WickedTunaAPI
                 try
                 {
                     var context = services.GetRequiredService<WickedTunaDbContext>();
-                    context.Database.Migrate();
-                    //ToDoDbInitialize.Initialize(context);
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    DbInitializer.Initialize(context, userManager, roleManager);
                 }
                 catch (Exception)
                 {
