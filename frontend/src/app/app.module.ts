@@ -21,6 +21,7 @@ import { ClientModule } from './client/client.module';
 import { ClientHomeComponent } from './home/client-home/client-home.component';
 import { HomeModule } from './home/home.module';
 import { CottagesModule } from './cottages/cottages.module';
+import { BoatsModule } from './boats/boats.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CottagesModule } from './cottages/cottages.module';
     ClientModule,
     HomeModule,
     CottagesModule,
+    BoatsModule,
     FontAwesomeModule
   ],
   providers: [
