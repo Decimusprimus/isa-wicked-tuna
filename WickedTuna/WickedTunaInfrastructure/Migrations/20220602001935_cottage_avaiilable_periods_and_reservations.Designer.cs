@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WickedTunaInfrastructure;
@@ -9,9 +10,10 @@ using WickedTunaInfrastructure;
 namespace WickedTunaInfrastructure.Migrations
 {
     [DbContext(typeof(WickedTunaDbContext))]
-    partial class WickedTunaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220602001935_cottage_avaiilable_periods_and_reservations")]
+    partial class cottage_avaiilable_periods_and_reservations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,9 +333,6 @@ namespace WickedTunaInfrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CottageOwnerId");
@@ -360,7 +359,7 @@ namespace WickedTunaInfrastructure.Migrations
 
                     b.HasIndex("CottageId");
 
-                    b.ToTable("CottageAvailablePeriods");
+                    b.ToTable("CottageAvailablePeriod");
                 });
 
             modelBuilder.Entity("WickedTunaCore.Cottages.CottageReservation", b =>
@@ -390,7 +389,7 @@ namespace WickedTunaInfrastructure.Migrations
 
                     b.HasIndex("CottageId");
 
-                    b.ToTable("CottageReservations");
+                    b.ToTable("CottageReservation");
                 });
 
             modelBuilder.Entity("WickedTunaCore.Users.BoatOwner", b =>
