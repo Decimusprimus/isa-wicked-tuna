@@ -6,13 +6,15 @@ import { MaterialModule } from '../material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CottagesComponent } from './cottages.component';
 import { CottageItemComponent } from './cottage-item/cottage-item.component';
+import { CottageComponent } from './cottage/cottage.component';
 
 
 
 @NgModule({
   declarations: [
     CottagesComponent,
-    CottageItemComponent
+    CottageItemComponent,
+    CottageComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,9 @@ import { CottageItemComponent } from './cottage-item/cottage-item.component';
     MaterialModule,
     FontAwesomeModule,
   ],
-  exports: [],
+  exports: [
+    CottagesComponent,
+    CottageComponent
+  ],
 })
 export class CottagesModule { }

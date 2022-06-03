@@ -10,5 +10,6 @@ namespace WickedTunaAPI.Cottages.Service
     {
         List<Cottage> GetAll();
         List<Cottage> GetAvailable();
+        Cottage GetCottageForId(Guid id);
     }
 }

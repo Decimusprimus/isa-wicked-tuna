@@ -22,4 +22,7 @@ export class CottageItemComponent implements OnInit {
     return this.cottage.address.county + ', ' + this.cottage.address.city + ', ' + this.cottage.address.street;
   }
 
+  goToCottage() {
+    this.router.navigate(['cottage', this.cottage.id]);
+  }
 }

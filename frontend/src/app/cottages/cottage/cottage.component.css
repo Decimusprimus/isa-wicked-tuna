@@ -1,0 +1,29 @@
+.cottage-container{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    margin: auto;
+    margin-top: 50px;
+    width: 80%;
+}
+
+.cottage-info{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+}
+
+.reservation-info{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+.address{
+    display: flex;
+}
+
+.info-box{
+    margin-top: 20px;
+}

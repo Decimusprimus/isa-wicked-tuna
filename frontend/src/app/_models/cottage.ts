@@ -8,7 +8,8 @@ export class Cottage{
     description = '';
     price = 0;
     cottageOwnerId = '';
-    cottageAvailablePeriods! : CottageAvailablePeriod[];  
+    cottageAvailablePeriods! : CottageAvailablePeriod[]; 
+    additionalServices = ''; 
 
     constructor(){}
 }

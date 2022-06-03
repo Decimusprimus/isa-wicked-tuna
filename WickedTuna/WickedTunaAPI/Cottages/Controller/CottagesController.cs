@@ -24,5 +24,12 @@ namespace WickedTunaAPI.Cottages.Controller
         {
             return Ok(_cottageService.GetAvailable());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCottageById(Guid id)
+        {
+            var cottage = _cottageService.GetCottageForId(id);
+            return cottage != null ? Ok(cottage) : NotFound();
+        }
     }
 }

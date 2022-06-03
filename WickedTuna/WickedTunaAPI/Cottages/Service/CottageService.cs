@@ -26,5 +26,10 @@ namespace WickedTunaAPI.Cottages.Service
             var res = _cottageRepositroy.GetAvailable();
             return res;
         }
+
+        public Cottage GetCottageForId(Guid id)
+        {
+            return _cottageRepositroy.GetById(id);
+        }
     }
 }

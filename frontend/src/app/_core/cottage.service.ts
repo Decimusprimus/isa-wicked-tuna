@@ -16,4 +16,8 @@ export class CottageService {
   public getCottages(): Observable<Cottage[]> {
     return this.http.get<Cottage[]>(`${environment.apiUrl}/cottages`);
   }
+
+  public getCottage(id: string): Observable<Cottage> {
+    return this.http.get<Cottage>(`${environment.apiUrl}/cottages/${id}`);
+  }
 }
