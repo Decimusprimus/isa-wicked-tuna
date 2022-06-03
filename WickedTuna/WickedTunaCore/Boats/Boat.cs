@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WickedTunaCore.Common;
 using WickedTunaCore.Users;
 
@@ -8,16 +9,18 @@ namespace WickedTunaCore.Boats
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string EngineNumger { get; set; }
+        public string NumberOfEngines { get; set; }
         public float EnginePower { get; set; }
         public float MaximumSpeed { get; set; }
         public Address Address { get; set; }
         public string Description { get; set; }
         public int Capacity { get; set; }
-        public CancellationFee CancellationFee { get; set; }
+        public float CancellationFee { get; set; }
 
         public BoatOwner BoatOwner { get; set; }
         public string BoatOwnerId { get; set; }
+        public ICollection<BoatAvailablePeriod> BoatAvailablePeriods { get; set; }
+        public ICollection<BoatReservation> BoatReservations { get; set; }
 
     }
 }

@@ -25,7 +25,7 @@ namespace WickedTunaInfrastructure
         public DbSet<Client> Clients { get; set; }
         public DbSet<SystemAdmin> SystemAdmins { get; set; }
         public DbSet<BoatOwner> BoatOwners { get; set; }
-        public DbSet<CottageOwner> CottageOwners{ get; set; }
+        public DbSet<CottageOwner> CottageOwners { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
@@ -34,6 +34,9 @@ namespace WickedTunaInfrastructure
         public DbSet<CottageAvailablePeriod> CottageAvailablePeriods { get; set; }
 
         public DbSet<Boat> Boats { get; set; }
+        public DbSet<BoatReservation> BoatReservations { get; set; }
+        public DbSet<BoatAvailablePeriod> BoatAvailablePeriods { get; set; }
+
         public DbSet<AdventureLesson> AdventrueLessons { get; set; }
     }
 }

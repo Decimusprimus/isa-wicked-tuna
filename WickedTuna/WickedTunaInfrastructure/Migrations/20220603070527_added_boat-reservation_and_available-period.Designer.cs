@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WickedTunaInfrastructure;
@@ -9,9 +10,10 @@ using WickedTunaInfrastructure;
 namespace WickedTunaInfrastructure.Migrations
 {
     [DbContext(typeof(WickedTunaDbContext))]
-    partial class WickedTunaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220603070527_added_boat-reservation_and_available-period")]
+    partial class added_boatreservation_and_availableperiod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
