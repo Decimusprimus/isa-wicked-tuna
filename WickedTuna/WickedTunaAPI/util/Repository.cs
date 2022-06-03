@@ -8,7 +8,7 @@ namespace WickedTunaAPI.util
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private WickedTunaDbContext _context = null;
+        protected readonly WickedTunaDbContext _context = null;
         private DbSet<T> _collection = null;
 
         public Repository(WickedTunaDbContext context)

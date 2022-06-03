@@ -20,5 +20,11 @@ namespace WickedTunaAPI.Cottages.Service
         {
             return _cottageRepositroy.GetAll().ToList();
         }
+
+        public List<Cottage> GetAvailable()
+        {
+            var res = _cottageRepositroy.GetAvailable();
+            return res;
+        }
     }
 }

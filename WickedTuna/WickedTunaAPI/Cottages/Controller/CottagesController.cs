@@ -22,7 +22,7 @@ namespace WickedTunaAPI.Cottages.Controller
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_cottageService.GetAll());
+            return Ok(_cottageService.GetAvailable());
         }
     }
 }

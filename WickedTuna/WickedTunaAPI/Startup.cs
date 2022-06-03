@@ -47,8 +47,11 @@ namespace WickedTunaAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WickedTunaAPI", Version = "v1" });
             });
 
-            services.AddDbContext<WickedTunaDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection")));
+            services.AddDbContext<WickedTunaDbContext>(options => {
+                options.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection"))
+                .LogTo(Console.WriteLine, LogLevel.Information);
+                }
+                );
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {

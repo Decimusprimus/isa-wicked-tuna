@@ -9,6 +9,7 @@ namespace WickedTunaCore.Cottages
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public int NumberOfPeople { get; set; } 
+        //public float Reservation { get; set; }
 
         public Cottage Cottage { get; set; }
         public Guid CottageId { get; set; }

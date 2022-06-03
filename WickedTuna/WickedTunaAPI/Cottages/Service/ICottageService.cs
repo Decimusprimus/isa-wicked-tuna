@@ -9,5 +9,6 @@ namespace WickedTunaAPI.Cottages.Service
     public interface ICottageService
     {
         List<Cottage> GetAll();
+        List<Cottage> GetAvailable();
     }
 }

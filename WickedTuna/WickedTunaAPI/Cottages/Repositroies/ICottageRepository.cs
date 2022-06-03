@@ -9,5 +9,6 @@ namespace WickedTunaAPI.Cottages.Repositroy
 {
     public interface ICottageRepository : IRepository<Cottage>
     {
+        List<Cottage> GetAvailable();
     }
 }
