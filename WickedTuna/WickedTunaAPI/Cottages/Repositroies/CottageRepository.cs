@@ -18,7 +18,7 @@ namespace WickedTunaAPI.Cottages.Repositroies
 
         public List<Cottage> GetAvailable()
         {
-            var res =  _context.Cottages.Where(c => c.CottageAvailablePeriods.Any(cap => cap.Start < DateTime.Now || cap.End > DateTime.Now));
+            var res =  _context.Cottages.Where(c => c.CottageAvailablePeriods.Any(cap => cap.Start < DateTime.Now || cap.End > DateTime.Now)).Include(c => c.CottageAvailablePeriods);
             return res.ToList();
         }
     }

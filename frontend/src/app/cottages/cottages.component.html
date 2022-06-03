@@ -13,7 +13,6 @@
         </mat-accordion>
     </div>
 
-    <app-cottage-item class="cottage-items"></app-cottage-item>
-    <app-cottage-item class="cottage-items"></app-cottage-item>
+    <app-cottage-item *ngFor="let item of cottages" [cottage]="item" class="cottage-items"></app-cottage-item>
     
 </div>
