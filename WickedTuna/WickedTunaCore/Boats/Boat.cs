@@ -9,7 +9,8 @@ namespace WickedTunaCore.Boats
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string NumberOfEngines { get; set; }
+        public string Type { get; set; }
+        public int NumberOfEngines { get; set; }
         public float EnginePower { get; set; }
         public float MaximumSpeed { get; set; }
         public Address Address { get; set; }

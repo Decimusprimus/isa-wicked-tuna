@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WickedTunaCore.Auth;
+using WickedTunaCore.Boats;
 using WickedTunaCore.Common;
 using WickedTunaCore.Cottages;
 using WickedTunaCore.Users;
@@ -17,7 +18,7 @@ namespace WickedTunaInfrastructure
         {
             dbContext.Database.EnsureCreated();
 
-            if(dbContext.CottageOwners.Any())
+            if(dbContext.BoatOwners.Any())
             {
                 return;
             }
@@ -30,28 +31,28 @@ namespace WickedTunaInfrastructure
 
         public static void SeedUsers(WickedTunaDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
-           /* var user = new ApplicationUser() { Email = "marko.ppekez25@gmail.com", UserName = "marko.ppekez25@gmail.com", EmailConfirmed = true};
-            var res = userManager.CreateAsync(user, "Instructor1*").Result;
-            if(res.Succeeded)
-            {
-                userManager.AddToRoleAsync(user, "Instructor").Wait();
-            }
+            /* var user = new ApplicationUser() { Email = "marko.ppekez25@gmail.com", UserName = "marko.ppekez25@gmail.com", EmailConfirmed = true};
+             var res = userManager.CreateAsync(user, "Instructor1*").Result;
+             if(res.Succeeded)
+             {
+                 userManager.AddToRoleAsync(user, "Instructor").Wait();
+             }
 
-            var instructor = new Instructor()
-            {
-                ApplicationUser = user,
-                Email = "marko.ppekez25@gmail.com",
-                Name = "Pero", 
-                Surname = "Simo",
-                County = "Serbia",
-                City = "Novi Sad", 
-                StreetName = "Branka Bajica 24",
-            };
-            dbContext.Instructors.Add(instructor);
-            dbContext.SaveChanges();*/
+             var instructor = new Instructor()
+             {
+                 ApplicationUser = user,
+                 Email = "marko.ppekez25@gmail.com",
+                 Name = "Pero", 
+                 Surname = "Simo",
+                 County = "Serbia",
+                 City = "Novi Sad", 
+                 StreetName = "Branka Bajica 24",
+             };
+             dbContext.Instructors.Add(instructor);
+             dbContext.SaveChanges();*/
 
-
-
+            /*
+            #region Cottages
             var userCottageOwner1 = new ApplicationUser() { Email = "cottage.owner1@mail.com", UserName = "cottage.owner1@mail.com", EmailConfirmed = true };
             var userCottageOwner1Result = userManager.CreateAsync(userCottageOwner1, "CottageOwner1*").Result;
             if(userCottageOwner1Result.Succeeded)
@@ -261,7 +262,129 @@ namespace WickedTunaInfrastructure
             dbContext.CottageAvailablePeriods.Add(cottageAvailablePeriod311);
 
             dbContext.SaveChanges();
+            #endregion
+            */
 
+            var userBoatOwner1 = new ApplicationUser() { Email = "boat.owner1@mail.com", UserName = "boat.owner1@mail.com", EmailConfirmed = true };
+            var userBoatOwnerResult1 = userManager.CreateAsync(userBoatOwner1, "BoatOwner1*").Result;
+            if (userBoatOwnerResult1.Succeeded)
+            {
+                userManager.AddToRoleAsync(userBoatOwner1, "BoatOwner").Wait();
+            }
+            var boatOwner1 = new BoatOwner()
+            {
+                ApplicationUser = userBoatOwner1,
+                Email = "boat.owner1@mail.com",
+                Name = "Nikola",
+                Surname = "Simic",
+                County = "Croatia",
+                City = "Split",
+                StreetName = "Marina Spinut",
+                PhoneNumber = "385665564689",
+            };
+            dbContext.BoatOwners.Add(boatOwner1);
+
+            var userBoatOwner2 = new ApplicationUser() { Email = "boat.owner2@mail.com", UserName = "boat.owner2@mail.com", EmailConfirmed = true };
+            var userBoatOwnerResult2 = userManager.CreateAsync(userBoatOwner2, "BoatOwner2*").Result;
+            if (userBoatOwnerResult2.Succeeded)
+            {
+                userManager.AddToRoleAsync(userBoatOwner2, "BoatOwner").Wait();
+            }
+            var boatOwner2 = new BoatOwner()
+            {
+                ApplicationUser = userBoatOwner2,
+                Email = "boat.owner2@mail.com",
+                Name = "Petar",
+                Surname = "Peic",
+                County = "Croatia",
+                City = "Split",
+                StreetName = "Split",
+                PhoneNumber = "38555564689",
+            };
+            dbContext.BoatOwners.Add(boatOwner2);
+
+            dbContext.SaveChanges();
+
+            var boat11 = new Boat()
+            {
+                Name = "BENETEAU",
+                Type = "Cruiser",
+                NumberOfEngines = 0,
+                EnginePower = 5,
+                Address = new Address
+                {
+                    County = "Croatia",
+                    City = "Split",
+                    Street = "Split",
+                },
+                Description = "Beneteau First 21.7 is the smallest sailing yacht available for charter in Split, Croatia. With her 1 cabin and 4 berths (two single and one double bed), she has ability to cater up to 4 people overnight. This makes this yacht a perfect choice for families or small groups of friends who wish to sail Central Adriatic area.",
+                Capacity = 6,
+                CancellationFee = 0.1f,
+                BoatOwner = boatOwner1,
+                
+            };
+            dbContext.Boats.Add(boat11);
+
+            var boat21 = new Boat()
+            {
+                Name = "JEANNEAU — MERRY FISHER 795",
+                Type = "Motorboat",
+                NumberOfEngines = 1,
+                EnginePower = 250,
+                Address = new Address
+                {
+                    County = "Croatia",
+                    City = "Split",
+                    Street = "Split city center",
+                },
+                Description = "Welcome on our new Merry Fisher 795. The boat is from 2017. and it is refitted for this season. Capacity is up to 9 persons daily and 4-6 max overnight. The boat is fully equipped for 7 days charter with 220v supply, solar, kitchen, cockpit table, GPS, maps, toilette, and many other things.",
+                Capacity = 9,
+                CancellationFee = 0,
+                BoatOwner = boatOwner2,
+            };
+            dbContext.Boats.Add(boat21);
+            dbContext.SaveChanges();
+
+            var boatAvailablePeriod111 = new BoatAvailablePeriod()
+            {
+                Start = new DateTime(2022, 6, 4, 0, 0, 0),
+                End = new DateTime(2022, 6, 5, 0, 0, 0),
+                Boat = boat11,
+            };
+            dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod111);
+
+            var boatAvailablePeriod112 = new BoatAvailablePeriod()
+            {
+                Start = new DateTime(2022, 6, 25, 0, 0, 0),
+                End = new DateTime(2022, 6, 26, 0, 0, 0),
+                Boat = boat11,
+            };
+            dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod112);
+
+            var boatAvailablePeriod113 = new BoatAvailablePeriod()
+            {
+                Start = new DateTime(2022, 6, 18, 0, 0, 0),
+                End = new DateTime(2022, 6, 19, 0, 0, 0),
+                Boat = boat11,
+            };
+            dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod113);
+
+            var boatAvailablePeriod221 = new BoatAvailablePeriod()
+            {
+                Start = new DateTime(2022, 6, 1, 0, 0, 0),
+                End = new DateTime(2022, 6, 12, 0, 0, 0),
+                Boat = boat21,
+            };
+            dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod221);
+
+            var boatAvailablePeriod222 = new BoatAvailablePeriod()
+            {
+                Start = new DateTime(2022, 6, 17, 0, 0, 0),
+                End = new DateTime(2022, 7, 20, 0, 0, 0),
+                Boat = boat21,
+            };
+            dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod222);
+            dbContext.SaveChanges();
 
         }
 
