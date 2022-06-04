@@ -9,5 +9,6 @@ namespace WickedTunaCore.Users
         public string ShortBiography { get; set; }
 
         public ICollection<AdventureLesson> AdventureLessons { get; set; }
+        public ICollection<InstructorAvailablePeriod> InstructorAvailablePeriods { get; set; }
     }
 }

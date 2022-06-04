@@ -38,5 +38,8 @@ namespace WickedTunaInfrastructure
         public DbSet<BoatAvailablePeriod> BoatAvailablePeriods { get; set; }
 
         public DbSet<AdventureLesson> AdventrueLessons { get; set; }
+        public DbSet<AdventureLessonReservation> AdventureLessonReservations { get; set; }
+        public DbSet<InstructorAvailablePeriod> InstructorAvailablePeriods { get; set; }
+        
     }
 }
