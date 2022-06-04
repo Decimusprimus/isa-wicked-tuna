@@ -14,7 +14,7 @@ import { CottageComponent } from './cottage/cottage.component';
   declarations: [
     CottagesComponent,
     CottageItemComponent,
-    CottageComponent
+    CottageComponent,
   ],
   imports: [
     CommonModule,

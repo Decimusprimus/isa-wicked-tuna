@@ -1,0 +1,37 @@
+<div *ngIf="!failedToLoad" class="boat-container">
+    <div class="boat-info">
+        <h2>{{this.boat.name}}</h2>
+        <div class="address">
+            <mat-icon color="primary">place</mat-icon>
+            <h3>{{getAddress()}}</h3>
+        </div>
+        <div>
+            <h3>Images</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <h3>Info</h3>
+        <div class="info-box">
+            <h3>Description</h3>
+            <p>{{this.boat.description}}</p>
+        </div>
+        <div class="info-box">
+            <h4>Type of boat: {{this.boat.type}}</h4>
+            <h4>Capacity: {{this.boat.capacity}}</h4>
+        </div>
+        <div class="info-box">
+            <h3>Engine</h3>
+            <h4>Number of engines: {{this.boat.numberOfEngines}}</h4>
+            <h4>Engine power: {{this.boat.enginePower}}</h4>
+            <h4>Maximum speed: {{this.boat.maximumSpeed}}</h4>
+        </div>
+        <div class="info-box">
+            <h4>Cancellation fee {{this.boat.cancellationFee*100}}%</h4>
+        </div>
+    </div>
+    <div class="reservation-info">
+        <h2>Make a reservation</h2>
+        
+    </div>
+</div>
+
+<h2 *ngIf="failedToLoad" class="error">Boat not found!</h2>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { BoatService } from '../_core/boat.service';
+import { Boat } from '../_models/boat';
 
 @Component({
   selector: 'app-boats',
@@ -8,10 +10,18 @@ import { MatExpansionPanel } from '@angular/material/expansion';
   viewProviders: [MatExpansionPanel]
 })
 export class BoatsComponent implements OnInit {
+  boats: Boat[] = [];
 
-  constructor() { }
+  constructor(
+    private boatService: BoatService,
+  ) { }
 
   ngOnInit(): void {
+    this.getBoats();
+  }
+
+  getBoats(): void {
+    this.boatService.getBoats().subscribe(data => this.boats = data);
   }
 
 }

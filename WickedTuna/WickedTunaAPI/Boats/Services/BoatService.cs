@@ -20,5 +20,10 @@ namespace WickedTunaAPI.Boats.Services
         {
             return _boatRepository.GetAll().ToList();
         }
+
+        public Boat GetBoatForId(Guid id)
+        {
+            return _boatRepository.GetById(id);
+        }
     }
 }

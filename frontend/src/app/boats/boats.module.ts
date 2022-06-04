@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BoatItemComponent } from './boat-item/boat-item.component';
+import { BoatComponent } from './boat/boat.component';
 
 
 
 @NgModule({
   declarations: [
     BoatsComponent,
-    BoatItemComponent
+    BoatItemComponent,
+    BoatComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { BoatItemComponent } from './boat-item/boat-item.component';
     FontAwesomeModule,
   ],
   exports:[
-    BoatsComponent
+    BoatsComponent,
+    BoatComponent
   ]
 })
 export class BoatsModule { }

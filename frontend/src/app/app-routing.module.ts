@@ -6,6 +6,7 @@ import { LoginComponent } from './account/login/login.component';
 import { EmailSentComponent } from './account/register/email-sent/email-sent.component';
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
 import { RegisterComponent } from './account/register/register.component';
+import { BoatComponent } from './boats/boat/boat.component';
 import { BoatsComponent } from './boats/boats.component';
 import { ClientProfileComponent } from './client/client-profile/client-profile.component';
 import { CottageComponent } from './cottages/cottage/cottage.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'cottages', component: CottagesComponent },
   { path: 'cottage/:id', component: CottageComponent },
   { path: 'boats', component: BoatsComponent },
+  { path: 'boat/:id', component: BoatComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

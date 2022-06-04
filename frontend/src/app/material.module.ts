@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatExpansionModule} from '@angular/material/expansion'; 
+import {MatDividerModule} from '@angular/material/divider'; 
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatFormFieldModule,
     MatIconModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule,
   ],
   exports: [
     MatInputModule,
@@ -29,7 +31,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatFormFieldModule,
     MatIconModule,  
     MatMenuModule,  
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule,
   ]
 })
 export class MaterialModule { }

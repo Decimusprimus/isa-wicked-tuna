@@ -1,10 +1,10 @@
 <div>
-    <mat-card>
+    <mat-card (click)="goToBoat()" class="card">
         <mat-card-content class="card-content">
             <img class="img-show" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
             <div class="content-info">
-                <h2>Title</h2>
-                <h4>Address</h4>
+                <h2>{{this.boat.name}}</h2>
+                <h4>{{getAddress()}}</h4>
             </div>
         </mat-card-content>
     </mat-card>

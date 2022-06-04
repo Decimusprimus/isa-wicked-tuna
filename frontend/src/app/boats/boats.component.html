@@ -14,7 +14,6 @@
         </mat-accordion>
     </div>
 
-    <app-boat-item class="boat-items"></app-boat-item>
-    <app-boat-item class="boat-items"></app-boat-item>
+    <app-boat-item *ngFor="let item of boats" [boat]="item" class="boat-items"></app-boat-item>
 
 </div>

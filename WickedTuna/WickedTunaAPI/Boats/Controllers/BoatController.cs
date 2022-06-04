@@ -24,5 +24,12 @@ namespace WickedTunaAPI.Boats.Controllers
         {
             return Ok(_boatService.GetAllBoats());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetBoatById(Guid id)
+        {
+            var boat = _boatService.GetBoatForId(id);
+            return boat != null ? Ok(boat) : NotFound();
+        }
     }
 }

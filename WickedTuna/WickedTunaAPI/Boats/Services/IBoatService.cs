@@ -9,5 +9,6 @@ namespace WickedTunaAPI.Boats.Services
     public interface IBoatService
     {
         List<Boat> GetAllBoats();
+        Boat GetBoatForId(Guid id);
     }
 }

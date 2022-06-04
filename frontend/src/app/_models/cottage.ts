@@ -1,5 +1,5 @@
 import { Address } from "./address";
-import { CottageAvailablePeriod } from "./cottageAvailablePeriod";
+import { AvailablePeriod } from "./cottageAvailablePeriod";
 
 export class Cottage{
     id?: string;
@@ -8,7 +8,7 @@ export class Cottage{
     description = '';
     price = 0;
     cottageOwnerId = '';
-    cottageAvailablePeriods! : CottageAvailablePeriod[]; 
+    cottageAvailablePeriods! : AvailablePeriod[]; 
     additionalServices = ''; 
 
     constructor(){}
