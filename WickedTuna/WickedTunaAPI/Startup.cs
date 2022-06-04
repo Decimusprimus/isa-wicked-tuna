@@ -17,6 +17,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WickedTunaAPI.Auth.Service;
+using WickedTunaAPI.Boats.Repositories;
+using WickedTunaAPI.Boats.Services;
 using WickedTunaAPI.Clients.Service;
 using WickedTunaAPI.Configuration;
 using WickedTunaAPI.Cottages.Repositroies;
@@ -94,10 +96,12 @@ namespace WickedTunaAPI
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ICottageService, CottageService>();
+            services.AddScoped<IBoatService, BoatService>();
 
             services.AddTransient<ICottageRepository, CottageRepository>();
             services.AddTransient<ICottageAvailablePeriodRepositroy, CottageAvailablePeriodRepository>();
             services.AddTransient<ICottageReservationRepositroy, CottageReservationRepositroy>();
+            services.AddTransient<IBoatRepository, BoatRepository>();
 
             
 
