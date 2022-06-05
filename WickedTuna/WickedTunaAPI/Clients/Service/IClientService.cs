@@ -6,5 +6,6 @@ namespace WickedTunaAPI.Clients.Service
     public interface IClientService
     {
         bool CreateNewUserAsClient(ClientRegistrationForm registrationForm, string userId);
+        Client GetClientForEmail(string email);
     }
 }

@@ -38,5 +38,10 @@ namespace WickedTunaAPI.Clients.Service
             return true;
 
         }
+
+        public Client GetClientForEmail(string email)
+        {
+            return _dbContext.Clients.FirstOrDefault(c => c.Email == email);
+        }
     }
 }

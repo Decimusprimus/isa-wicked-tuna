@@ -9,5 +9,7 @@ namespace WickedTunaAPI.Cottages.Repositroies
 {
     public interface ICottageAvailablePeriodRepositroy : IRepository<CottageAvailablePeriod>
     {
+        CottageAvailablePeriod GetForReservation(Guid id, DateTime start, DateTime end);
+        void Remove(CottageAvailablePeriod cottageAvailablePeriod);
     }
 }

@@ -14,6 +14,7 @@ namespace WickedTunaAPI.Cottages.Service
         List<string> GetImagesForCottage(Guid id);
         Byte[] GetCottageImageForId(Guid cottageId,string name);
         Byte[] GetFirstImageForCottage(Guid id);
+        CottageReservation CreateNewReservation(Guid id, CottageReservation cottageReservation, string email);
 
     }
 }
