@@ -31,5 +31,46 @@ namespace WickedTunaAPI.Boats.Controllers
             var boat = _boatService.GetBoatForId(id);
             return boat != null ? Ok(boat) : NotFound();
         }
+
+        [HttpGet("{id}/images")]
+        public IActionResult GetImagesForBoat(Guid id)
+        {
+            try
+            {
+                var images = _boatService.GetImagesForBoat(id);
+                return Ok(images);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{boatId}/images/{name}")]
+        public IActionResult GetBoatImageForName([FromRoute] Guid boatId, [FromRoute] string name)
+        {
+            try
+            {
+                var image = _boatService.GetBoatImageForId(boatId, name);
+                return image != null ? File(image, "image/jpeg") : NotFound();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("{id}/image")]
+        public IActionResult GetFirstImageForBoat(Guid id)
+        {
+            try
+            {
+                return File(_boatService.GetFirstImageForBoat(id), "image/jpeg");
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }

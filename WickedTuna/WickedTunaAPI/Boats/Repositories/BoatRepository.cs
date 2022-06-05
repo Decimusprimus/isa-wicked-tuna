@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace WickedTunaAPI.Boats.Repositories
     {
         public BoatRepository(WickedTunaDbContext context) : base(context)
         {
+        }
+
+        public Boat GetById(Guid id)
+        {
+            return _context.Boats.Include(b => b.BoatAvailablePeriods).FirstOrDefault(b => b.Id == id);
         }
     }
 }

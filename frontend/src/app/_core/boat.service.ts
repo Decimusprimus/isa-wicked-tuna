@@ -21,4 +21,16 @@ export class BoatService {
     return this.http.get<Boat>(`${environment.apiUrl}/boats/${id}`);
   }
 
+  public getFirstBoatImage(boat: Boat) {
+    return `${environment.apiUrl}/boats/${boat.id}/image`;
+  }
+
+  public getBoatImageForName(boat: Boat, image: string) {
+    return `${environment.apiUrl}/boats/${boat.id}/images/${image}`;
+  }
+
+  public getBoatImages(id: string): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/boats/${id}/images`);
+  }
+
 }

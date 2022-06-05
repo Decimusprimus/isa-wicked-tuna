@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BoatItemComponent } from './boat-item/boat-item.component';
 import { BoatComponent } from './boat/boat.component';
+import { BoatImagesDialogComponent } from './boat/boat-images-dialog/boat-images-dialog.component';
 
 
 
@@ -14,7 +15,8 @@ import { BoatComponent } from './boat/boat.component';
   declarations: [
     BoatsComponent,
     BoatItemComponent,
-    BoatComponent
+    BoatComponent,
+    BoatImagesDialogComponent
   ],
   imports: [
     CommonModule,

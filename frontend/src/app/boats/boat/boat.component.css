@@ -5,6 +5,7 @@
     margin: auto;
     margin-top: 50px;
     width: 80%;
+    justify-content: stretch;
     margin-bottom: 50px;
 }
 
@@ -18,7 +19,8 @@
     display: flex;
     margin: auto;
     flex-direction: column;
-    align-self: flex-end;
+    width: 100%;
+    height: 100%;
 }
 
 .address{
@@ -34,3 +36,18 @@
     margin-top: 50px;
     text-align: center;
 }
+
+.img-box{
+    display: flex;
+}
+
+.img-show{
+    width: 200px;
+    height: 200px;
+}
+
+.form-field{
+    padding-top: 10px;
+    width: 100%;
+}
+

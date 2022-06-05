@@ -7,11 +7,14 @@
         </div>
         <div>
             <h3>Images</h3>
+            <div style="display: flex;">
+                <img src="{{imgSrc}}" class="img-show">
+                <button mat-button (click)="showImages()">Show more images</button>
+            </div>
         </div>
         <mat-divider></mat-divider>
-        <h3>Info</h3>
         <div class="info-box">
-            <h3>Description</h3>
+            <h3 style="font-weight: bold;">Description</h3>
             <p>{{this.boat.description}}</p>
         </div>
         <div class="info-box">
@@ -19,7 +22,7 @@
             <h4>Capacity: {{this.boat.capacity}}</h4>
         </div>
         <div class="info-box">
-            <h3>Engine</h3>
+            <h3 style="font-weight: bold;">Engine</h3>
             <h4>Number of engines: {{this.boat.numberOfEngines}}</h4>
             <h4>Engine power: {{this.boat.enginePower}}</h4>
             <h4>Maximum speed: {{this.boat.maximumSpeed}}</h4>
@@ -29,8 +32,22 @@
         </div>
     </div>
     <div class="reservation-info">
-        <h2>Make a reservation</h2>
-        
+        <mat-card>
+            <mat-card-title>Make a reservation</mat-card-title>
+            <mat-card-content>
+                <mat-form-field class="form-field">
+                    <input matInput [ngxMatDatetimePickerFilter]="dateTimeFilter" [ngxMatDatetimePicker]="pickerFrom" placeholder="From date & time" [formControl]="myDatePickerFrom">
+                    <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #pickerFrom></ngx-mat-datetime-picker>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                    <input matInput [ngxMatDatetimePickerFilter]="dateTimeFilter" [ngxMatDatetimePicker]="pickerTo" placeholder="To date & time" [formControl]="myDatePickerTo"
+                    >
+                    <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #pickerTo></ngx-mat-datetime-picker>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
 

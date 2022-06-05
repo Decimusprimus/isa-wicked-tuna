@@ -1,0 +1,4 @@
+<h2 mat-dialog-title>Images</h2>
+<div mat-dialog-content style="margin: auto; width: 80%">
+    <img *ngFor="let item of data.images" src="{{getImage(item)}}" class="image">
+</div>

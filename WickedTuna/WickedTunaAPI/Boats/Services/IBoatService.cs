@@ -10,5 +10,8 @@ namespace WickedTunaAPI.Boats.Services
     {
         List<Boat> GetAllBoats();
         Boat GetBoatForId(Guid id);
+        List<string> GetImagesForBoat(Guid id);
+        Byte[] GetBoatImageForId(Guid boatId, string name);
+        Byte[] GetFirstImageForBoat(Guid id);
     }
 }

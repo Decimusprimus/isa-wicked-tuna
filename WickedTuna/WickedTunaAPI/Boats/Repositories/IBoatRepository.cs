@@ -9,5 +9,6 @@ namespace WickedTunaAPI.Boats.Repositories
 {
     public interface IBoatRepository : IRepository<Boat>
     {
+        Boat GetById(Guid id);
     }
 }
