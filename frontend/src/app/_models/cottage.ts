@@ -1,5 +1,6 @@
 import { Address } from "./address";
 import { AvailablePeriod } from "./availablePeriod";
+import { Room } from "./room";
 
 export class Cottage{
     id?: string;
@@ -10,6 +11,8 @@ export class Cottage{
     cottageOwnerId = '';
     cottageAvailablePeriods! : AvailablePeriod[]; 
     additionalServices = ''; 
+    cottageRooms! : Room[];
+    numberOfRooms = 0;
 
     constructor(){}
 }

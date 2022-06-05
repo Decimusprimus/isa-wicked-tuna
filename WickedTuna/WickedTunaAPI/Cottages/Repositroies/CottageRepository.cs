@@ -18,13 +18,13 @@ namespace WickedTunaAPI.Cottages.Repositroies
 
         public List<Cottage> GetAvailable()
         {
-            var res =  _context.Cottages.Where(c => c.CottageAvailablePeriods.Any(cap => cap.Start < DateTime.Now || cap.End > DateTime.Now)).Include(c => c.CottageAvailablePeriods);
+            var res =  _context.Cottages.Where(c => c.CottageAvailablePeriods.Any(cap => cap.Start < DateTime.Now || cap.End > DateTime.Now)).Include(c => c.CottageAvailablePeriods).Include(c => c.CottageRooms);
             return res.ToList();
         }
 
         public Cottage GetById(Guid id)
         {
-            return _context.Cottages.Include(c => c.CottageAvailablePeriods).FirstOrDefault(c => c.Id == id);
+            return _context.Cottages.Include(c => c.CottageAvailablePeriods).Include(c => c.CottageRooms).FirstOrDefault(c => c.Id == id);
         }
     }
 }

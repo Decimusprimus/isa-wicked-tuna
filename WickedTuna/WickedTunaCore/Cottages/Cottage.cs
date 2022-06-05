@@ -14,7 +14,7 @@ namespace WickedTunaCore.Cottages
         public string Description { get; set; }
         public string AdditionalServices { get; set; }
         public float Price { get; set; }
-        //TODO: Add rooms and number of beds
+        public int NumberOfRooms { get; set; }
 
         public string CottageOwnerId { get; set; }
         [JsonIgnore]
@@ -22,5 +22,6 @@ namespace WickedTunaCore.Cottages
         public ICollection<CottageAvailablePeriod> CottageAvailablePeriods { get; set; }
         [JsonIgnore]
         public ICollection<CottageReservation> CottageReservations { get; set; }
+        public ICollection<CottageRoom> CottageRooms { get; set; }
     }
 }

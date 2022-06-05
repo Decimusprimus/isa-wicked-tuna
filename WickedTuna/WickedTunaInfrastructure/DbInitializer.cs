@@ -19,7 +19,7 @@ namespace WickedTunaInfrastructure
         {
             dbContext.Database.EnsureCreated();
 
-            if(dbContext.BoatOwners.Any())
+            if(dbContext.Cottages.Any())
             {
                 return;
             }
@@ -32,7 +32,7 @@ namespace WickedTunaInfrastructure
 
         public static void SeedUsers(WickedTunaDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
-            /*
+            
             #region Cottages
             var userCottageOwner1 = new ApplicationUser() { Email = "cottage.owner1@mail.com", UserName = "cottage.owner1@mail.com", EmailConfirmed = true };
             var userCottageOwner1Result = userManager.CreateAsync(userCottageOwner1, "CottageOwner1*").Result;
@@ -94,10 +94,9 @@ namespace WickedTunaInfrastructure
             dbContext.CottageOwners.Add(cottageOwner3);
             dbContext.SaveChanges();
 
-
             var cottage11 = new Cottage()
             {
-                Id = new Guid(),
+                Id = new Guid("35241d6f-275d-4744-bc00-58eb61b19ca8"),
                 Name = "Holiday Home",
                 Address = new Address()
                 {
@@ -109,11 +108,31 @@ namespace WickedTunaInfrastructure
                 Price = 3000.0f,
                 CottageOwner = cottageOwner1,
                 AdditionalServices = "besplatan parking, besplatan WiFi",
+                CottageRooms = new List<CottageRoom>()
+                {
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 2,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    }
+                },
+                NumberOfRooms = 3,
             };
             dbContext.Cottages.Add(cottage11);
 
             var cottage21 = new Cottage()
             {
+                Id = new Guid("7a2b1a9c-bc02-415c-ae5d-6459997be90b"),
                 Name = "Vila Gago",
                 Address = new Address()
                 {
@@ -125,11 +144,31 @@ namespace WickedTunaInfrastructure
                 Price = 3000.0f,
                 CottageOwner = cottageOwner2,
                 AdditionalServices = "besplatan parking, besplatan WiFi, dozvoljeni kucni ljubimci",
+                CottageRooms = new List<CottageRoom>()
+                {
+                    new CottageRoom()
+                    {
+                        Room = "Dnevna soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 2,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 2,
+                    }
+                },
+                NumberOfRooms = 3,
             };
             dbContext.Cottages.Add(cottage21);
 
             var cottage22 = new Cottage()
             {
+                Id = new Guid("cf251f0e-e742-4506-b068-a0a68ab3da92"),
                 Name = "Yellow house",
                 Address = new Address()
                 {
@@ -141,11 +180,36 @@ namespace WickedTunaInfrastructure
                 Price = 3000.0f,
                 CottageOwner = cottageOwner2,
                 AdditionalServices = "besplatan parking, besplatan WiFi, dozvoljeni kucni ljubimci, bazen",
+                CottageRooms = new List<CottageRoom>()
+                {
+                    new CottageRoom()
+                    {
+                        Room = "Dnevna soba",
+                        NumberOfBeds = 2,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 2,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    }
+                },
+                NumberOfRooms = 4,
             };
             dbContext.Cottages.Add(cottage22);
 
             var cottage23 = new Cottage()
             {
+                Id = new Guid("d71de2a1-1a33-496a-9169-7d316d734fe9"),
                 Name = "Mali Bor",
                 Address = new Address()
                 {
@@ -157,11 +221,31 @@ namespace WickedTunaInfrastructure
                 Price = 2900.0f,
                 CottageOwner = cottageOwner2,
                 AdditionalServices = "besplatan parking, besplatan WiFi",
+                CottageRooms = new List<CottageRoom>()
+                {
+                    new CottageRoom()
+                    {
+                        Room = "Dnevna soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 2,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    },
+                },
+                NumberOfRooms = 3,
             };
             dbContext.Cottages.Add(cottage23);
 
             var cottage31 = new Cottage()
             {
+                Id = new Guid("f5f0513d-94f3-4bd8-8f9c-110b15cedbd7"),
                 Name = "Vila",
                 Address = new Address()
                 {
@@ -169,10 +253,39 @@ namespace WickedTunaInfrastructure
                     City = "Zlatiborr",
                     Street = "Vodice"
                 },
-                Description = "Vila Delona je smeštena na Zlatiboru, na 7 km od Ski centra Tornik. U ponudi ima besplatan bežični internet i lokaciju koju okružuje priroda. Pored toga nudi besplatan parking u sklopu objekta.",
+                Description = "Vila  je smeštena na Zlatiboru, na 7 km od Ski centra Tornik. U ponudi ima besplatan bežični internet i lokaciju koju okružuje priroda. Pored toga nudi besplatan parking u sklopu objekta.",
                 Price = 2900.0f,
                 CottageOwner = cottageOwner3,
                 AdditionalServices = "besplatan parking, besplatan WiFi, dozvoljeni kucni ljubimci",
+                CottageRooms = new List<CottageRoom>()
+                {
+                    new CottageRoom()
+                    {
+                        Room = "Dnevna soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 2,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    },
+                    new CottageRoom()
+                    {
+                        Room = "Spavaca soba",
+                        NumberOfBeds = 1,
+                    },
+                },
+                NumberOfRooms = 5,
             };
             dbContext.Cottages.Add(cottage31);
             dbContext.SaveChanges();
@@ -244,8 +357,8 @@ namespace WickedTunaInfrastructure
 
             dbContext.SaveChanges();
             #endregion
-            */
             
+            /*
             #region Boats
             var userBoatOwner1 = new ApplicationUser() { Email = "boat.owner1@mail.com", UserName = "boat.owner1@mail.com", EmailConfirmed = true };
             var userBoatOwnerResult1 = userManager.CreateAsync(userBoatOwner1, "BoatOwner1*").Result;

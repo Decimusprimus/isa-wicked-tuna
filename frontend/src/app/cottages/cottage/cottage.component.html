@@ -7,18 +7,30 @@
         </div>
         <div>
             <h3>Images</h3>
-            <div>
+            <div style="display: flex;">
                 <img src="{{imgSrc}}" class="img-show">
                 <button mat-button (click)="showImages()">Show more images</button>
             </div>
         </div>
+        <mat-divider></mat-divider>
         <div class="info-box">
-            <h3>Description</h3>
+            <h3 style="font-weight: bold;">Description</h3>
             <p>{{this.cottage.description}}</p>
         </div>
         <div class="info-box">
-            <h3>AdditionalServices</h3>
+            <h3 style="font-weight: bold;">AdditionalServices</h3>
             <h4>{{this.cottage.additionalServices}}</h4>
+        </div>
+        <div class="info-box">
+            <h3 style="font-weight: bold;">Rooms</h3>
+            <h4>Number of rooms: {{this.cottage.numberOfRooms}}</h4>
+            <h4>Number of beds per room:</h4>
+            <ul>
+                <li *ngFor="let item of this.cottage.cottageRooms">
+                    {{item.room}} : {{item.numberOfBeds}}
+                </li>
+            </ul>
+
         </div>
     </div>
     <div class="reservation-info">
