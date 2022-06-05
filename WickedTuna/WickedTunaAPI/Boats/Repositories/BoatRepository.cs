@@ -17,7 +17,7 @@ namespace WickedTunaAPI.Boats.Repositories
 
         public Boat GetById(Guid id)
         {
-            return _context.Boats.Include(b => b.BoatAvailablePeriods).FirstOrDefault(b => b.Id == id);
+            return _context.Boats.Include(b => b.BoatAvailablePeriods).Include(b => b.BoatAdditionalOptions).FirstOrDefault(b => b.Id == id);
         }
     }
 }

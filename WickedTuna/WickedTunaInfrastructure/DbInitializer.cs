@@ -19,7 +19,7 @@ namespace WickedTunaInfrastructure
         {
             dbContext.Database.EnsureCreated();
 
-            if(dbContext.Cottages.Any())
+            if(dbContext.Boats.Any())
             {
                 return;
             }
@@ -32,7 +32,7 @@ namespace WickedTunaInfrastructure
 
         public static void SeedUsers(WickedTunaDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
-            
+            /*
             #region Cottages
             var userCottageOwner1 = new ApplicationUser() { Email = "cottage.owner1@mail.com", UserName = "cottage.owner1@mail.com", EmailConfirmed = true };
             var userCottageOwner1Result = userManager.CreateAsync(userCottageOwner1, "CottageOwner1*").Result;
@@ -357,8 +357,8 @@ namespace WickedTunaInfrastructure
 
             dbContext.SaveChanges();
             #endregion
+            */
             
-            /*
             #region Boats
             var userBoatOwner1 = new ApplicationUser() { Email = "boat.owner1@mail.com", UserName = "boat.owner1@mail.com", EmailConfirmed = true };
             var userBoatOwnerResult1 = userManager.CreateAsync(userBoatOwner1, "BoatOwner1*").Result;
@@ -402,6 +402,7 @@ namespace WickedTunaInfrastructure
 
             var boat11 = new Boat()
             {
+                Id = new Guid("f63ae92e-6203-42e8-9519-87c93fa5eab5"),
                 Name = "BENETEAU",
                 Type = "Cruiser",
                 NumberOfEngines = 0,
@@ -416,12 +417,32 @@ namespace WickedTunaInfrastructure
                 Capacity = 6,
                 CancellationFee = 0.1f,
                 BoatOwner = boatOwner1,
+                BoatAdditionalOptions = new List<BoatAdditionalOptions>()
+                {
+                    new BoatAdditionalOptions()
+                    {
+                        Description = "Kayak",
+                        Price = 80f,                        
+                    },
+                    new BoatAdditionalOptions()
+                    {
+                        Description = "Skipper",
+                        Price = 150f,
+                    },
+                    new BoatAdditionalOptions()
+                    {
+                        Description = "Mobile toilet (WC)",
+                        Price = 30f,
+                    },
+                },
+                Price = 350f
                 
             };
             dbContext.Boats.Add(boat11);
 
             var boat21 = new Boat()
             {
+                Id = new Guid("66705287-b0b1-4ef2-ac6c-545de9bf1e01"),
                 Name = "JEANNEAU — MERRY FISHER 795",
                 Type = "Motorboat",
                 NumberOfEngines = 1,
@@ -436,6 +457,20 @@ namespace WickedTunaInfrastructure
                 Capacity = 9,
                 CancellationFee = 0,
                 BoatOwner = boatOwner2,
+                BoatAdditionalOptions = new List<BoatAdditionalOptions>()
+                {
+                    new BoatAdditionalOptions()
+                    {
+                        Description = "Water skis",
+                        Price = 25f,
+                    },
+                    new BoatAdditionalOptions()
+                    {
+                        Description = "Inflatable banana",
+                        Price = 40f,
+                    },
+                },
+                Price = 300f
             };
             dbContext.Boats.Add(boat21);
             dbContext.SaveChanges();

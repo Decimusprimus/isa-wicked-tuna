@@ -102,6 +102,8 @@ namespace WickedTunaAPI
             services.AddTransient<ICottageAvailablePeriodRepositroy, CottageAvailablePeriodRepository>();
             services.AddTransient<ICottageReservationRepositroy, CottageReservationRepositroy>();
             services.AddTransient<IBoatRepository, BoatRepository>();
+            services.AddTransient<IBoatReservationRepositroy, BoatReservationRepository>();
+            services.AddTransient<IBoatAvailablePeriodRepository, BoatAvailablePeriodRepositroy>();
 
             
 

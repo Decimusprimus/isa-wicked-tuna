@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Boat } from '../_models/boat';
+import { BoatReservation } from '../_models/boatResrvation';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class BoatService {
 
   public getBoatImages(id: string): Observable<string[]> {
     return this.http.get<string[]>(`${environment.apiUrl}/boats/${id}/images`);
+  }
+
+  public createReservation(reservation: BoatReservation, boat: Boat): Observable<BoatReservation> {
+    return this.http.post<BoatReservation>(`${environment.apiUrl}/boats/${boat.id}/reservation`, reservation);
   }
 
 }

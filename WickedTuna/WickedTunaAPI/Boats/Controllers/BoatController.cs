@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WickedTunaAPI.Boats.Services;
+using WickedTunaCore.Boats;
 
 namespace WickedTunaAPI.Boats.Controllers
 {
@@ -71,6 +74,23 @@ namespace WickedTunaAPI.Boats.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [Authorize]
+        [HttpPost("{id}/reservation")]
+        public IActionResult CreateNewReservation([FromRoute]Guid id, [FromBody]BoatReservation boatReservation)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            if (boatReservation.Start > boatReservation.End || boatReservation.End < boatReservation.Start)
+            {
+                return BadRequest("Dates incorect!");
+            }
+            var res = _boatService.CreateNewReservation(id, boatReservation, email);
+            if(res != null)
+            {
+                return Ok(res);
+            }
+            return BadRequest();
         }
     }
 }

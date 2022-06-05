@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+namespace WickedTunaCore.Boats
+{
+    public class BoatReservationOptions
+    {
+        public Guid Id { get; set; }
+        public string Description { get; set; }
+        public float Price { get; set; }
+        [JsonIgnore]
+        public BoatReservation BoatReservation { get; set; }
+        public Guid BoatReservationId { get; set; }
+    }
+}

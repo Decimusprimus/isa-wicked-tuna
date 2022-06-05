@@ -1,5 +1,6 @@
 import { Address } from "./address";
 import { AvailablePeriod } from "./availablePeriod";
+import { BoatOption } from "./boatOptions";
 
 export class Boat {
     id?: string;
@@ -13,6 +14,9 @@ export class Boat {
     cancellationFee = 0;
     boatAvailablePeriods! : AvailablePeriod[];
     description = '';
+    price = 0;
+    boatAdditionalOptions! : BoatOption[];
+
 
     constructor() {}
 }

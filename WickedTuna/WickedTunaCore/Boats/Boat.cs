@@ -18,6 +18,7 @@ namespace WickedTunaCore.Boats
         public string Description { get; set; }
         public int Capacity { get; set; }
         public float CancellationFee { get; set; }
+        public float Price { get; set; }
 
         [JsonIgnore]
         public BoatOwner BoatOwner { get; set; }
@@ -25,6 +26,7 @@ namespace WickedTunaCore.Boats
         public ICollection<BoatAvailablePeriod> BoatAvailablePeriods { get; set; }
         [JsonIgnore]
         public ICollection<BoatReservation> BoatReservations { get; set; }
+        public ICollection<BoatAdditionalOptions> BoatAdditionalOptions { get; set; }
 
     }
 }

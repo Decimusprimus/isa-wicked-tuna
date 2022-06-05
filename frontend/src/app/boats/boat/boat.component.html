@@ -30,25 +30,49 @@
         <div class="info-box">
             <h4>Cancellation fee {{this.boat.cancellationFee*100}}%</h4>
         </div>
+        <div class="info-box">
+            <h3 style="font-weight: bold;">Additional options</h3>
+            <ul>
+                <li *ngFor="let item of this.boat.boatAdditionalOptions">
+                    {{item.description}} : {{item.price}} 
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="reservation-info">
         <mat-card>
             <mat-card-title>Make a reservation</mat-card-title>
             <mat-card-content>
-                <mat-form-field class="form-field">
-                    <input matInput [ngxMatDatetimePickerFilter]="dateTimeFilter" [ngxMatDatetimePicker]="pickerFrom" placeholder="From date & time" [formControl]="myDatePickerFrom">
-                    <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #pickerFrom></ngx-mat-datetime-picker>
-                </mat-form-field>
-                <mat-form-field class="form-field">
-                    <input matInput [ngxMatDatetimePickerFilter]="dateTimeFilter" [ngxMatDatetimePicker]="pickerTo" placeholder="To date & time" [formControl]="myDatePickerTo"
-                    >
-                    <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #pickerTo></ngx-mat-datetime-picker>
-                </mat-form-field>
+                <form [formGroup]="reservationForm"> 
+                    <mat-form-field class="form-field">
+                        <input matInput [ngxMatDatetimePickerFilter]="dateTimeFilterFrom" [ngxMatDatetimePicker]="pickerFrom" placeholder="From date & time" formControlName="myDatePickerFrom">
+                        <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #pickerFrom></ngx-mat-datetime-picker>
+                    </mat-form-field>
+                    <mat-form-field class="form-field">
+                        <input matInput [ngxMatDatetimePickerFilter]="dateTimeFilterTo" [ngxMatDatetimePicker]="pickerTo" placeholder="To date & time" formControlName="myDatePickerTo">
+                        <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #pickerTo></ngx-mat-datetime-picker>
+                    </mat-form-field>
+                    <h3 *ngIf="!validDates" style="color: red;">Dates you selected are invalid!</h3>
+                    <div *ngIf="this.boat.boatAdditionalOptions">
+                        <h4>Select optional services</h4>
+                        <mat-selection-list formControlName="selectedAdditionalServices">
+                            <mat-list-option *ngFor="let item of this.boat.boatAdditionalOptions" [value]="item">{{item.description}} : {{item.price}}</mat-list-option>
+                        </mat-selection-list>
+                    </div>
+                    <mat-form-field class="form-field" >
+                        <mat-label>Number of people</mat-label>
+                        <input type="text" matInput formControlName="numberOfPeople">
+                        <mat-error *ngIf="reservationForm.get('numberOfPeople')?.hasError('pattern') || reservationForm.get('numberOfPeople')?.hasError('required')">Required!</mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="makeReservation()" style="width: 100%;">Confirm</button>
+                </form>
             </mat-card-content>
         </mat-card>
+        <h2 *ngIf="reservationCreated" style="color: green;">Reservation created!</h2>
     </div>
+    
 </div>
 
 <h2 *ngIf="failedToLoad" class="error">Boat not found!</h2>

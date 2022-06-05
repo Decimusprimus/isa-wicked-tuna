@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_core';
 import { BoatService } from 'src/app/_core/boat.service';
 import { Boat } from 'src/app/_models/boat';
+import { BoatReservation } from 'src/app/_models/boatResrvation';
 import { BoatImagesDialogComponent } from './boat-images-dialog/boat-images-dialog.component';
 
 @Component({
@@ -17,14 +19,22 @@ export class BoatComponent implements OnInit {
   imgSrc = '';
   images: string[] = [];
   failedToLoad = false;
-  myDatePickerFrom = new FormControl('');
-  myDatePickerTo = new FormControl('');
+  reservationForm = this.formBuilder.group({
+    selectedAdditionalServices: '',
+    myDatePickerFrom : '',
+    myDatePickerTo: '',
+    numberOfPeople: ['', [Validators.pattern('^[0-9]+$'), Validators.required]],
+  });
+  validDates = true;
+  reservationCreated = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private boatService: BoatService,
     public dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
@@ -57,12 +67,31 @@ export class BoatComponent implements OnInit {
     });
   }
 
-  dateTimeFilter = (d: Date | null) : boolean => {
+  dateTimeFilterFrom = (d: Date | null) : boolean => {
     const day = (d || new Date()).getTime();
-    return this.checkDate(day);
+    return this.checkDateFrom(day);
   }
 
-  checkDate(date: number) : boolean {
+  checkDateFrom(date: number) : boolean {
+    var valid = false;
+    this.boat.boatAvailablePeriods.forEach(element => {
+      let startDate = new Date(element.start).getTime();
+      let endDate = new Date(element.end).getTime();
+      let today = new Date().getTime();
+      if(date >= startDate && date <= endDate && date >= today)
+      {
+        valid = true;
+      }
+    });
+    return valid;
+  }
+
+  dateTimeFilterTo = (d: Date | null) : boolean => {
+    const day = (d || new Date()).getTime();
+    return this.checkDateFrom(day);
+  }
+
+  checkDateTo(date: number) : boolean {
     var valid = false;
     this.boat.boatAvailablePeriods.forEach(element => {
       let startDate = new Date(element.start).getTime();
@@ -77,7 +106,30 @@ export class BoatComponent implements OnInit {
   }
 
   makeReservation() {
-    console.log(this.myDatePickerFrom);
+    if(!this.authService.getJwtToken())
+    {
+      this.router.navigate(['login']);
+      return;
+    }
+    if(this.reservationForm.invalid)
+    {
+      return
+    }
+    var reservation = new BoatReservation();
+    reservation.boatReservationOptions = this.reservationForm.get('selectedAdditionalServices')?.value;
+    reservation.numberOfPeople = this.reservationForm.get('numberOfPeople')?.value;
+    reservation.start = this.reservationForm.get('myDatePickerFrom')?.value;
+    reservation.end = this.reservationForm.get('myDatePickerTo')?.value
+    console.log(reservation);
+    this.boatService.createReservation(reservation, this.boat).subscribe({
+      next: data =>
+      {
+        this.reservationCreated = true;
+      },
+      error: err => {
+        this.validDates = false;
+      }
+    })
   }
 
 

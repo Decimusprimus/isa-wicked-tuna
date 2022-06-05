@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WickedTunaInfrastructure;
@@ -9,9 +10,10 @@ using WickedTunaInfrastructure;
 namespace WickedTunaInfrastructure.Migrations
 {
     [DbContext(typeof(WickedTunaDbContext))]
-    partial class WickedTunaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220605133343_changed_boat")]
+    partial class changed_boat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -430,9 +432,6 @@ namespace WickedTunaInfrastructure.Migrations
                     b.Property<int>("NumberOfPeople")
                         .HasColumnType("integer");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
                     b.Property<DateTime>("Start")
                         .HasColumnType("timestamp without time zone");
 
@@ -443,28 +442,6 @@ namespace WickedTunaInfrastructure.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("BoatReservations");
-                });
-
-            modelBuilder.Entity("WickedTunaCore.Boats.BoatReservationOptions", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BoatReservationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoatReservationId");
-
-                    b.ToTable("BoatReservationOptions");
                 });
 
             modelBuilder.Entity("WickedTunaCore.Cottages.Cottage", b =>
@@ -951,17 +928,6 @@ namespace WickedTunaInfrastructure.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("WickedTunaCore.Boats.BoatReservationOptions", b =>
-                {
-                    b.HasOne("WickedTunaCore.Boats.BoatReservation", "BoatReservation")
-                        .WithMany("BoatReservationOptions")
-                        .HasForeignKey("BoatReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BoatReservation");
-                });
-
             modelBuilder.Entity("WickedTunaCore.Cottages.Cottage", b =>
                 {
                     b.HasOne("WickedTunaCore.Users.CottageOwner", "CottageOwner")
@@ -1119,11 +1085,6 @@ namespace WickedTunaInfrastructure.Migrations
                     b.Navigation("BoatAvailablePeriods");
 
                     b.Navigation("BoatReservations");
-                });
-
-            modelBuilder.Entity("WickedTunaCore.Boats.BoatReservation", b =>
-                {
-                    b.Navigation("BoatReservationOptions");
                 });
 
             modelBuilder.Entity("WickedTunaCore.Cottages.Cottage", b =>

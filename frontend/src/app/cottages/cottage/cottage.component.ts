@@ -85,10 +85,6 @@ export class CottageComponent implements OnInit {
 
   checkDateFrom(date: number) : boolean {
     var valid = false;
-    if(this.reservationForm.get('myDatePickerTo')?.value  && this.reservationForm.get('myDatePickerTo')?.value.getTime() < date )
-    {
-      return false;
-    }
     this.cottage.cottageAvailablePeriods.forEach(element => {
       let startDate = new Date(element.start).getTime();
       let endDate = new Date(element.end).getTime();
@@ -108,10 +104,6 @@ export class CottageComponent implements OnInit {
 
   checkDateTo(date: number) : boolean {
     var valid = false;
-    if(this.reservationForm.get('myDatePickerFrom')?.value && this.reservationForm.get('myDatePickerFrom')?.value.getTime() > date )
-    {
-      return false;
-    }
     this.cottage.cottageAvailablePeriods.forEach(element => {
       let startDate = new Date(element.start).getTime();
       let endDate = new Date(element.end).getTime();
