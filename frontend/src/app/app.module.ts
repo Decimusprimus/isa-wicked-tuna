@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { appInitializer } from './_helpers/app.initializer';
 import { AuthenticationService } from './_core';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
@@ -35,6 +35,7 @@ import { BoatsModule } from './boats/boats.module';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,

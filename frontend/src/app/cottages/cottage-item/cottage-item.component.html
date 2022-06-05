@@ -1,7 +1,7 @@
 <div>
     <mat-card (click)="goToCottage()" class="card">
         <mat-card-content class="card-content">
-            <img class="img-show" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+            <img class="img-show" src="{{imageSrc}}">
             <div class="content-info">
                 <h2>{{this.cottage.name}}</h2>
                 <h4>{{getAddress()}}</h4>

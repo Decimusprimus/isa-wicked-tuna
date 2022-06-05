@@ -1,5 +1,5 @@
 import { Address } from "./address";
-import { AvailablePeriod } from "./cottageAvailablePeriod";
+import { AvailablePeriod } from "./availablePeriod";
 
 export class Cottage{
     id?: string;

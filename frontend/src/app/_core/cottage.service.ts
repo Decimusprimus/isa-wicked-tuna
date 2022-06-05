@@ -20,4 +20,18 @@ export class CottageService {
   public getCottage(id: string): Observable<Cottage> {
     return this.http.get<Cottage>(`${environment.apiUrl}/cottages/${id}`);
   }
+
+  public getFirstCottageImage(cottage: Cottage) {
+    return `${environment.apiUrl}/cottages/${cottage.id}/image`;
+  }
+
+  public getCottageImageForName(cottage: Cottage, image: string) {
+    return `${environment.apiUrl}/cottages/${cottage.id}/images/${image}`;
+  }
+
+  public getCottageImages(id: string): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/cottages/${id}/images`);
+  }
+  
+ 
 }

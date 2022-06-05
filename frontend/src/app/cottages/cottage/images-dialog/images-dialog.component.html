@@ -1,0 +1,4 @@
+<h2 mat-dialog-title>Images</h2>
+<div mat-dialog-content>
+    <app-image-show-dialog *ngFor="let item of data.images" [cottage]="data.cottage" [image]="item" ></app-image-show-dialog>
+</div>

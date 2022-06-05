@@ -31,5 +31,46 @@ namespace WickedTunaAPI.Cottages.Controller
             var cottage = _cottageService.GetCottageForId(id);
             return cottage != null ? Ok(cottage) : NotFound();
         }
+
+        [HttpGet("{id}/images")]
+        public IActionResult GetImagesForCottage(Guid id)
+        {
+            try
+            {
+                var images = _cottageService.GetImagesForCottage(id);
+                return Ok(images);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{cottageId}/images/{name}")]
+        public IActionResult GetCottageImageForName([FromRoute] Guid cottageId, [FromRoute]string name)
+        {
+            try
+            {
+                var image = _cottageService.GetCottageImageForId(cottageId, name);
+                return image != null ? File(image, "image/jpeg") : NotFound();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("{id}/image")]
+        public IActionResult GetFirstImageForCottage(Guid id)
+        {
+            try
+            {
+                return File(_cottageService.GetFirstImageForCottage(id), "image/jpeg");
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }

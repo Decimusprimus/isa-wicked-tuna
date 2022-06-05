@@ -1,6 +1,5 @@
 export class AvailablePeriod{
-    id? : string;
-    start = '';
-    end = '';
+    start! : Date;
+    end! : Date;
     constructor(){}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WickedTunaAPI.Cottages.Repositroy;
@@ -30,6 +31,31 @@ namespace WickedTunaAPI.Cottages.Service
         public Cottage GetCottageForId(Guid id)
         {
             return _cottageRepositroy.GetById(id);
+        }
+
+        public List<string> GetImagesForCottage(Guid id)
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, "Data", "Cottages", id.ToString());
+            var directoryInfo = new DirectoryInfo(path);
+            return directoryInfo.GetFiles().Select(o => o.Name).ToList();
+        }
+
+        public byte[] GetCottageImageForId(Guid cottageId, string name)
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, "Data", "Cottages", cottageId.ToString(), name);
+            if (File.Exists(path))
+            {
+                return File.ReadAllBytes(path);
+            }
+            return null;
+        }
+
+        public byte[] GetFirstImageForCottage(Guid id)
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, "Data", "Cottages", id.ToString());
+            var directoryInfo = new DirectoryInfo(path);
+            var imagePath = directoryInfo.GetFiles().First();
+            return File.ReadAllBytes(imagePath.FullName);
         }
     }
 }

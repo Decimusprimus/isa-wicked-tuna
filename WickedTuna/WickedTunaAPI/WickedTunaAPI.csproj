@@ -20,6 +20,22 @@
 
   <ItemGroup>
     <Folder Include="Auth\Repository\" />
+    <Folder Include="Data\Boats\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\Cottages\35241d6f-275d-4744-bc00-58eb61b19ca8\127717477.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Cottages\35241d6f-275d-4744-bc00-58eb61b19ca8\133893194.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Cottages\35241d6f-275d-4744-bc00-58eb61b19ca8\80777200.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Cottages\35241d6f-275d-4744-bc00-58eb61b19ca8\80778379.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

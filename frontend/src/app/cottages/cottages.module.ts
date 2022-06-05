@@ -7,6 +7,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CottagesComponent } from './cottages.component';
 import { CottageItemComponent } from './cottage-item/cottage-item.component';
 import { CottageComponent } from './cottage/cottage.component';
+import { ImagesDialogComponent } from './cottage/images-dialog/images-dialog.component';
+import { ImageShowDialogComponent } from './cottage/images-dialog/image-show-dialog/image-show-dialog.component';
 
 
 
@@ -15,6 +17,8 @@ import { CottageComponent } from './cottage/cottage.component';
     CottagesComponent,
     CottageItemComponent,
     CottageComponent,
+    ImagesDialogComponent,
+    ImageShowDialogComponent,
   ],
   imports: [
     CommonModule,

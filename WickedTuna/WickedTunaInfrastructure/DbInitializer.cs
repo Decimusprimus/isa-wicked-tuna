@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WickedTunaCore.AdventuresLessons;
 using WickedTunaCore.Auth;
 using WickedTunaCore.Boats;
 using WickedTunaCore.Common;
@@ -31,26 +32,6 @@ namespace WickedTunaInfrastructure
 
         public static void SeedUsers(WickedTunaDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
-            /* var user = new ApplicationUser() { Email = "marko.ppekez25@gmail.com", UserName = "marko.ppekez25@gmail.com", EmailConfirmed = true};
-             var res = userManager.CreateAsync(user, "Instructor1*").Result;
-             if(res.Succeeded)
-             {
-                 userManager.AddToRoleAsync(user, "Instructor").Wait();
-             }
-
-             var instructor = new Instructor()
-             {
-                 ApplicationUser = user,
-                 Email = "marko.ppekez25@gmail.com",
-                 Name = "Pero", 
-                 Surname = "Simo",
-                 County = "Serbia",
-                 City = "Novi Sad", 
-                 StreetName = "Branka Bajica 24",
-             };
-             dbContext.Instructors.Add(instructor);
-             dbContext.SaveChanges();*/
-
             /*
             #region Cottages
             var userCottageOwner1 = new ApplicationUser() { Email = "cottage.owner1@mail.com", UserName = "cottage.owner1@mail.com", EmailConfirmed = true };
@@ -264,7 +245,8 @@ namespace WickedTunaInfrastructure
             dbContext.SaveChanges();
             #endregion
             */
-
+            
+            #region Boats
             var userBoatOwner1 = new ApplicationUser() { Email = "boat.owner1@mail.com", UserName = "boat.owner1@mail.com", EmailConfirmed = true };
             var userBoatOwnerResult1 = userManager.CreateAsync(userBoatOwner1, "BoatOwner1*").Result;
             if (userBoatOwnerResult1.Succeeded)
@@ -385,6 +367,35 @@ namespace WickedTunaInfrastructure
             };
             dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod222);
             dbContext.SaveChanges();
+            #endregion
+            /*
+            var userInstructor1 = new ApplicationUser() { Email = "instructor1@mail.com", UserName = "instructor11@mail.com", EmailConfirmed = true };
+            var userInsturctorResult1 = userManager.CreateAsync(userInstructor1, "Instructor1*").Result;
+            if (userInsturctorResult1.Succeeded)
+            {
+                userManager.AddToRoleAsync(userInstructor1, "Instructor").Wait();
+            }
+            var instructor1 = new Instructor()
+            {
+                ApplicationUser = userInstructor1,
+                Email = "instructor1@mail.com",
+                Name = "Djordje",
+                Surname = "Lukic",
+                County = "Serbia",
+                City = "Novi Sad",
+                StreetName = "Zeljeznicka 5",
+                PhoneNumber = "3815656763",
+            };
+            dbContext.Instructors.Add(instructor1);
+
+            dbContext.SaveChanges();
+
+            var advLesson = new AdventureLesson()
+            {
+                Name
+            }
+
+            */
 
         }
 

@@ -9,6 +9,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatExpansionModule} from '@angular/material/expansion'; 
 import {MatDividerModule} from '@angular/material/divider'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 
 @NgModule({
@@ -22,6 +29,11 @@ import {MatDividerModule} from '@angular/material/divider';
     MatMenuModule,
     MatExpansionModule,
     MatDividerModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
   ],
   exports: [
     MatInputModule,
@@ -33,6 +45,11 @@ import {MatDividerModule} from '@angular/material/divider';
     MatMenuModule,  
     MatExpansionModule,
     MatDividerModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
   ]
 })
 export class MaterialModule { }
