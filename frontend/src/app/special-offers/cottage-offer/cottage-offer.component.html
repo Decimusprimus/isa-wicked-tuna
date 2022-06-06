@@ -1,0 +1,13 @@
+<div>
+    <mat-card class="card">
+        <mat-card-content class="card-content">
+            <img src="{{imgSrc}}" class="img-show">
+            <div class="content-info">
+                <h2>{{this.cottage.name}}</h2>
+                <h3>From: {{getDatTimeString(this.cottageOffer.start)}} - To: {{getDatTimeString(this.cottageOffer.end)}}</h3>
+                <h3>For {{this.cottageOffer.numberOfPeople}} person/s</h3>
+                <h2>Price : {{this.cottageOffer.price}}</h2>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

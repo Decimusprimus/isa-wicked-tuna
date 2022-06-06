@@ -9,5 +9,6 @@ namespace WickedTunaAPI.Boats.Repositories
 {
     public interface IBoatReservationRepositroy : IRepository<BoatReservation>
     {
+        List<BoatReservation> GetWithoutClient();
     }
 }

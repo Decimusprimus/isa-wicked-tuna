@@ -22,4 +22,8 @@ export class ClientHomeComponent implements OnInit {
   goToBoats() {
     this.router.navigate(['boats']);
   }
+
+  goToSpecialOffers() {
+    this.router.navigate(['special-offers']);
+  }
 }

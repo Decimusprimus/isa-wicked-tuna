@@ -96,5 +96,13 @@ namespace WickedTunaAPI.Cottages.Controller
             }
 
         }
+
+        [HttpGet("special-offers")]
+        public IActionResult GetCottageSpecialOffers()
+        {
+            return Ok(_cottageService.GetCottageSpecialOffers());
+        }
     }
+
+    
 }

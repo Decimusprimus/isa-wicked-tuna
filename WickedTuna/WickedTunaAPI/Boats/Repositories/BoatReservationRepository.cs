@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace WickedTunaAPI.Boats.Repositories
     {
         public BoatReservationRepository(WickedTunaDbContext context) : base(context)
         {
+        }
+
+        public List<BoatReservation> GetWithoutClient()
+        {
+            return _context.BoatReservations.Include(br => br.BoatReservationOptions).Where(br => br.ClientId == null && br.Start > DateTime.Now).ToList();
         }
     }
 }

@@ -105,5 +105,10 @@ namespace WickedTunaAPI.Cottages.Service
             return cottageReservation;
 
         }
+
+        public List<CottageReservation> GetCottageSpecialOffers()
+        {
+            return _cottageReservationRepositroy.GetWithoutClient();
+        }
     }
 }

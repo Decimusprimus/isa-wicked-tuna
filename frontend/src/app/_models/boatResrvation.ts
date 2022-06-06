@@ -5,6 +5,8 @@ export class BoatReservation{
     end!: Date;
     boatReservationOptions!: BoatOption[];
     numberOfPeople: number = 0;
+    boatId = '';
+    price = 0;
 
     constructor() {}
 }

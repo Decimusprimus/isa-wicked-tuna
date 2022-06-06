@@ -92,5 +92,11 @@ namespace WickedTunaAPI.Boats.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("special-offers")]
+        public IActionResult GetBoatSpecialOffers()
+        {
+            return Ok(_boatService.GetBoatSpecialOffers());
+        }
     }
 }

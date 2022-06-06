@@ -32,3 +32,19 @@
     width: 30%;
     height: 130px;
 }
+
+.special-offer{
+    border: 1mm;
+    border-color: aqua;
+    border-style: groove;
+    border-radius: 3mm;
+    margin: auto;
+    margin-top: 50px;
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 10px;
+    cursor: pointer;
+}

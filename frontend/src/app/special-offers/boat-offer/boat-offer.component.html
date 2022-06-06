@@ -1,0 +1,21 @@
+<div>
+    <mat-card class="card">
+        <mat-card-content class="card-content">
+            <img src="{{imgSrc}}" class="img-show">
+            <div class="content-info">
+                <h2>{{this.boat.name}}</h2>
+                <h3>From: {{getDatTimeString(this.boatOffer.start)}} - To: {{getDatTimeString(this.boatOffer.end)}}</h3>
+                <h3>For {{this.boatOffer.numberOfPeople}} person/s</h3>
+                <div *ngIf="this.boatOffer.boatReservationOptions">
+                    <h3>Included</h3>
+                    <ul>
+                        <li *ngFor="let item of this.boatOffer.boatReservationOptions">
+                            {{item.description}}
+                        </li>
+                    </ul>
+                </div>
+                <h2>Price : {{this.boatOffer.price}}</h2>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -95,5 +95,10 @@ namespace WickedTunaAPI.Boats.Services
             return boatReservation;
 
         }
+
+        public List<BoatReservation> GetBoatSpecialOffers()
+        {
+            return _boatReservationRepositroy.GetWithoutClient();
+        }
     }
 }

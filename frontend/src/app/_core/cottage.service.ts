@@ -37,6 +37,10 @@ export class CottageService {
   public crateReservation(reservation: CottageReservation, cottage: Cottage) : Observable<CottageReservation> {
     return this.http.post<CottageReservation>(`${environment.apiUrl}/cottages/${cottage.id}/reservation`, reservation);
   }
+
+  public getSpecialOffers() : Observable<CottageReservation[]> {
+    return this.http.get<CottageReservation[]>(`${environment.apiUrl}/cottages/special-offers`);
+  }
   
  
 }

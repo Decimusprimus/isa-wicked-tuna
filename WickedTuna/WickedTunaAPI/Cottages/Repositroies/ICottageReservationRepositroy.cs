@@ -9,5 +9,6 @@ namespace WickedTunaAPI.Cottages.Repositroies
 {
     public interface ICottageReservationRepositroy : IRepository<CottageReservation>
     {
+        List<CottageReservation> GetWithoutClient();
     }
 }

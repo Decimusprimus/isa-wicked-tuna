@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="search-card">
+        <h1>Special offers</h1>
+    </div>
+    <app-cottage-offer *ngFor="let item of this.cottageSpecialOffers" [cottageOffer]="item" class="items"></app-cottage-offer>
+    <app-boat-offer *ngFor="let item of this.boatSpecialOffers" [boatOffer]="item" class="items"></app-boat-offer>
+</div>

@@ -13,5 +13,10 @@ namespace WickedTunaAPI.Cottages.Repositroies
         public CottageReservationRepositroy(WickedTunaDbContext context) : base(context)
         {
         }
+
+        public List<CottageReservation> GetWithoutClient()
+        {
+            return _context.CottageReservations.Where(cr => cr.ClientId == null && cr.Start > DateTime.Now).ToList();
+        }
     }
 }

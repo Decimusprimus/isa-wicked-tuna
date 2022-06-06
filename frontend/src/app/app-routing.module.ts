@@ -12,6 +12,7 @@ import { ClientProfileComponent } from './client/client-profile/client-profile.c
 import { CottageComponent } from './cottages/cottage/cottage.component';
 import { CottagesComponent } from './cottages/cottages.component';
 import { HomeComponent } from './home/home.component';
+import { SpecialOffersComponent } from './special-offers/special-offers.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'cottage/:id', component: CottageComponent },
   { path: 'boats', component: BoatsComponent },
   { path: 'boat/:id', component: BoatComponent },
+  { path: 'special-offers', component: SpecialOffersComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
