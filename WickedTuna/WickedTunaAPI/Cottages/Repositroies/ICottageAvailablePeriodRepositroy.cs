@@ -11,5 +11,7 @@ namespace WickedTunaAPI.Cottages.Repositroies
     {
         CottageAvailablePeriod GetForReservation(Guid id, DateTime start, DateTime end);
         void Remove(CottageAvailablePeriod cottageAvailablePeriod);
+        CottageAvailablePeriod GetPeriodStartWhenCancelling(Guid id, DateTime start);
+        CottageAvailablePeriod GetPeriodEndWhenCancelling(Guid id, DateTime end);
     }
 }

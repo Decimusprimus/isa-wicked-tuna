@@ -45,6 +45,17 @@ export class CottageService {
   public confirmSpecialOffer(offer: CottageReservation): Observable<CottageReservation> {
     return this.http.post<CottageReservation>(`${environment.apiUrl}/cottages/special-offers/${offer.id}`, offer);
   }
+
+  public getPastReservations() : Observable<CottageReservation[]> {
+    return this.http.get<CottageReservation[]>(`${environment.apiUrl}/cottages/reservations/past`);
+  }
+
+  public getActiveReservations() : Observable<CottageReservation[]> {
+    return this.http.get<CottageReservation[]>(`${environment.apiUrl}/cottages/reservations/active`);
+  }
   
+  public cancelReservation(reservation: CottageReservation) {
+    return this.http.post(`${environment.apiUrl}/cottages/reservation/cancel/${reservation.id}`,reservation);
+  }
  
 }

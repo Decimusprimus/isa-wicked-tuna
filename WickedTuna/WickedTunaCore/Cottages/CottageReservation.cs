@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using WickedTunaCore.Common;
 using WickedTunaCore.Users;
 
 namespace WickedTunaCore.Cottages
@@ -12,6 +13,9 @@ namespace WickedTunaCore.Cottages
         public int NumberOfPeople { get; set; } 
         public string AdditionalServices { get; set; }
         public float Price { get; set; }
+        public ReservationType ReservationType { get; set; } 
+        public ReservationStatus ReservationStatus { get; set; }
+
         [JsonIgnore]
         public Cottage Cottage { get; set; }
         public Guid CottageId { get; set; }

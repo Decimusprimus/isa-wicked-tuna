@@ -1,0 +1,17 @@
+<div>
+    <mat-card class="card">
+        <mat-card-content class="card-content">
+            <img src="{{imgSrc}}" class="img-show">
+            <div class="content-info">
+                <h2>{{this.cottage.name}}</h2>
+                <h3>From: {{getDatTimeString(this.reservation.start)}} - To: {{getDatTimeString(this.reservation.end)}}</h3>
+                <h3>For {{this.reservation.numberOfPeople}} person/s</h3>
+                <h2>Price : {{this.reservation.price}}</h2>
+            </div>
+            <div class="ccnt">
+                <h3>Rating: </h3>
+                <button mat-raised-button color="primary" (click)="cancelReservation()">Cancel reservation</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

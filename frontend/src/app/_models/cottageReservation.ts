@@ -1,10 +1,10 @@
 export class CottageReservation {
-    id = '';
+    id? :  string;
     start!: Date;
     end!: Date;
     additionalServices: string[] = [];
     numberOfPeople: number = 0;
-    cottageId = '';
+    cottageId?: string;
     price = 0;
 
     constructor() {}

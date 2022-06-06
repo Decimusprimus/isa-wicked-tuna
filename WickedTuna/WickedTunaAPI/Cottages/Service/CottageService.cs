@@ -7,6 +7,7 @@ using WickedTunaAPI.Clients.Service;
 using WickedTunaAPI.Cottages.Exceptions;
 using WickedTunaAPI.Cottages.Repositroies;
 using WickedTunaAPI.Cottages.Repositroy;
+using WickedTunaCore.Common;
 using WickedTunaCore.Cottages;
 
 namespace WickedTunaAPI.Cottages.Service
@@ -79,25 +80,36 @@ namespace WickedTunaAPI.Cottages.Service
             {
                 throw new PeriodNotFoundExcetpion();
             }
-            var period1 = new CottageAvailablePeriod()
+
+            if(period.Start == cottageReservation.Start && period.End == cottageReservation.End)
             {
-                Cottage = cottage,
-                Start = period.Start,
-                End = cottageReservation.Start,
-            };
-            var period2 = new CottageAvailablePeriod()
+                _cottageAvailablePeriodRepositroy.Remove(period);
+            }
+            else if(period.Start == cottageReservation.Start)
             {
-                Cottage = cottage,
-                Start = cottageReservation.End,
-                End = period.End,
-            };
-            _cottageAvailablePeriodRepositroy.Insert(period1);
-            _cottageAvailablePeriodRepositroy.Insert(period2);
-            _cottageAvailablePeriodRepositroy.Remove(period);
+                period.Start = cottageReservation.End;
+            }
+            else if(period.End == cottageReservation.End)
+            {
+                period.End = cottageReservation.Start;
+            }
+            else 
+            {
+                var period1 = new CottageAvailablePeriod()
+                {
+                    Cottage = cottage,
+                    Start = period.Start,
+                    End = cottageReservation.Start,
+                };
+                period.Start = cottageReservation.End;
+                _cottageAvailablePeriodRepositroy.Insert(period1);
+            }
             _cottageAvailablePeriodRepositroy.Save();
 
             cottageReservation.Cottage = cottage;
             cottageReservation.Price = cottage.Price;
+            cottageReservation.ReservationType = ReservationType.Reservation;
+            cottageReservation.ReservationStatus = ReservationStatus.Acite;
             var client = _clientService.GetClientForEmail(email);
             cottageReservation.Client = client;
             _cottageReservationRepositroy.Insert(cottageReservation);
@@ -124,8 +136,85 @@ namespace WickedTunaAPI.Cottages.Service
                 return null;
             }
             specialOffer.Client = client;
+            specialOffer.ReservationStatus = ReservationStatus.Acite;
             _cottageReservationRepositroy.Save();
             return specialOffer;
         }
+
+        public List<CottageReservation> GetActiveReservations(string email)
+        {
+            var client = _clientService.GetClientForEmail(email);
+            if(client == null)
+            {
+                return null;
+            }
+            return _cottageReservationRepositroy.GetActiveReservationsForClient(client.UserId);
+        }
+
+        public List<CottageReservation> GetPastReservations(string email)
+        {
+            var client = _clientService.GetClientForEmail(email);
+            if (client == null)
+            {
+                return null;
+            }
+            return _cottageReservationRepositroy.GetPastReservationsForClient(client.UserId);
+        }
+
+        public bool CancelReservation(Guid id, CottageReservation cottageReservation, string email)
+        {
+            var reservation = _cottageReservationRepositroy.GetById(id);
+            if(reservation != null && reservation.Start > DateTime.Now.AddDays(3))
+            {
+                var client = _clientService.GetClientForEmail(email);
+                if(String.Equals(reservation.ClientId,client.UserId))
+                {
+                    if(reservation.ReservationType == ReservationType.Special_offer)
+                    {
+                        reservation.Client = null;
+                        reservation.ReservationStatus = ReservationStatus.Cancelled;
+                        _cottageReservationRepositroy.Save();
+                    }
+                    else
+                    {
+                        var starPeriod = _cottageAvailablePeriodRepositroy.GetPeriodStartWhenCancelling(reservation.CottageId, reservation.End);
+                        var endperiod = _cottageAvailablePeriodRepositroy.GetPeriodEndWhenCancelling(reservation.CottageId, reservation.Start);
+                        if(starPeriod != null && endperiod != null)
+                        {
+                            endperiod.End = starPeriod.End;
+                            _cottageAvailablePeriodRepositroy.Remove(starPeriod);
+                        }
+                        else if(starPeriod != null)
+                        {
+                            starPeriod.Start = reservation.Start;
+                        }
+                        else if(endperiod != null)
+                        {
+                            endperiod.End = reservation.End;
+                        }
+                        else
+                        {
+                            var period = new CottageAvailablePeriod()
+                            {
+                                Start = reservation.Start,
+                                End = reservation.End,
+                                CottageId = reservation.CottageId,
+                            };
+                            _cottageAvailablePeriodRepositroy.Insert(period);
+                        }
+                        reservation.ReservationStatus = ReservationStatus.Cancelled;
+                        _cottageReservationRepositroy.Save();
+                        _cottageAvailablePeriodRepositroy.Save();
+                        
+                    }
+                    return true;
+                }
+            }
+            return false;
+            
+        }
+
+
+        
     }
 }

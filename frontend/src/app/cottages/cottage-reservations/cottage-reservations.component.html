@@ -1,0 +1,12 @@
+<div>
+    <mat-tab-group dynamicHeight>
+        <mat-tab label="Active reservations">
+            <app-cottage-active-reservation *ngFor="let item of this.activeReservations" [reservation]="item"></app-cottage-active-reservation>
+        </mat-tab>
+        <mat-tab label="Reservation history">
+            <div>
+                <app-cottage-past-reservation *ngFor="let item of this.pastReservations" [reservation]="item"></app-cottage-past-reservation>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

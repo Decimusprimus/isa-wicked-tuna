@@ -17,6 +17,10 @@ namespace WickedTunaAPI.Cottages.Service
         CottageReservation CreateNewReservation(Guid id, CottageReservation cottageReservation, string email);
         List<CottageReservation> GetCottageSpecialOffers();
         CottageReservation ConfirmSpecialOffer(Guid id, CottageReservation cottageReservation, string email);
+        List<CottageReservation> GetActiveReservations(string email);
+        List<CottageReservation> GetPastReservations(string email);
+        bool CancelReservation(Guid id, CottageReservation cottageReservation, string email);
+
 
     }
 }

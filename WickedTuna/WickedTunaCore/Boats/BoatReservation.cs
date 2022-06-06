@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using WickedTunaCore.Common;
 using WickedTunaCore.Users;
 
 namespace WickedTunaCore.Boats
@@ -15,6 +16,8 @@ namespace WickedTunaCore.Boats
         public DateTime End { get; set; }
         public int NumberOfPeople { get; set; }
         public float Price { get; set; }
+        public ReservationType ReservationType { get; set; }
+        public ReservationStatus ReservationStatus { get; set; }
 
         [JsonIgnore]
         public Boat Boat { get; set; }

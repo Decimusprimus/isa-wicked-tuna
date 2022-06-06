@@ -112,6 +112,34 @@ namespace WickedTunaAPI.Cottages.Controller
             return res != null ? Ok(res) : BadRequest(); 
 
         }
+
+        [Authorize]
+        [HttpGet("reservations/active")]
+        public IActionResult GetActiveReservations()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _cottageService.GetActiveReservations(email);
+            return res != null ? Ok(res) : BadRequest();
+        }
+
+        [Authorize]
+        [HttpGet("reservations/past")]
+        public IActionResult GetPastReservations()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _cottageService.GetPastReservations(email);
+            return res != null ? Ok(res) : BadRequest();
+        }
+
+        [Authorize]
+        [HttpPost("reservation/cancel/{id}")]
+        public IActionResult CancelReservation([FromRoute] Guid id, [FromBody] CottageReservation cottageReservation)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _cottageService.CancelReservation(id, cottageReservation, email);
+            return res ? Ok() : BadRequest();
+        }
+
     }
 
     

@@ -26,4 +26,8 @@ export class ClientHomeComponent implements OnInit {
   goToSpecialOffers() {
     this.router.navigate(['special-offers']);
   }
+
+  goToCottageReservations() {
+    this.router.navigate(['cottages/reservations']);
+  }
 }

@@ -9,6 +9,9 @@ import { CottageItemComponent } from './cottage-item/cottage-item.component';
 import { CottageComponent } from './cottage/cottage.component';
 import { ImagesDialogComponent } from './cottage/images-dialog/images-dialog.component';
 import { ImageShowDialogComponent } from './cottage/images-dialog/image-show-dialog/image-show-dialog.component';
+import { CottageReservationsComponent } from './cottage-reservations/cottage-reservations.component';
+import { CottageActiveReservationComponent } from './cottage-reservations/cottage-active-reservation/cottage-active-reservation.component';
+import { CottagePastReservationComponent } from './cottage-reservations/cottage-past-reservation/cottage-past-reservation.component';
 
 
 
@@ -19,6 +22,9 @@ import { ImageShowDialogComponent } from './cottage/images-dialog/image-show-dia
     CottageComponent,
     ImagesDialogComponent,
     ImageShowDialogComponent,
+    CottageReservationsComponent,
+    CottageActiveReservationComponent,
+    CottagePastReservationComponent,
   ],
   imports: [
     CommonModule,

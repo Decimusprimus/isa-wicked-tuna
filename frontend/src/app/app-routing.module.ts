@@ -9,6 +9,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { BoatComponent } from './boats/boat/boat.component';
 import { BoatsComponent } from './boats/boats.component';
 import { ClientProfileComponent } from './client/client-profile/client-profile.component';
+import { CottageReservationsComponent } from './cottages/cottage-reservations/cottage-reservations.component';
 import { CottageComponent } from './cottages/cottage/cottage.component';
 import { CottagesComponent } from './cottages/cottages.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'boats', component: BoatsComponent },
   { path: 'boat/:id', component: BoatComponent },
   { path: 'special-offers', component: SpecialOffersComponent },
+  { path: 'cottages/reservations', component: CottageReservationsComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
