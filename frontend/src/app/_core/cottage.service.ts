@@ -41,6 +41,10 @@ export class CottageService {
   public getSpecialOffers() : Observable<CottageReservation[]> {
     return this.http.get<CottageReservation[]>(`${environment.apiUrl}/cottages/special-offers`);
   }
+
+  public confirmSpecialOffer(offer: CottageReservation): Observable<CottageReservation> {
+    return this.http.post<CottageReservation>(`${environment.apiUrl}/cottages/special-offers/${offer.id}`, offer);
+  }
   
  
 }

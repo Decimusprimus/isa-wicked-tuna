@@ -31,4 +31,10 @@ export class CottageOfferComponent implements OnInit {
     return d.toString().substring(0,15);
   }
 
+  confirmOffer() {
+    this.cottageService.confirmSpecialOffer(this.cottageOffer).subscribe(data => {
+      console.log(data);
+    })
+  }
+
 }

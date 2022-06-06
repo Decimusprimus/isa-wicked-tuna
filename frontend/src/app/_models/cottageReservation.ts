@@ -1,4 +1,5 @@
 export class CottageReservation {
+    id = '';
     start!: Date;
     end!: Date;
     additionalServices: string[] = [];

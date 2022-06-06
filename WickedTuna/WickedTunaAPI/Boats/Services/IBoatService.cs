@@ -15,5 +15,6 @@ namespace WickedTunaAPI.Boats.Services
         Byte[] GetFirstImageForBoat(Guid id);
         BoatReservation CreateNewReservation(Guid id, BoatReservation boatReservation, string email);
         List<BoatReservation> GetBoatSpecialOffers();
+        BoatReservation ConfirmSpecialOffer(Guid id, BoatReservation boatReservation, string email);
     }
 }

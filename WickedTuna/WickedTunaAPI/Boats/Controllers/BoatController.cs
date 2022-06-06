@@ -98,5 +98,15 @@ namespace WickedTunaAPI.Boats.Controllers
         {
             return Ok(_boatService.GetBoatSpecialOffers());
         }
+
+        [Authorize]
+        [HttpPost("special-offers/{id}")]
+        public IActionResult CreateSpecialOfferReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _boatService.ConfirmSpecialOffer(id, boatReservation, email);
+            return res != null ? Ok(res) : BadRequest();
+
+        }
     }
 }

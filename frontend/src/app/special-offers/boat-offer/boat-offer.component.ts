@@ -29,4 +29,11 @@ export class BoatOfferComponent implements OnInit {
     return d.toString().substring(0,15);
   }
 
+  confirmOffer() {
+    this.boatService.confirmSpecialOffer(this.boatOffer).subscribe(data => {
+      console.log(data);
+      window.alert("Reservation confirmed");
+    })
+  }
+
 }

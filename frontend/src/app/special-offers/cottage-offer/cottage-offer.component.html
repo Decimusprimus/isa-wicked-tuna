@@ -8,6 +8,9 @@
                 <h3>For {{this.cottageOffer.numberOfPeople}} person/s</h3>
                 <h2>Price : {{this.cottageOffer.price}}</h2>
             </div>
+            <div>
+                <button mat-raised-button color="primary" (click)="confirmOffer()">Confirm</button>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

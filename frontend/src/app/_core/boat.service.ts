@@ -41,4 +41,10 @@ export class BoatService {
   public getSpecialOffers() : Observable<BoatReservation[]> {
     return this.http.get<BoatReservation[]>(`${environment.apiUrl}/boats/special-offers`);
   }
+
+  public confirmSpecialOffer(offer: BoatReservation): Observable<BoatReservation> {
+    return this.http.post<BoatReservation>(`${environment.apiUrl}/boats/special-offers/${offer.id}`, offer);
+  }
+  
+  
 }

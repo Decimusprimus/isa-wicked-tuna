@@ -1,6 +1,7 @@
 import { BoatOption } from "./boatOptions";
 
 export class BoatReservation{
+    id = '';
     start!: Date;
     end!: Date;
     boatReservationOptions!: BoatOption[];

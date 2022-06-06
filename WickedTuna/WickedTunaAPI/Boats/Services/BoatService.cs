@@ -100,5 +100,22 @@ namespace WickedTunaAPI.Boats.Services
         {
             return _boatReservationRepositroy.GetWithoutClient();
         }
+
+        public BoatReservation ConfirmSpecialOffer(Guid id, BoatReservation boatReservation, string email)
+        {
+            var specialOffer = _boatReservationRepositroy.GetById(id);
+            if (specialOffer == null)
+            {
+                return null;
+            }
+            var client = _clientService.GetClientForEmail(email);
+            if (client == null)
+            {
+                return null;
+            }
+            specialOffer.Client = client;
+            _boatReservationRepositroy.Save();
+            return specialOffer;
+        }
     }
 }

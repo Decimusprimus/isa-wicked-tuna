@@ -110,5 +110,22 @@ namespace WickedTunaAPI.Cottages.Service
         {
             return _cottageReservationRepositroy.GetWithoutClient();
         }
+
+        public CottageReservation ConfirmSpecialOffer(Guid id, CottageReservation cottageReservation, string email)
+        {
+            var specialOffer = _cottageReservationRepositroy.GetById(id);
+            if(specialOffer == null)
+            {
+                return null;
+            }
+            var client = _clientService.GetClientForEmail(email);
+            if(client == null)
+            {
+                return null;
+            }
+            specialOffer.Client = client;
+            _cottageReservationRepositroy.Save();
+            return specialOffer;
+        }
     }
 }

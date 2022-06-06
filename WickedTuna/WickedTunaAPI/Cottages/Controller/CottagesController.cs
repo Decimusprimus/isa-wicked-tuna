@@ -102,6 +102,16 @@ namespace WickedTunaAPI.Cottages.Controller
         {
             return Ok(_cottageService.GetCottageSpecialOffers());
         }
+
+        [Authorize]
+        [HttpPost("special-offers/{id}")]
+        public IActionResult CreateSpecialOfferReservation([FromRoute] Guid id, [FromBody] CottageReservation cottageReservation)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _cottageService.ConfirmSpecialOffer(id, cottageReservation, email);
+            return res != null ? Ok(res) : BadRequest(); 
+
+        }
     }
 
     
