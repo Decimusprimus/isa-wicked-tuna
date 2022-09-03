@@ -19,7 +19,7 @@ namespace WickedTunaInfrastructure
         {
             dbContext.Database.EnsureCreated();
 
-            if(dbContext.Boats.Any())
+            if(dbContext.SystemAdmins.Any())
             {
                 return;
             }
@@ -357,7 +357,7 @@ namespace WickedTunaInfrastructure
 
             dbContext.SaveChanges();
             #endregion
-            */
+            
             
             #region Boats
             var userBoatOwner1 = new ApplicationUser() { Email = "boat.owner1@mail.com", UserName = "boat.owner1@mail.com", EmailConfirmed = true };
@@ -516,7 +516,7 @@ namespace WickedTunaInfrastructure
             dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod222);
             dbContext.SaveChanges();
             #endregion
-            /*
+            
             var userInstructor1 = new ApplicationUser() { Email = "instructor1@mail.com", UserName = "instructor11@mail.com", EmailConfirmed = true };
             var userInsturctorResult1 = userManager.CreateAsync(userInstructor1, "Instructor1*").Result;
             if (userInsturctorResult1.Succeeded)
@@ -544,6 +544,27 @@ namespace WickedTunaInfrastructure
             }
 
             */
+
+            var userSystemAdmin = new ApplicationUser() { Email = "systemAdmin@gmail.com", UserName = "systemAdmin@gmail.com", EmailConfirmed = true };
+            var userSystemAdminResult = userManager.CreateAsync(userSystemAdmin, "SystemAdmin1*").Result;
+            if(userSystemAdminResult.Succeeded)
+            {
+                userManager.AddToRoleAsync(userSystemAdmin, "SystemAdmin").Wait();
+            }
+            var systemAdmin = new SystemAdmin()
+            {
+                ApplicationUser = userSystemAdmin,
+                Email = "systemAdmin@gmail.com",
+                Name = "Admin",
+                Surname = "Admin",
+                County = "Serbia",
+                City = "Novi Sad",
+                StreetName = "Branka Bajica 9j",
+                PhoneNumber = "3815646763",
+                PasswordChanged = false,
+            };
+            dbContext.SystemAdmins.Add(systemAdmin);
+            dbContext.SaveChanges();
 
         }
 
