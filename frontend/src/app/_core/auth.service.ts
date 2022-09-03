@@ -20,7 +20,11 @@ export class AuthService {
     private http: HttpClient,
     private userService: UserService,
     private router: Router,
-    ) { }
+    ) { 
+      if(this.getRefreshToken()) {
+        this.refreshToken();
+      }
+    }
 
   login(username: string, password: string) {
     return this.http.post<any>(`${environment.apiUrl}/auth/login`, {username, password})
@@ -41,15 +45,18 @@ export class AuthService {
       this.userService.removeUser();
       this.router.navigate(['/login']);
     })) 
+    .pipe(catchError(err => this.checkError(err)));
   }
 
   refreshToken() {
     return this.http.post<any>(`${environment.apiUrl}/auth/refresh-token`, {
       'token': this.getRefreshToken()
-      }, { withCredentials: true })
+      })
       .pipe(map(user => {
-        this.storeJwtToken(user);
-      }));
+        this.storeTokens(user.jwtToken, user.refreshToken);
+        this.userService.setupUser(user.username, user.userRole);
+      }))
+      .pipe(catchError(err => this.checkError(err)));
   }
 
   getJwtToken() {
@@ -74,12 +81,16 @@ export class AuthService {
   }
 
   doLoginUser(user: User) {
-    console.log(user);
     this.storeTokens(user.jwtToken, user.refreshToken);
   }
 
   private doLogoutUser() {
     this.removeTokens();
+  }
+
+  private checkError(error: any): any {
+    this.doLogoutUser();
+    this.userService.removeUser();
   }
 
   private storeTokens(jwtToken: string, refreshToken: string) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../_core';
+import { AuthenticationService, UserService } from '../_core';
+import { AuthService } from '../_core/auth.service';
 import { User } from '../_models/user';
 
 @Component({
@@ -13,6 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
+    private userService: UserService,
     private router: Router,
     ) { 
     this.user = new User();
@@ -28,6 +30,11 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  clickMe() {
+    console.log(this.userService.currentUser);
+    console.log(this.userService.isUserPresent());
   }
 
 }

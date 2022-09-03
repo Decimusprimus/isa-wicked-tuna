@@ -23,6 +23,7 @@ import { HomeModule } from './home/home.module';
 import { CottagesModule } from './cottages/cottages.module';
 import { BoatsModule } from './boats/boats.module';
 import { SpecialOffersModule } from './special-offers/special-offers.module';
+import { AuthService } from './_core/auth.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { SpecialOffersModule } from './special-offers/special-offers.module';
     FontAwesomeModule
   ],
   providers: [
-    //{ provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService] },
+    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
