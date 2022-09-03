@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
+import { AuthService } from 'src/app/_core/auth.service';
 import { AuthenticationService } from 'src/app/_core/authentication.service';
 
 @Component({
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -51,7 +53,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     this.loading = true;
-        this.authenticationService.login(this.email.value, this.password.value)
+        /*this.authenticationService.login(this.email.value, this.password.value)
             .pipe(first())
             .subscribe(
                 data => {
@@ -59,7 +61,16 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     this.loading = false;
-                });
+                });*/
+    this.authService.login(this.email.value, this.password.value)
+    .subscribe({
+      next: data => {
+        this.router.navigate([this.returnUrl]);
+      },
+      error: err => {
+        this.loading = false;
+      }
+    })
   }
 
   reloadPage(): void {
@@ -71,11 +82,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authenticationService.login(this.email.value, this.password.value).subscribe(res => {
+    /*this.authenticationService.login(this.email.value, this.password.value).subscribe(res => {
       this.router.navigate(['']);
     },
     error => {
       this.loading = false;
+    })*/
+
+    this.authService.login(this.email.value, this.password.value)
+    .subscribe({
+      next: data => {
+        this.router.navigate([this.returnUrl]);
+      },
+      error: err => {
+        this.loading = false;
+      }
     })
   }
 

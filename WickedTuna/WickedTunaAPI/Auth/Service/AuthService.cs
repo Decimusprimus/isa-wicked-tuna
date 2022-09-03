@@ -29,7 +29,7 @@ namespace WickedTunaAPI.Auth.Service
         {
             ApplicationUser applicationUser = await ValidateUserLoginCredentials(loginCredentials);
 
-            UserCredentials userCredentials = GetUserCredentials(applicationUser, loginCredentials.IpAddress);
+            UserCredentials userCredentials = await GetUserCredentials(applicationUser, loginCredentials.IpAddress);
 
             return userCredentials;
         }
@@ -52,7 +52,7 @@ namespace WickedTunaAPI.Auth.Service
 
             _tokenService.RevokeRefreshToken(existingToken, ipAddress);
 
-            return GetUserCredentials(applicationUser, ipAddress);
+            return GetUserCredentials(applicationUser, ipAddress).Result;
         }
 
         private async Task<ApplicationUser> ValidateUserLoginCredentials(LoginCredentials loginCredentials)
@@ -73,14 +73,17 @@ namespace WickedTunaAPI.Auth.Service
             return applicationUser;
         }
 
-        private UserCredentials GetUserCredentials(ApplicationUser applicationUser, string ipAddress)
+        private async Task<UserCredentials> GetUserCredentials(ApplicationUser applicationUser, string ipAddress)
         {
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            var role = roles.FirstOrDefault();
             return new UserCredentials()
             {
                 Id = applicationUser.Id,
                 Username = applicationUser.UserName,
                 JwtToken = _tokenService.GenerateAccesToken(applicationUser),
                 RefreshToken = _tokenService.GenerateRefreshToken(applicationUser, ipAddress),
+                UserRole = role,
             };
         }
 

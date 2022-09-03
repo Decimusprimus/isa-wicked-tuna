@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/_core';
+import { AuthenticationService, UserService } from 'src/app/_core';
+import { AuthService } from 'src/app/_core/auth.service';
 
 @Component({
   selector: 'app-authentication-button',
@@ -11,6 +12,8 @@ export class AuthenticationButtonComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
+    public autService: AuthService,
+    public userService: UserService,
     private router: Router,
     ) { }
 
@@ -18,9 +21,10 @@ export class AuthenticationButtonComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout().subscribe(res => {
+    /*this.authService.logout().subscribe(res => {
       this.router.navigate(['/']);
-    });
+    });*/
+    this.autService.logout().subscribe();
   }
 
   login(): void {

@@ -40,6 +40,7 @@ namespace WickedTunaAPI.Auth.Service
                 {
                     new Claim(ClaimTypes.Name, applicationUser.UserName.ToString()),
                     new Claim(ClaimTypes.Email, applicationUser.Email)
+
                 }),
 
                 Expires = DateTime.Now.AddSeconds(_jwtBearerTokenSettings.ExpiryTimeInSeconds),

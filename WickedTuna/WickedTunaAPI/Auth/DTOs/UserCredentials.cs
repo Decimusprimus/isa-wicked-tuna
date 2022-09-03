@@ -14,6 +14,7 @@ namespace WickedTunaAPI.Auth.DTOs
         public string LastName { get; set; }
         public string JwtToken { get; set; }
         public string RefreshToken { get; set; }
+        public string UserRole { get; set; }
 
     }
 }

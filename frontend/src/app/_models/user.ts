@@ -6,6 +6,7 @@ export class User {
     lastName= '';
     jwtToken= '';
     refreshToken= '';
+    userRole = '';
 
     constructor() {}
 }
