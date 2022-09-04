@@ -5,6 +5,7 @@ import { EmailConfirmComponent } from './account/email-confirm/email-confirm.com
 import { LoginComponent } from './account/login/login.component';
 import { EmailSentComponent } from './account/register/email-sent/email-sent.component';
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
+import { RegisterUserComponent } from './account/register/register-user/register-user.component';
 import { RegisterComponent } from './account/register/register.component';
 import { BoatComponent } from './boats/boat/boat.component';
 import { BoatsComponent } from './boats/boats.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register/client', component: RegisterClientComponent },
+  { path: 'register/user', component: RegisterUserComponent },
   { path: 'register/email', component: EmailSentComponent },
   { path: 'email/confirm', component: EmailConfirmComponent },
   { path: 'client/profile', component: ClientProfileComponent, canActivate: [AuthGuard]},

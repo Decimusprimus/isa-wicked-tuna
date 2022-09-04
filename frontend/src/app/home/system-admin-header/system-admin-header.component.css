@@ -1,0 +1,16 @@
+.container-sa{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 70%;
+    grid-area: 10px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.button-sa{
+    width: 80%;
+    margin: auto;
+}
+
+
+

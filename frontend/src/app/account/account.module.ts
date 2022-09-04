@@ -10,6 +10,7 @@ import { EmailSentComponent } from './register/email-sent/email-sent.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { RegisterUserComponent } from './register/register-user/register-user.component';
 
 @NgModule({
   imports: [
@@ -26,12 +27,14 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     EmailSentComponent,
     EmailConfirmComponent,
     ChangePasswordComponent,
+    RegisterUserComponent,
   ],
   exports: [
     LoginComponent,
-    RegisterComponent,
     RegisterClientComponent,
     ChangePasswordComponent,
+    RegisterComponent,
+    RegisterUserComponent,
   ]
 })
 export class AccountModule { }

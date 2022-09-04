@@ -31,6 +31,10 @@ export class AuthenticationButtonComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  singUp() {
+    this.router.navigate(['register']);
+  }
+
   goToProfile(): void {
     this.router.navigate(['client/profile']);
   }

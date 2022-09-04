@@ -4,6 +4,7 @@
     </button>
     <mat-menu #account_menu="matMenu">
         <button mat-menu-item *ngIf="!userService.isUserPresent()" (click)="login()">Log in</button>
+        <button mat-menu-item *ngIf="!userService.isUserPresent()" (click)="singUp()">Sing up</button>
         <button mat-menu-item *ngIf="userService.isUserPresent()" (click)="goToProfile()">Profile</button>
         <button mat-menu-item *ngIf="userService.isUserPresent()" (click)="goToChangePassword()">Change password</button>
         <button mat-menu-item *ngIf="userService.isUserPresent()" (click)="logout()">Log out</button>

@@ -1,6 +1,6 @@
 <div>
     <div class="header">
-        <h2>Register as client</h2>
+        <h2>Register as cottage owner, boat owner or Instructor</h2>
     </div>
     <div class="container">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -48,6 +48,20 @@
                 <mat-label >Street</mat-label>
                 <input type="text" matInput formControlName="street">
                 <mat-error *ngIf="street.hasError('required')">Street name is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>User type</mat-label>
+                <mat-select formControlName="userType">
+                    <mat-option value="CottageOwner">Cottage owner</mat-option>
+                    <mat-option value="BoatOwner">Boat owner</mat-option>
+                    <mat-option value="Instructor">Instructor</mat-option>
+                </mat-select>
+                <mat-error *ngIf="userType.hasError('required')">You must select type of user!</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label >Reason of registration</mat-label>
+                <textarea matInput formControlName="explanation"></textarea>
+                <mat-error *ngIf="explanation.hasError('required')">Reason of registration is required!</mat-error>
             </mat-form-field>
 
             <button mat-raised-button color="primary" class="button">Register</button>

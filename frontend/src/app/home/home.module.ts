@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home.component';
+import { SystemAdminHeaderComponent } from './system-admin-header/system-admin-header.component';
 
 
 
@@ -13,6 +14,7 @@ import { HomeComponent } from './home.component';
   declarations: [
     ClientHomeComponent,
     HomeComponent,
+    SystemAdminHeaderComponent,
   ],
   imports: [
     CommonModule,
