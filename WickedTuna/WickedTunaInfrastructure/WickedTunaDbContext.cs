@@ -28,6 +28,7 @@ namespace WickedTunaInfrastructure
         public DbSet<CottageOwner> CottageOwners { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<RegistrationRequest> RegistrationRequests { get; set; }
 
         public DbSet<Cottage> Cottages { get; set; }
         public DbSet<CottageReservation> CottageReservations { get; set; }

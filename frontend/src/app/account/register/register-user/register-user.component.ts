@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/_core/auth.service';
 import { Registration } from 'src/app/_models/regstration';
 import PasswordValidator from 'src/app/_validators/password-validator';
 
@@ -43,6 +44,7 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) { 
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
@@ -106,6 +108,11 @@ export class RegisterUserComponent implements OnInit {
     regForm.country = this.country.value;
     regForm.city = this.city.value;
     regForm.streetName = this.street.value;
+    regForm.explanation = this.explanation.value;
+    regForm.role = this.userType.value;
     console.log(regForm);
+    this.authService.registerUser(regForm).subscribe(res => {
+      this.router.navigate(['/']);
+    })
   }
 }

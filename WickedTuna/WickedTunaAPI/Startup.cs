@@ -25,6 +25,8 @@ using WickedTunaAPI.Cottages.Repositroies;
 using WickedTunaAPI.Cottages.Repositroy;
 using WickedTunaAPI.Cottages.Service;
 using WickedTunaAPI.Email;
+using WickedTunaAPI.SystemAdmin.Repositories;
+using WickedTunaAPI.SystemAdmin.Services;
 using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
 
@@ -97,6 +99,7 @@ namespace WickedTunaAPI
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ICottageService, CottageService>();
             services.AddScoped<IBoatService, BoatService>();
+            services.AddScoped<IRegistrationRequestService, RegistrationRequestService>();
 
             services.AddTransient<ICottageRepository, CottageRepository>();
             services.AddTransient<ICottageAvailablePeriodRepositroy, CottageAvailablePeriodRepository>();
@@ -104,6 +107,7 @@ namespace WickedTunaAPI
             services.AddTransient<IBoatRepository, BoatRepository>();
             services.AddTransient<IBoatReservationRepositroy, BoatReservationRepository>();
             services.AddTransient<IBoatAvailablePeriodRepository, BoatAvailablePeriodRepositroy>();
+            services.AddTransient<IRegistrationRequestRepositroy, RegistrationRequestRepositroy>();
 
             
 

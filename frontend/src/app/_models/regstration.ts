@@ -9,7 +9,7 @@ export class Registration {
     city = '';
     streetName = '';
     explanation = '';
-    userType = '';
+    role = '';
 
     constructor() {}
 }

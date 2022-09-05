@@ -5,6 +5,7 @@ import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ChangePassword } from '../_models/changePassword';
 import { RegistrationForm } from '../_models/registrationForm';
+import { Registration } from '../_models/regstration';
 import { User } from '../_models/user';
 import { UserInformation } from '../_models/userInformation';
 import { UserService } from './user.service';
@@ -78,6 +79,10 @@ export class AuthService {
 
   registerClient(registrationFrom: RegistrationForm) {
     return this.http.post<any>(`${environment.apiUrl}/auth/register/client`, registrationFrom);
+  }
+
+  registerUser(registration: Registration) {
+    return this.http.post<any>(`${environment.apiUrl}/registration/user`, registration);
   }
 
   doLoginUser(user: User) {
