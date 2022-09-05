@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WickedTunaAPI.util;
 using WickedTunaCore.Auth;
 
-namespace WickedTunaAPI.SystemAdmin.Repositories
+namespace WickedTunaAPI.SystemAdmins.Repositories
 {
     public interface IRegistrationRequestRepositroy : IRepository<RegistrationRequest>
     {

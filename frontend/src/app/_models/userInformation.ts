@@ -7,6 +7,7 @@ export class UserInformation {
     county = '';
     city = '';
     streetName = '';
+    passwordChanged = false;
 
     constructor() {}
 

@@ -15,5 +15,6 @@ namespace WickedTunaAPI.Auth.DTOs
         public string City { get; set; }
         public string StreetName { get; set; }
         public string PhoneNumber { get; set; }
+        public bool PasswordChanged { get; set; }
     }
 }

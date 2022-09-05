@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WickedTunaAPI.Auth.DTOs;
-using WickedTunaAPI.SystemAdmin.Repositories;
+using WickedTunaAPI.SystemAdmins.Repositories;
 using WickedTunaCore.Auth;
 
-namespace WickedTunaAPI.SystemAdmin.Services
+namespace WickedTunaAPI.SystemAdmins.Services
 {
     public class RegistrationRequestService : IRegistrationRequestService
     {

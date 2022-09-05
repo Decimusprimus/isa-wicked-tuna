@@ -22,7 +22,7 @@ export class ChangePasswordComponent implements OnInit {
   oldPassword: AbstractControl;
   newPassword: AbstractControl;
   confirmNewPassword: AbstractControl;
-
+  success = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
@@ -43,18 +43,18 @@ export class ChangePasswordComponent implements OnInit {
     changePassword.oldPassword = this.oldPassword.value;
     changePassword.newPassword = this.newPassword.value;
     changePassword.confirmNewPassword = this.confirmNewPassword.value;
-    this.authService.updateUserPassword(changePassword).subscribe({
-      next: res => {
-        window.alert("Password successfully changed!")
+    this.authService.updateUserPassword(changePassword).subscribe(
+      res => {
+        this.success = true;
       },
-      error: err => {
-        if(err.error === 'Password is incorrect!'){
+      error => {
+        if(error.error === 'Password is incorrect!'){
           this.oldPassword.setErrors({incorrect: true})
         } else {
           this.oldPassword.setErrors(null);
         }
       }
-    })
+    );
 
   }
 

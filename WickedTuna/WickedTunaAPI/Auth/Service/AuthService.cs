@@ -125,6 +125,22 @@ namespace WickedTunaAPI.Auth.Service
                 };
 
                 return user;
+            } else if(role.Equals("SystemAdmin"))
+            {
+                var admin = _dbContext.SystemAdmins.FirstOrDefault(s => s.UserId == applicationUser.Id);
+                var user = new UserInfoDTO()
+                {
+                    Id = admin.UserId,
+                    Email = admin.Email,
+                    Name = admin.Name,
+                    Surname = admin.Surname,
+                    County = admin.County,
+                    City = admin.City,
+                    StreetName = admin.StreetName,
+                    PhoneNumber = admin.PhoneNumber,
+                    PasswordChanged = admin.PasswordChanged,
+                };
+                return user;
             }
             return null;
 
@@ -164,6 +180,14 @@ namespace WickedTunaAPI.Auth.Service
             if (!isPassowrdChanged.Succeeded)
             {
                 throw new PasswordIncorrectException();
+            }
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            var role = roles.FirstOrDefault();
+            if (role.Equals("SystemAdmin"))
+            {
+                var admin = _dbContext.SystemAdmins.FirstOrDefault(a => a.UserId == applicationUser.Id);
+                admin.PasswordChanged = true;
+                _dbContext.SaveChanges();
             }
             return true;
             

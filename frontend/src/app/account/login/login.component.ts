@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
+import { UserService } from 'src/app/_core';
 import { AuthService } from 'src/app/_core/auth.service';
 import { AuthenticationService } from 'src/app/_core/authentication.service';
 
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UserService,
   ) {
       this.email = this.loginForm.controls['email'];
       this.password = this.loginForm.controls['password'];
@@ -53,19 +55,19 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     this.loading = true;
-        /*this.authenticationService.login(this.email.value, this.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.loading = false;
-                });*/
+
     this.authService.login(this.email.value, this.password.value)
     .subscribe({
       next: data => {
-        this.router.navigate([this.returnUrl]);
+        if(this.userService.currentUser.userRole === 'SystemAdmin') {
+          this.authService.getUserInfo().subscribe(res => {
+            if(!res.passwordChanged) {
+              this.router.navigate(['password']);
+              return;
+            }
+          })
+        }
+        this.router.navigate(['']);
       },
       error: err => {
         this.loading = false;
@@ -92,7 +94,15 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email.value, this.password.value)
     .subscribe({
       next: data => {
-        this.router.navigate([this.returnUrl]);
+        if(this.userService.currentUser.userRole === 'SystemAdmin') {
+          this.authService.getUserInfo().subscribe(res => {
+            if(!res.passwordChanged) {
+              this.router.navigate(['password']);
+            }
+          })
+        } else {
+          this.router.navigate(['']);
+        }
       },
       error: err => {
         this.loading = false;

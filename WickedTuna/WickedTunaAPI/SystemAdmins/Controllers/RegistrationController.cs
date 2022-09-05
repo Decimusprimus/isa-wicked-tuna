@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WickedTunaAPI.Auth.DTOs;
-using WickedTunaAPI.SystemAdmin.Services;
+using WickedTunaAPI.SystemAdmins.Services;
 
-namespace WickedTunaAPI.SystemAdmin.Controllers
+namespace WickedTunaAPI.SystemAdmins.Controllers
 {
     [Route("api/registration")]
     [ApiController]

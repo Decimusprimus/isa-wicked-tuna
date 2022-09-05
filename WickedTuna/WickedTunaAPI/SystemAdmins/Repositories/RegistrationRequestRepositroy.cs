@@ -6,7 +6,7 @@ using WickedTunaAPI.util;
 using WickedTunaCore.Auth;
 using WickedTunaInfrastructure;
 
-namespace WickedTunaAPI.SystemAdmin.Repositories
+namespace WickedTunaAPI.SystemAdmins.Repositories
 {
     public class RegistrationRequestRepositroy : Repository<RegistrationRequest>, IRegistrationRequestRepositroy
     {
