@@ -15,6 +15,7 @@ import { CottageComponent } from './cottages/cottage/cottage.component';
 import { CottagesComponent } from './cottages/cottages.component';
 import { HomeComponent } from './home/home.component';
 import { SpecialOffersComponent } from './special-offers/special-offers.component';
+import { RegistrationRequestsComponent } from './system-admin/registration-requests/registration-requests.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'boat/:id', component: BoatComponent },
   { path: 'special-offers', component: SpecialOffersComponent },
   { path: 'cottages/reservations', component: CottageReservationsComponent },
+  { path: 'registration/requests', component: RegistrationRequestsComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

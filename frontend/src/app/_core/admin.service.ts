@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RegistrationRequest } from '../_models/registrationRequests';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,8 @@ export class AdminService {
     private http: HttpClient,
   ) { }
 
-    getRequestToReview() {
-      return this.http.get<any>(`${environment.apiUrl}/api/registration/toreview`);
+    getRequestToReview() : Observable<RegistrationRequest[]> {
+      return this.http.get<any>(`${environment.apiUrl}/registration/toreview`);
     }
 
 }

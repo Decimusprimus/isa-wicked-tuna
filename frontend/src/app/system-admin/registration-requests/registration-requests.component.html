@@ -1,0 +1,21 @@
+<div>
+    <div class="header">
+        <h2>Registration Request</h2>
+    </div>
+    <div class="container">
+        <div>
+            <app-registration-request *ngFor="let item of requests" [request]="item" (click)="onSelect(item)"></app-registration-request>
+        </div>
+        <div class="details">
+            <h4>Email: {{selectedRequest.email}}</h4>
+            <h4>Role: {{selectedRequest.role}}</h4>
+            <h4>Name: {{selectedRequest.name}}</h4>
+            <h4>Surname: {{selectedRequest.surname}}</h4>
+            <h4>Phone number: {{selectedRequest.phoneNumber}}</h4>
+            <h4>Country: {{selectedRequest.county}}</h4>
+            <h4>Street: {{selectedRequest.streetName}}</h4>
+            <h4>Reason of registration:</h4>
+            <p>{{selectedRequest.explanation}}</p>
+        </div>
+    </div>
+</div>

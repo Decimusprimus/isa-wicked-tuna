@@ -24,6 +24,7 @@ import { CottagesModule } from './cottages/cottages.module';
 import { BoatsModule } from './boats/boats.module';
 import { SpecialOffersModule } from './special-offers/special-offers.module';
 import { AuthService } from './_core/auth.service';
+import { SystemAdminModule } from './system-admin/system-admin.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AuthService } from './_core/auth.service';
     CottagesModule,
     BoatsModule,
     SpecialOffersModule,
+    SystemAdminModule,
     FontAwesomeModule
   ],
   providers: [
