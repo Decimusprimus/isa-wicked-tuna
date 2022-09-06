@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CottageService } from 'src/app/_core/cottage.service';
 import { Cottage } from 'src/app/_models/cottage';
 import { CottageReservation } from 'src/app/_models/cottageReservation';
@@ -14,16 +15,19 @@ export class CottageOfferComponent implements OnInit {
   imgSrc = '';
 
   constructor(
-    private cottageService: CottageService
+    private cottageService: CottageService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    
+    this.getOffers();
+  }
+
+  getOffers() {
     this.cottageService.getCottage(this.cottageOffer.cottageId!).subscribe(data => {
       this.cottage = data;
       this.imgSrc = this.cottageService.getFirstCottageImage(this.cottage);
     })
-    
   }
 
   getDatTimeString(date: Date){
@@ -32,8 +36,19 @@ export class CottageOfferComponent implements OnInit {
   }
 
   confirmOffer() {
-    this.cottageService.confirmSpecialOffer(this.cottageOffer).subscribe(data => {
-      console.log(data);
+    this.cottageService.confirmSpecialOffer(this.cottageOffer).subscribe({
+      next: data => {
+        console.log(data);
+        window.alert('Reservation made!')
+      },
+      error: err => {
+        if(err.error === 'RegistrationException') {
+          window.alert('You cannot make reservation on same entity in same period twice!');
+        } else {
+          window.alert('Something went wrong!');
+        }
+      },
+      complete: () => window.location.reload()
     })
   }
 

@@ -5,7 +5,7 @@ import { Room } from "./room";
 export class Cottage{
     id?: string;
     name = '';
-    address! : Address;
+    address = new Address();
     description = '';
     price = 0;
     cottageOwnerId = '';

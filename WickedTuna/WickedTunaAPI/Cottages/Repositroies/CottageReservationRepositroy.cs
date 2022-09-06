@@ -15,6 +15,11 @@ namespace WickedTunaAPI.Cottages.Repositroies
         {
         }
 
+        public CottageReservation CheckReservationForClient(string id, DateTime start, DateTime end)
+        {
+            return _context.CottageReservations.FirstOrDefault(cr => cr.ClientId == id && cr.Start == start && cr.End == end);
+        }
+
         public List<CottageReservation> GetActiveReservationsForClient(string id)
         {
             return _context.CottageReservations.Where(cr => cr.ClientId == id && (cr.Start > DateTime.Now && cr.ReservationStatus == ReservationStatus.Acite)).ToList();
@@ -25,6 +30,10 @@ namespace WickedTunaAPI.Cottages.Repositroies
             return _context.CottageReservations.Where(cr => cr.ClientId == id && (cr.Start < DateTime.Now || cr.ReservationStatus == ReservationStatus.Cancelled)).ToList();
         }
 
+        public List<CottageReservation> GetSpecialOffers()
+        {
+            return _context.CottageReservations.Where(cr => cr.ReservationType == ReservationType.Special_offer && cr.ClientId == null && cr.Start > DateTime.Now).ToList();
+        }
 
         public List<CottageReservation> GetWithoutClient()
         {

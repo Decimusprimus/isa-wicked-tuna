@@ -46,9 +46,16 @@ export class CottageActiveReservationComponent implements OnInit {
   }
 
   cancelReservation() {
-    this.cottageService.cancelReservation(this.reservation).subscribe(data=>{
-      console.log(data);
-    });
+    this.cottageService.cancelReservation(this.reservation).subscribe({
+      next: data=>{
+        console.log(data);
+        window.alert('Reservation cancelled!')
+        window.location.reload();
+      },
+      error: err => {
+        window.alert('Something went wrong!')
+      }
+    })
   }
 
 }

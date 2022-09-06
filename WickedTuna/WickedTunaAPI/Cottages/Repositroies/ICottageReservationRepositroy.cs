@@ -12,6 +12,7 @@ namespace WickedTunaAPI.Cottages.Repositroies
         List<CottageReservation> GetWithoutClient();
         List<CottageReservation> GetActiveReservationsForClient(string id);
         List<CottageReservation> GetPastReservationsForClient(string id);
-
+        List<CottageReservation> GetSpecialOffers();
+        CottageReservation CheckReservationForClient(string id, DateTime start, DateTime end);
     }
 }

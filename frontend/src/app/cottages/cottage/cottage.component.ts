@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/_core';
+import { AuthenticationService, UserService } from 'src/app/_core';
 import { CottageService } from 'src/app/_core/cottage.service';
 import { Cottage } from 'src/app/_models/cottage';
 import { CottageReservation } from 'src/app/_models/cottageReservation';
@@ -37,6 +37,7 @@ export class CottageComponent implements OnInit {
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
@@ -117,7 +118,7 @@ export class CottageComponent implements OnInit {
   }
 
   makeReservation() {
-    if(!this.authService.getJwtToken())
+    if(!this.userService.isUserPresent())
     {
       this.router.navigate(['login']);
       return;
@@ -136,9 +137,17 @@ export class CottageComponent implements OnInit {
       next: data =>
       {
         this.reservationCreated = true;
+        window.alert('Reservation created!')
       },
       error: err => {
-        this.validDates = false;
+        if(err.error === 'RegistrationException') {
+          window.alert('You cannot make reservation on same entity in same period twice!');
+        } else if (err.error === 'Dates incorect!') {
+          this.validDates = false;
+        }else {
+          window.alert('Something went wrong!');
+        }
+        
       }
     })
   }

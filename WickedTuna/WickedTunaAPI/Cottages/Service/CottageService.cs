@@ -75,13 +75,21 @@ namespace WickedTunaAPI.Cottages.Service
             {
                 throw new CottageNotFoundException();
             }
+
+            var client = _clientService.GetClientForEmail(email);
+            var existingReservation = _cottageReservationRepositroy.CheckReservationForClient(client.UserId, cottageReservation.Start, cottageReservation.End);
+            if(existingReservation != null)
+            {
+                throw new CottageReservationException();
+            }
+
             var period = _cottageAvailablePeriodRepositroy.GetForReservation(id, cottageReservation.Start, cottageReservation.End);
             if(period == null)
             {
                 throw new PeriodNotFoundExcetpion();
             }
 
-            if(period.Start == cottageReservation.Start && period.End == cottageReservation.End)
+            if (period.Start == cottageReservation.Start && period.End == cottageReservation.End)
             {
                 _cottageAvailablePeriodRepositroy.Remove(period);
             }
@@ -110,7 +118,7 @@ namespace WickedTunaAPI.Cottages.Service
             cottageReservation.Price = cottage.Price;
             cottageReservation.ReservationType = ReservationType.Reservation;
             cottageReservation.ReservationStatus = ReservationStatus.Acite;
-            var client = _clientService.GetClientForEmail(email);
+            
             cottageReservation.Client = client;
             _cottageReservationRepositroy.Insert(cottageReservation);
             _cottageReservationRepositroy.Save();
@@ -120,7 +128,7 @@ namespace WickedTunaAPI.Cottages.Service
 
         public List<CottageReservation> GetCottageSpecialOffers()
         {
-            return _cottageReservationRepositroy.GetWithoutClient();
+            return _cottageReservationRepositroy.GetSpecialOffers();
         }
 
         public CottageReservation ConfirmSpecialOffer(Guid id, CottageReservation cottageReservation, string email)
@@ -135,6 +143,13 @@ namespace WickedTunaAPI.Cottages.Service
             {
                 return null;
             }
+
+            var existingReservation = _cottageReservationRepositroy.CheckReservationForClient(client.UserId, cottageReservation.Start, cottageReservation.End);
+            if (existingReservation != null)
+            {
+                throw new CottageReservationException();
+            }
+
             specialOffer.Client = client;
             specialOffer.ReservationStatus = ReservationStatus.Acite;
             _cottageReservationRepositroy.Save();
@@ -173,7 +188,19 @@ namespace WickedTunaAPI.Cottages.Service
             {
                 if (reservation.ReservationType == ReservationType.Special_offer)
                 {
-                    reservation.Client = null;
+                    var specialOffer = new CottageReservation()
+                    {
+                       Start = reservation.Start,
+                       End = reservation.End,
+                       ReservationType = ReservationType.Special_offer,
+                       ClientId = null,
+                       Price = reservation.Price,
+                       NumberOfPeople = reservation.NumberOfPeople,
+                       CottageId = reservation.CottageId,
+                       AdditionalServices = reservation.AdditionalServices,
+                       ReservationStatus = ReservationStatus.Acite,
+                    };
+                    _cottageReservationRepositroy.Insert(specialOffer);
                     reservation.ReservationStatus = ReservationStatus.Cancelled;
                     _cottageReservationRepositroy.Save();
                 }
