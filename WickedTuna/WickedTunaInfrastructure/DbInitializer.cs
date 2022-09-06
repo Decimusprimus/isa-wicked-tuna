@@ -352,6 +352,22 @@ namespace WickedTunaInfrastructure
                 dbContext.CottageAvailablePeriods.Add(cottageAvailablePeriod311);
 
                 dbContext.SaveChanges();
+
+                var cottageSpecialOffer11 = new CottageReservation()
+                {
+                    Cottage = cottage11,
+                    NumberOfPeople = 3,
+                    Price = 2500,
+                    ReservationStatus = ReservationStatus.Acite,
+                    ReservationType = ReservationType.Special_offer,
+                    AdditionalServices = "besplatan parking",
+                    Start = new DateTime(2023, 2, 4, 0, 0, 0),
+                    End = new DateTime(2023, 2, 7, 0, 0, 0),
+                    Client = null
+                };
+                dbContext.CottageReservations.Add(cottageSpecialOffer11);
+                dbContext.SaveChanges();
+
             }
             #endregion
 
