@@ -25,6 +25,8 @@ using WickedTunaAPI.Cottages.Repositroies;
 using WickedTunaAPI.Cottages.Repositroy;
 using WickedTunaAPI.Cottages.Service;
 using WickedTunaAPI.Email;
+using WickedTunaAPI.Email.Service;
+using WickedTunaAPI.Email.util;
 using WickedTunaAPI.SystemAdmins.Repositories;
 using WickedTunaAPI.SystemAdmins.Services;
 using WickedTunaCore.Auth;
@@ -93,7 +95,13 @@ namespace WickedTunaAPI
                 };
             });
 
+            var emailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
             services.AddTransient<IEmailService, EmailService>();
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IClientService, ClientService>();
