@@ -44,6 +44,9 @@ export class CottageOfferComponent implements OnInit {
       error: err => {
         if(err.error === 'RegistrationException') {
           window.alert('You cannot make reservation on same entity in same period twice!');
+        } else if (err.error === 'Already reserved!'){
+          window.alert('Already reserved!');
+          this.getOffers();
         } else {
           window.alert('Something went wrong!');
         }

@@ -88,7 +88,11 @@ namespace WickedTunaAPI.Cottages.Controller
             }
             try
             {
-                return Ok(_cottageService.CreateNewReservation(id, cottageReservation, email));
+                if(_cottageService.CreateNewReservation(id, cottageReservation, email) == null)
+                {
+                    return BadRequest("Already reserved!");
+                }
+                return Ok();
             }
             catch(CottageReservationException)
             {
@@ -115,9 +119,9 @@ namespace WickedTunaAPI.Cottages.Controller
             try
             {
                 var res = _cottageService.ConfirmSpecialOffer(id, cottageReservation, email);
-                return res != null ? Ok(res) : BadRequest();
+                return res != null ? Ok(res) : BadRequest('Already reseved!');
             } 
-            catch
+            catch(CottageReservationException)
             {
                 return BadRequest("RegistrationException");
             }
