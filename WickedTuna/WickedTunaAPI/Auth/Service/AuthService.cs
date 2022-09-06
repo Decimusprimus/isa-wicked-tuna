@@ -81,7 +81,7 @@ namespace WickedTunaAPI.Auth.Service
             {
                 Id = applicationUser.Id,
                 Username = applicationUser.UserName,
-                JwtToken = _tokenService.GenerateAccesToken(applicationUser),
+                JwtToken = await _tokenService.GenerateAccesToken(applicationUser),
                 RefreshToken = _tokenService.GenerateRefreshToken(applicationUser, ipAddress),
                 UserRole = role,
             };

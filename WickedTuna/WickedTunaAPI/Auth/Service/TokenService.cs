@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -20,27 +21,30 @@ namespace WickedTunaAPI.Auth.Service
     {
 
         private readonly JwtBearerTokenSettings _jwtBearerTokenSettings;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly WickedTunaDbContext _dbContext;
 
-        public TokenService(IOptions<JwtBearerTokenSettings> jwtTokenOptions, WickedTunaDbContext dbContext)
+        public TokenService(IOptions<JwtBearerTokenSettings> jwtTokenOptions, WickedTunaDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             _jwtBearerTokenSettings = jwtTokenOptions.Value;
             _dbContext = dbContext;
+            _userManager = userManager;
         }
 
 
-        public string GenerateAccesToken(ApplicationUser applicationUser)
+        public async Task<string> GenerateAccesToken(ApplicationUser applicationUser)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtBearerTokenSettings.SecretKey);
-
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            var role = roles.FirstOrDefault();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, applicationUser.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, applicationUser.Email)
-
+                    new Claim(ClaimTypes.Email, applicationUser.Email),
+                    new Claim(ClaimTypes.Role, role)
                 }),
 
                 Expires = DateTime.Now.AddSeconds(_jwtBearerTokenSettings.ExpiryTimeInSeconds),

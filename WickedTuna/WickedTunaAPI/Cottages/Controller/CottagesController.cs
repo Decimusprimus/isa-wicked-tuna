@@ -77,7 +77,7 @@ namespace WickedTunaAPI.Cottages.Controller
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpPost("{id}/reservation")]
         public IActionResult CreateNewReservation([FromRoute]Guid id, [FromBody] CottageReservation cottageReservation)
         {
@@ -128,7 +128,7 @@ namespace WickedTunaAPI.Cottages.Controller
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpGet("reservations/active")]
         public IActionResult GetActiveReservations()
         {
@@ -137,7 +137,7 @@ namespace WickedTunaAPI.Cottages.Controller
             return res != null ? Ok(res) : BadRequest();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpGet("reservations/past")]
         public IActionResult GetPastReservations()
         {
@@ -146,7 +146,7 @@ namespace WickedTunaAPI.Cottages.Controller
             return res != null ? Ok(res) : BadRequest();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpPost("reservation/cancel/{id}")]
         public IActionResult CancelReservation([FromRoute] Guid id, [FromBody] CottageReservation cottageReservation)
         {

@@ -14,10 +14,13 @@ import { ClientProfileComponent } from './client/client-profile/client-profile.c
 import { CottageReservationsComponent } from './cottages/cottage-reservations/cottage-reservations.component';
 import { CottageComponent } from './cottages/cottage/cottage.component';
 import { CottagesComponent } from './cottages/cottages.component';
+import { FobidenComponent } from './home/fobiden/fobiden.component';
 import { HomeComponent } from './home/home.component';
 import { SpecialOffersComponent } from './special-offers/special-offers.component';
 import { RegistrationRequestsComponent } from './system-admin/registration-requests/registration-requests.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import { ClientGuard } from './_helpers/client.guard';
+import { SystemAdminGuard } from './_helpers/system-admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,10 +36,11 @@ const routes: Routes = [
   { path: 'cottage/:id', component: CottageComponent },
   { path: 'boats', component: BoatsComponent },
   { path: 'boat/:id', component: BoatComponent },
-  { path: 'special-offers', component: SpecialOffersComponent },
-  { path: 'cottages/reservations', component: CottageReservationsComponent },
-  { path: 'boats/reservations', component: BoatReservationsComponent },
-  { path: 'registration/requests', component: RegistrationRequestsComponent },
+  { path: 'special-offers', component: SpecialOffersComponent, canActivate: [AuthGuard]},
+  { path: 'cottages/reservations', component: CottageReservationsComponent, canActivate: [ClientGuard] },
+  { path: 'boats/reservations', component: BoatReservationsComponent, canActivate: [ClientGuard] },
+  { path: 'registration/requests', component: RegistrationRequestsComponent, canActivate: [SystemAdminGuard]},
+  { path: 'forbidden', component: FobidenComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

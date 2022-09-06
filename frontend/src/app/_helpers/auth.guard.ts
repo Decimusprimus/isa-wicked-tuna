@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../_core';
+import { AuthenticationService, UserService } from '../_core';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,11 @@ import { AuthenticationService } from '../_core';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private userService: UserService
 ) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.authenticationService.getJwtToken();
-    if (user) {
+    const user = this.userService.currentUser;
+    if (this.userService.isUserPresent()) {
       // logged in so return true
       return true;
     } else {

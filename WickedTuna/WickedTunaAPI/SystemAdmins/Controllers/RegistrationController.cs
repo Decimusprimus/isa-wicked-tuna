@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace WickedTunaAPI.SystemAdmins.Controllers
             _registrationRequestService = registrationRequestService;
         }
 
+        [Authorize(Roles = "SystemAdmin")]
         [HttpPost("user")]
         public IActionResult RegisterUser([FromBody] UserRegistrationForm registrationForm)
         {
@@ -36,6 +38,7 @@ namespace WickedTunaAPI.SystemAdmins.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "SystemAdmin")]
         [HttpGet("toreview")]
         public IActionResult GetRequestToReview()
         {

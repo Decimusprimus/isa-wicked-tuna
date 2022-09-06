@@ -114,7 +114,6 @@ namespace WickedTunaAPI
             services.AddTransient<IRegistrationRequestRepositroy, RegistrationRequestRepositroy>();
             services.AddTransient<ISystemAdminRepositroy, SystemAdminRepository>();
 
-            
 
         }
 

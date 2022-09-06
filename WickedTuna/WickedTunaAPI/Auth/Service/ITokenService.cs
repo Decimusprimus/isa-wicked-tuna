@@ -9,7 +9,7 @@ namespace WickedTunaAPI.Auth.Service
 {
     public interface ITokenService
     {
-        string GenerateAccesToken(ApplicationUser applicationUser);
+        Task<string> GenerateAccesToken(ApplicationUser applicationUser);
         string GenerateRefreshToken(ApplicationUser applicationUser, string ipAddress);
        // string DoRefreshToken(string token, ApplicationUser applicationUser, string ipAddress);
         //RefreshToken GetValidRefreshToken(string token, ApplicationUser applicationUser);

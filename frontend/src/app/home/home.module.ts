@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home.component';
 import { SystemAdminHeaderComponent } from './system-admin-header/system-admin-header.component';
+import { FobidenComponent } from './fobiden/fobiden.component';
 
 
 
@@ -15,6 +16,7 @@ import { SystemAdminHeaderComponent } from './system-admin-header/system-admin-h
     ClientHomeComponent,
     HomeComponent,
     SystemAdminHeaderComponent,
+    FobidenComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { SystemAdminHeaderComponent } from './system-admin-header/system-admin-h
   ],
   exports: [
     HomeComponent,
+    FobidenComponent,
   ]
 })
 export class HomeModule { }

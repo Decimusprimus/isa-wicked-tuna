@@ -77,7 +77,7 @@ namespace WickedTunaAPI.Boats.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles ="Client")]
         [HttpPost("{id}/reservation")]
         public IActionResult CreateNewReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
         {
@@ -110,7 +110,7 @@ namespace WickedTunaAPI.Boats.Controllers
             return Ok(_boatService.GetBoatSpecialOffers());
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpPost("special-offers/{id}")]
         public IActionResult CreateSpecialOfferReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
         {
@@ -126,7 +126,7 @@ namespace WickedTunaAPI.Boats.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpGet("reservations/active")]
         public IActionResult GetActiveReservations()
         {
@@ -135,7 +135,7 @@ namespace WickedTunaAPI.Boats.Controllers
             return res != null ? Ok(res) : BadRequest();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpGet("reservations/past")]
         public IActionResult GetPastReservations()
         {
@@ -144,7 +144,7 @@ namespace WickedTunaAPI.Boats.Controllers
             return res != null ? Ok(res) : BadRequest();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         [HttpPost("reservation/cancel/{id}")]
         public IActionResult CancelReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
         {
