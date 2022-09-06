@@ -88,7 +88,11 @@ namespace WickedTunaAPI.Boats.Controllers
             }
             try
             {
-                return Ok(_boatService.CreateNewReservation(id, boatReservation, email));
+                if(_boatService.CreateNewReservation(id, boatReservation, email) == null)
+                {
+                    return BadRequest("Already reserved!");
+                }
+                return Ok();
             }
             catch (BoatReservationException)
             {
@@ -111,8 +115,14 @@ namespace WickedTunaAPI.Boats.Controllers
         public IActionResult CreateSpecialOfferReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
         {
             var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
-            var res = _boatService.ConfirmSpecialOffer(id, boatReservation, email);
-            return res != null ? Ok(res) : BadRequest();
+            try
+            {
+                var res = _boatService.ConfirmSpecialOffer(id, boatReservation, email);
+                return res != null ? Ok(res) : BadRequest("Already reserved!");
+            } catch(BoatReservationException)
+            {
+                return BadRequest("RegistrationException");
+            }
 
         }
 

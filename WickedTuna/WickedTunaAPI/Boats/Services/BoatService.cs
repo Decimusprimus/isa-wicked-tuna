@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace WickedTunaAPI.Boats.Services
             {
                 throw new BoatReservationException();
             }
-
+            BoatAvailablePeriod period1 = null;
             var period = _boatAvailablePeriodRepository.GetPeriodForReservation(id, boatReservation.Start, boatReservation.End);
             if(period == null)
             {
@@ -97,16 +98,53 @@ namespace WickedTunaAPI.Boats.Services
             }
             else
             {
-                var period1 = new BoatAvailablePeriod()
+                period1 = new BoatAvailablePeriod()
                 {
                     Boat = boat,
                     Start = period.Start,
                     End = boatReservation.Start,
                 };
                 period.Start = boatReservation.End;
+                
+            }
+
+            var saved = false;
+            var alreadyReserved = false;
+            while (!saved)
+            {
+                try
+                {
+                    _boatAvailablePeriodRepository.Save();
+                    saved = true;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    foreach (var entry in ex.Entries)
+                    {
+                        if (entry.Entity is BoatAvailablePeriod)
+                        {
+                            var databaseValues = entry.GetDatabaseValues();
+
+                            entry.OriginalValues.SetValues(databaseValues);
+                            alreadyReserved = true;
+                        }
+                        else
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
+                }
+            }
+            if (alreadyReserved)
+            {
+                return null;
+            }
+            
+
+            if(period1 != null)
+            {
                 _boatAvailablePeriodRepository.Insert(period1);
             }
-            _boatAvailablePeriodRepository.Save();
 
             boatReservation.Boat = boat;
             boatReservation.ReservationStatus = ReservationStatus.Acite;
@@ -136,12 +174,12 @@ namespace WickedTunaAPI.Boats.Services
             var specialOffer = _boatReservationRepositroy.GetById(id);
             if (specialOffer == null)
             {
-                return null;
+                throw new Exception();
             }
             var client = _clientService.GetClientForEmail(email);
             if (client == null)
             {
-                return null;
+                throw new Exception();
             }
 
             var existingReservation = _boatReservationRepositroy.CheckReservationForClient(client.UserId, boatReservation.Start, boatReservation.End);
@@ -152,7 +190,40 @@ namespace WickedTunaAPI.Boats.Services
 
             specialOffer.Client = client;
             specialOffer.ReservationStatus = ReservationStatus.Acite;
-            _boatReservationRepositroy.Save();
+
+            var saved = false;
+            var alreadyReserved = false;
+            while (!saved)
+            {
+                try
+                {
+                    _boatReservationRepositroy.Save();
+                    saved = true;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    foreach (var entry in ex.Entries)
+                    {
+                        if (entry.Entity is BoatReservation)
+                        {
+                            var databaseValues = entry.GetDatabaseValues();
+
+                            entry.OriginalValues.SetValues(databaseValues);
+                            alreadyReserved = true;
+                        }
+                        else
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
+                }
+            }
+            if (alreadyReserved)
+            {
+                return null;
+            }
+
+            
             return specialOffer;
         }
 

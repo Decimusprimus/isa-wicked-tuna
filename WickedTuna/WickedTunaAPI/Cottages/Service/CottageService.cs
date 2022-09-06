@@ -173,12 +173,12 @@ namespace WickedTunaAPI.Cottages.Service
             var specialOffer = _cottageReservationRepositroy.GetById(id);
             if(specialOffer == null)
             {
-                return null;
+                throw new Exception();
             }
             var client = _clientService.GetClientForEmail(email);
             if(client == null)
             {
-                return null;
+                throw new Exception();
             }
 
             var existingReservation = _cottageReservationRepositroy.CheckReservationForClient(client.UserId, cottageReservation.Start, cottageReservation.End);
@@ -203,7 +203,7 @@ namespace WickedTunaAPI.Cottages.Service
                 {
                     foreach(var entry in ex.Entries)
                     {
-                        if(entry.Entity is CottageAvailablePeriod)
+                        if(entry.Entity is CottageReservation)
                         { 
                             var databaseValues = entry.GetDatabaseValues();
 

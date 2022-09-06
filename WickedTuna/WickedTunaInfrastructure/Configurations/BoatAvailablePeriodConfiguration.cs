@@ -16,6 +16,8 @@ namespace WickedTunaInfrastructure.Configurations
             builder.HasOne(bap => bap.Boat)
                 .WithMany(b => b.BoatAvailablePeriods)
                 .HasForeignKey(bap => bap.BoatId);
+            builder.Property(cap => cap.End).IsConcurrencyToken();
+            builder.Property(cap => cap.Start).IsConcurrencyToken();
         }
     }
 }

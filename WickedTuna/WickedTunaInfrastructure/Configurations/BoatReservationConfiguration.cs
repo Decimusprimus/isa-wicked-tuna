@@ -19,6 +19,7 @@ namespace WickedTunaInfrastructure.Configurations
             builder.HasOne(br => br.Client)
                 .WithMany(c => c.BoatReservations)
                 .HasForeignKey(br => br.ClientId);
+            builder.Property(b => b.ClientId).IsConcurrencyToken();
         }
     }
 }

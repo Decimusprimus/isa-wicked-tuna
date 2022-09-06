@@ -119,7 +119,7 @@ namespace WickedTunaAPI.Cottages.Controller
             try
             {
                 var res = _cottageService.ConfirmSpecialOffer(id, cottageReservation, email);
-                return res != null ? Ok(res) : BadRequest('Already reseved!');
+                return res != null ? Ok(res) : BadRequest("Already reseved!");
             } 
             catch(CottageReservationException)
             {
