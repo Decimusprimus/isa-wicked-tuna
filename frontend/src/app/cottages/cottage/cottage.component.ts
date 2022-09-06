@@ -41,6 +41,10 @@ export class CottageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCottage();
+  }
+
+  getCottage() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     
@@ -144,7 +148,11 @@ export class CottageComponent implements OnInit {
           window.alert('You cannot make reservation on same entity in same period twice!');
         } else if (err.error === 'Dates incorect!') {
           this.validDates = false;
-        }else {
+        } else if (err.error === 'Already reserved!') {
+          this.validDates = false;
+          this.getCottage();
+          window.alert('It is already reserved!');
+        } else {
           window.alert('Something went wrong!');
         }
         

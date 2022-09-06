@@ -11,6 +11,8 @@ namespace WickedTunaInfrastructure.Configurations
             builder.HasOne(cap => cap.Cottage)
                 .WithMany(c => c.CottageAvailablePeriods)
                 .HasForeignKey(cap => cap.CottageId);
+            builder.Property(cap => cap.End).IsConcurrencyToken();
+            builder.Property(cap => cap.Start).IsConcurrencyToken();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -83,6 +84,8 @@ namespace WickedTunaAPI.Cottages.Service
                 throw new CottageReservationException();
             }
 
+            CottageAvailablePeriod period1 = null;
+
             var period = _cottageAvailablePeriodRepositroy.GetForReservation(id, cottageReservation.Start, cottageReservation.End);
             if(period == null)
             {
@@ -103,16 +106,50 @@ namespace WickedTunaAPI.Cottages.Service
             }
             else 
             {
-                var period1 = new CottageAvailablePeriod()
+                period1 = new CottageAvailablePeriod()
                 {
                     Cottage = cottage,
                     Start = period.Start,
                     End = cottageReservation.Start,
                 };
                 period.Start = cottageReservation.End;
+            }
+            var saved = false;
+            var alreadyReserved = false;
+            while (!saved)
+            {
+                try
+                {
+                    _cottageAvailablePeriodRepositroy.Save();
+                    saved = true;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    foreach(var entry in ex.Entries)
+                    {
+                        if(entry.Entity is CottageAvailablePeriod)
+                        { 
+                            var databaseValues = entry.GetDatabaseValues();
+
+                            entry.OriginalValues.SetValues(databaseValues);
+                            alreadyReserved = true;
+                        }
+                        else
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
+                }
+            }
+            if (alreadyReserved)
+            {
+                return null;
+            }
+
+            if (period1 != null)
+            {
                 _cottageAvailablePeriodRepositroy.Insert(period1);
             }
-            _cottageAvailablePeriodRepositroy.Save();
 
             cottageReservation.Cottage = cottage;
             cottageReservation.Price = cottage.Price;
