@@ -164,54 +164,103 @@ namespace WickedTunaAPI.Cottages.Service
         public bool CancelReservation(Guid id, CottageReservation cottageReservation, string email)
         {
             var reservation = _cottageReservationRepositroy.GetById(id);
-            if(reservation != null && reservation.Start > DateTime.Now.AddDays(3))
+            if (reservation != null && reservation.Start < DateTime.Now.AddDays(3))
             {
-                var client = _clientService.GetClientForEmail(email);
-                if(String.Equals(reservation.ClientId,client.UserId))
+                throw new CottageReservationException();
+            }
+            var client = _clientService.GetClientForEmail(email);
+            if (String.Equals(reservation.ClientId, client.UserId))
+            {
+                if (reservation.ReservationType == ReservationType.Special_offer)
                 {
-                    if(reservation.ReservationType == ReservationType.Special_offer)
+                    reservation.Client = null;
+                    reservation.ReservationStatus = ReservationStatus.Cancelled;
+                    _cottageReservationRepositroy.Save();
+                }
+                else
+                {
+                    var starPeriod = _cottageAvailablePeriodRepositroy.GetPeriodStartWhenCancelling(reservation.CottageId, reservation.End);
+                    var endperiod = _cottageAvailablePeriodRepositroy.GetPeriodEndWhenCancelling(reservation.CottageId, reservation.Start);
+                    if (starPeriod != null && endperiod != null)
                     {
-                        reservation.Client = null;
-                        reservation.ReservationStatus = ReservationStatus.Cancelled;
-                        _cottageReservationRepositroy.Save();
+                        endperiod.End = starPeriod.End;
+                        _cottageAvailablePeriodRepositroy.Remove(starPeriod);
+                    }
+                    else if (starPeriod != null)
+                    {
+                        starPeriod.Start = reservation.Start;
+                    }
+                    else if (endperiod != null)
+                    {
+                        endperiod.End = reservation.End;
                     }
                     else
                     {
-                        var starPeriod = _cottageAvailablePeriodRepositroy.GetPeriodStartWhenCancelling(reservation.CottageId, reservation.End);
-                        var endperiod = _cottageAvailablePeriodRepositroy.GetPeriodEndWhenCancelling(reservation.CottageId, reservation.Start);
-                        if(starPeriod != null && endperiod != null)
+                        var period = new CottageAvailablePeriod()
                         {
-                            endperiod.End = starPeriod.End;
-                            _cottageAvailablePeriodRepositroy.Remove(starPeriod);
-                        }
-                        else if(starPeriod != null)
-                        {
-                            starPeriod.Start = reservation.Start;
-                        }
-                        else if(endperiod != null)
-                        {
-                            endperiod.End = reservation.End;
-                        }
-                        else
-                        {
-                            var period = new CottageAvailablePeriod()
-                            {
-                                Start = reservation.Start,
-                                End = reservation.End,
-                                CottageId = reservation.CottageId,
-                            };
-                            _cottageAvailablePeriodRepositroy.Insert(period);
-                        }
-                        reservation.ReservationStatus = ReservationStatus.Cancelled;
-                        _cottageReservationRepositroy.Save();
-                        _cottageAvailablePeriodRepositroy.Save();
-                        
+                            Start = reservation.Start,
+                            End = reservation.End,
+                            CottageId = reservation.CottageId,
+                        };
+                        _cottageAvailablePeriodRepositroy.Insert(period);
                     }
-                    return true;
+                    reservation.ReservationStatus = ReservationStatus.Cancelled;
+                    _cottageReservationRepositroy.Save();
+                    _cottageAvailablePeriodRepositroy.Save();
+
                 }
+                return true;
             }
             return false;
-            
+
+            /* if(reservation != null && reservation.Start > DateTime.Now.AddDays(3))
+             {
+                 var client = _clientService.GetClientForEmail(email);
+                 if(String.Equals(reservation.ClientId,client.UserId))
+                 {
+                     if(reservation.ReservationType == ReservationType.Special_offer)
+                     {
+                         reservation.Client = null;
+                         reservation.ReservationStatus = ReservationStatus.Cancelled;
+                         _cottageReservationRepositroy.Save();
+                     }
+                     else
+                     {
+                         var starPeriod = _cottageAvailablePeriodRepositroy.GetPeriodStartWhenCancelling(reservation.CottageId, reservation.End);
+                         var endperiod = _cottageAvailablePeriodRepositroy.GetPeriodEndWhenCancelling(reservation.CottageId, reservation.Start);
+                         if(starPeriod != null && endperiod != null)
+                         {
+                             endperiod.End = starPeriod.End;
+                             _cottageAvailablePeriodRepositroy.Remove(starPeriod);
+                         }
+                         else if(starPeriod != null)
+                         {
+                             starPeriod.Start = reservation.Start;
+                         }
+                         else if(endperiod != null)
+                         {
+                             endperiod.End = reservation.End;
+                         }
+                         else
+                         {
+                             var period = new CottageAvailablePeriod()
+                             {
+                                 Start = reservation.Start,
+                                 End = reservation.End,
+                                 CottageId = reservation.CottageId,
+                             };
+                             _cottageAvailablePeriodRepositroy.Insert(period);
+                         }
+                         reservation.ReservationStatus = ReservationStatus.Cancelled;
+                         _cottageReservationRepositroy.Save();
+                         _cottageAvailablePeriodRepositroy.Save();
+
+                     }
+                     return true;
+                 }
+             }
+             return false;
+             */
         }
 
 

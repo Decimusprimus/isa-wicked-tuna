@@ -12,16 +12,32 @@ export class CottageActiveReservationComponent implements OnInit {
   @Input() reservation = new CottageReservation();
   cottage = new Cottage();
   imgSrc = '';
+  disabled = false;
 
   constructor(
     private cottageService: CottageService,
   ) { }
 
   ngOnInit(): void {
+    this.checkReservationDate();
     this.cottageService.getCottage(this.reservation.cottageId!).subscribe(data => {
       this.cottage = data;
       this.imgSrc = this.cottageService.getFirstCottageImage(this.cottage);
     })
+  }
+
+  checkReservationDate() {
+    let today = new Date();
+    let day = new Date(today.getTime());
+    day.setDate(day.getDate() + 3);
+    
+    let startDate = new Date(this.reservation.start).getTime();
+    if(startDate < day.getTime()){
+      this.disabled = true;
+    } else {
+      this.disabled = false;
+    }
+    
   }
 
   getDatTimeString(date: Date){

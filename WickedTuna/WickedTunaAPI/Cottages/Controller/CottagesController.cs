@@ -136,8 +136,15 @@ namespace WickedTunaAPI.Cottages.Controller
         public IActionResult CancelReservation([FromRoute] Guid id, [FromBody] CottageReservation cottageReservation)
         {
             var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
-            var res = _cottageService.CancelReservation(id, cottageReservation, email);
-            return res ? Ok() : BadRequest();
+            try
+            {
+                var res = _cottageService.CancelReservation(id, cottageReservation, email);
+                return res ? Ok() : BadRequest();
+            } 
+            catch(CottageReservationException)
+            {
+                return BadRequest("ReservationException");
+            }
         }
 
     }
