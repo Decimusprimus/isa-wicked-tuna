@@ -7,6 +7,7 @@ import { EmailSentComponent } from './account/register/email-sent/email-sent.com
 import { RegisterClientComponent } from './account/register/register-client/register-client.component';
 import { RegisterUserComponent } from './account/register/register-user/register-user.component';
 import { RegisterComponent } from './account/register/register.component';
+import { BoatReservationsComponent } from './boats/boat-reservations/boat-reservations.component';
 import { BoatComponent } from './boats/boat/boat.component';
 import { BoatsComponent } from './boats/boats.component';
 import { ClientProfileComponent } from './client/client-profile/client-profile.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'boat/:id', component: BoatComponent },
   { path: 'special-offers', component: SpecialOffersComponent },
   { path: 'cottages/reservations', component: CottageReservationsComponent },
+  { path: 'boats/reservations', component: BoatReservationsComponent },
   { path: 'registration/requests', component: RegistrationRequestsComponent },
 
   // otherwise redirect to home

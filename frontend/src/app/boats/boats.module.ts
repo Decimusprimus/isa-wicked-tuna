@@ -8,6 +8,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BoatItemComponent } from './boat-item/boat-item.component';
 import { BoatComponent } from './boat/boat.component';
 import { BoatImagesDialogComponent } from './boat/boat-images-dialog/boat-images-dialog.component';
+import { BoatActiveReservationComponent } from './boat-reservations/boat-active-reservation/boat-active-reservation.component';
+import { BoatPastReservationComponent } from './boat-reservations/boat-past-reservation/boat-past-reservation.component';
+import { BoatReservationsComponent } from './boat-reservations/boat-reservations.component';
 
 
 
@@ -16,7 +19,10 @@ import { BoatImagesDialogComponent } from './boat/boat-images-dialog/boat-images
     BoatsComponent,
     BoatItemComponent,
     BoatComponent,
-    BoatImagesDialogComponent
+    BoatImagesDialogComponent,
+    BoatActiveReservationComponent,
+    BoatPastReservationComponent,
+    BoatReservationsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +33,8 @@ import { BoatImagesDialogComponent } from './boat/boat-images-dialog/boat-images
   ],
   exports:[
     BoatsComponent,
-    BoatComponent
+    BoatComponent,
+    BoatReservationsComponent
   ]
 })
 export class BoatsModule { }

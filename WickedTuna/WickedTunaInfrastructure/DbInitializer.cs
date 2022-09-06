@@ -499,32 +499,32 @@ namespace WickedTunaInfrastructure
 
                 var boatAvailablePeriod112 = new BoatAvailablePeriod()
                 {
-                    Start = new DateTime(2022, 6, 25, 0, 0, 0),
-                    End = new DateTime(2022, 6, 26, 0, 0, 0),
+                    Start = new DateTime(2022, 9, 25, 0, 0, 0),
+                    End = new DateTime(2022, 9, 30, 0, 0, 0),
                     Boat = boat11,
                 };
                 dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod112);
 
                 var boatAvailablePeriod113 = new BoatAvailablePeriod()
                 {
-                    Start = new DateTime(2022, 6, 18, 0, 0, 0),
-                    End = new DateTime(2022, 6, 19, 0, 0, 0),
+                    Start = new DateTime(2022, 10, 1, 0, 0, 0),
+                    End = new DateTime(2022, 10, 20, 0, 0, 0),
                     Boat = boat11,
                 };
                 dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod113);
 
                 var boatAvailablePeriod221 = new BoatAvailablePeriod()
                 {
-                    Start = new DateTime(2022, 6, 1, 0, 0, 0),
-                    End = new DateTime(2022, 6, 12, 0, 0, 0),
+                    Start = new DateTime(2022, 9, 1, 0, 0, 0),
+                    End = new DateTime(2022, 9, 12, 0, 0, 0),
                     Boat = boat21,
                 };
                 dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod221);
 
                 var boatAvailablePeriod222 = new BoatAvailablePeriod()
                 {
-                    Start = new DateTime(2022, 6, 17, 0, 0, 0),
-                    End = new DateTime(2022, 7, 20, 0, 0, 0),
+                    Start = new DateTime(2022, 9, 17, 0, 0, 0),
+                    End = new DateTime(2022, 9, 20, 0, 0, 0),
                     Boat = boat21,
                 };
                 dbContext.BoatAvailablePeriods.Add(boatAvailablePeriod222);

@@ -18,7 +18,7 @@ export class BoatOfferComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.boatService.getBoat(this.boatOffer.boatId).subscribe(data => {
+    this.boatService.getBoat(this.boatOffer.boatId!).subscribe(data => {
       this.boat = data;
       this.imgSrc = this.boatService.getFirstBoatImage(this.boat);
     })
@@ -30,9 +30,19 @@ export class BoatOfferComponent implements OnInit {
   }
 
   confirmOffer() {
-    this.boatService.confirmSpecialOffer(this.boatOffer).subscribe(data => {
-      console.log(data);
-      window.alert("Reservation confirmed");
+    this.boatService.confirmSpecialOffer(this.boatOffer).subscribe({
+      next: data => {
+        console.log(data);
+        window.alert('Reservation made!')
+      },
+      error: err => {
+        if(err.error === 'RegistrationException') {
+          window.alert('You cannot make reservation on same entity in same period twice!');
+        } else {
+          window.alert('Something went wrong!');
+        }
+      },
+      complete: () => window.location.reload()
     })
   }
 

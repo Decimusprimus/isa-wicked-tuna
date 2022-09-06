@@ -30,4 +30,8 @@ export class ClientHomeComponent implements OnInit {
   goToCottageReservations() {
     this.router.navigate(['cottages/reservations']);
   }
+
+  goToBoatReservations() {
+    this.router.navigate(['boats/reservations']);
+  }
 }

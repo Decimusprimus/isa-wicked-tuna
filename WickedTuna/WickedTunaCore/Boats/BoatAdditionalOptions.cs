@@ -9,12 +9,12 @@ namespace WickedTunaCore.Boats
 {
     public class BoatAdditionalOptions
     {
-        [JsonIgnore]
         public Guid Id { get; set; }
         public string Description { get; set; }
         public float Price { get; set; }
         [JsonIgnore]
         public Boat Boat { get; set; }
+        [JsonIgnore]
         public Guid BoatId { get; set; }
 
     }

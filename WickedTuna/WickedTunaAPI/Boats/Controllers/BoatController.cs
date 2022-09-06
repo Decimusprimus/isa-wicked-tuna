@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WickedTunaAPI.Boats.Exceptions;
 using WickedTunaAPI.Boats.Services;
 using WickedTunaCore.Boats;
 
@@ -78,19 +79,25 @@ namespace WickedTunaAPI.Boats.Controllers
 
         [Authorize]
         [HttpPost("{id}/reservation")]
-        public IActionResult CreateNewReservation([FromRoute]Guid id, [FromBody]BoatReservation boatReservation)
+        public IActionResult CreateNewReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
         {
             var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
             if (boatReservation.Start > boatReservation.End || boatReservation.End < boatReservation.Start)
             {
                 return BadRequest("Dates incorect!");
             }
-            var res = _boatService.CreateNewReservation(id, boatReservation, email);
-            if(res != null)
+            try
             {
-                return Ok(res);
+                return Ok(_boatService.CreateNewReservation(id, boatReservation, email));
             }
-            return BadRequest();
+            catch (BoatReservationException)
+            {
+                return BadRequest("ReservationException");
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("special-offers")]
@@ -107,6 +114,40 @@ namespace WickedTunaAPI.Boats.Controllers
             var res = _boatService.ConfirmSpecialOffer(id, boatReservation, email);
             return res != null ? Ok(res) : BadRequest();
 
+        }
+
+        [Authorize]
+        [HttpGet("reservations/active")]
+        public IActionResult GetActiveReservations()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _boatService.GetActiveReservations(email);
+            return res != null ? Ok(res) : BadRequest();
+        }
+
+        [Authorize]
+        [HttpGet("reservations/past")]
+        public IActionResult GetPastReservations()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var res = _boatService.GetPastReservations(email);
+            return res != null ? Ok(res) : BadRequest();
+        }
+
+        [Authorize]
+        [HttpPost("reservation/cancel/{id}")]
+        public IActionResult CancelReservation([FromRoute] Guid id, [FromBody] BoatReservation boatReservation)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            try
+            {
+                var res = _boatService.CancelReservation(id, boatReservation, email);
+                return res ? Ok() : BadRequest();
+            }
+            catch (BoatReservationException)
+            {
+                return BadRequest("ReservationException");
+            }
         }
     }
 }

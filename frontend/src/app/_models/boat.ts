@@ -9,7 +9,7 @@ export class Boat {
     numberOfEngines = 0;
     enginePower = 0;
     maximumSpeed = 0;
-    address! : Address;
+    address = new Address();
     capacity = 0;
     cancellationFee = 0;
     boatAvailablePeriods! : AvailablePeriod[];

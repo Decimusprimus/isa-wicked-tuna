@@ -111,23 +111,34 @@ export class BoatComponent implements OnInit {
       this.router.navigate(['login']);
       return;
     }
+    if(this.reservationForm.get('myDatePickerFrom')?.value === null || this.reservationForm.get('myDatePickerTo')?.value === null) {
+      this.validDates == false;
+    }
     if(this.reservationForm.invalid)
     {
       return
     }
     var reservation = new BoatReservation();
-    reservation.boatReservationOptions = this.reservationForm.get('selectedAdditionalServices')?.value;
+    reservation.boatReservationOptions =  this.reservationForm.get('selectedAdditionalServices')?.value;
     reservation.numberOfPeople = this.reservationForm.get('numberOfPeople')?.value;
     reservation.start = this.reservationForm.get('myDatePickerFrom')?.value;
     reservation.end = this.reservationForm.get('myDatePickerTo')?.value
     console.log(reservation);
+    console.log(this.boat.id);
     this.boatService.createReservation(reservation, this.boat).subscribe({
       next: data =>
       {
         this.reservationCreated = true;
+        window.alert('Reservation created!')
       },
       error: err => {
-        this.validDates = false;
+        if(err.error === 'RegistrationException') {
+          window.alert('You cannot make reservation on same entity in same period twice!');
+        } else if (err.error === 'Dates incorect!') {
+          this.validDates = false;
+        }else {
+          window.alert('Something went wrong!');
+        }
       }
     })
   }
