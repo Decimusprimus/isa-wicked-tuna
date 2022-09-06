@@ -12,10 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WickedTunaAPI.Auth.Service;
 using WickedTunaAPI.Boats.Repositories;
 using WickedTunaAPI.Boats.Services;
@@ -24,7 +21,6 @@ using WickedTunaAPI.Configuration;
 using WickedTunaAPI.Cottages.Repositroies;
 using WickedTunaAPI.Cottages.Repositroy;
 using WickedTunaAPI.Cottages.Service;
-using WickedTunaAPI.Email;
 using WickedTunaAPI.Email.Service;
 using WickedTunaAPI.Email.util;
 using WickedTunaAPI.SystemAdmins.Repositories;
@@ -100,7 +96,6 @@ namespace WickedTunaAPI
                 .Get<EmailConfiguration>();
             services.AddSingleton(emailConfig);
 
-            services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenService, TokenService>();
